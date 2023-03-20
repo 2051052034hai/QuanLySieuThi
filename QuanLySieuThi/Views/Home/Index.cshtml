@@ -1,0 +1,270 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="page-content container">
+    <!--session home page: only session lider-->
+    <!----------------Phần ảnh trượt slice đầu trang web--------------->
+    <section class="ega-section-1">
+        <!-- include session-->
+        <div id="ega-home-slider" class="ega-home-slider owl-carousel owl-theme owl-loaded owl-drag">
+            <!----------------Ảnh trượt đầu tiên------------>
+            <div class="owl-stage-outer">
+                <div class="owl-item active" style="width: 1160px;">
+                    <div class="item">
+                        <a href="https://ega-bach-hoa.mysapo.net/collections/all"
+                           title="Tất cả sản phẩm" class="clearfix">
+                            <img class="img-slider-home" data-max-width="1160"
+                                 src="~/static/image/slider_1.png"
+                                 alt="Tất cả sản phẩm">
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!----------------Ảnh trượt thứ hai------------>
+            <div class="owl-stage-outer">
+                s
+                <div class="owl-item active" style="width: 1160px;">
+                    <div class="item">
+                        <a href="https://ega-bach-hoa.mysapo.net/collections/all"
+                           title="Tất cả sản phẩm" class="clearfix">
+                            <img class="img-slider-home" data-max-width="1160"
+                                 src="~/static/image/slider_2.png"
+                                 alt="Tất cả sản phẩm">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <!------------phẩn nút bấm------------>
+            <div class="owl-dots">
+                <div class="owl-dot active"><span></span></div>
+                <div class="owl-dot"><span></span></div>
+            </div>
+
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                $('#ega-home-slider').owlCarousel({
+                    items: 1,
+                    loop: true,
+                    nav: true,
+                    navText: ["<span class='glyphicon glyphicon-menu-left'></span>", "<span class='glyphicon glyphicon-menu-right'></span>"],
+                    dots: true
+                });
+            })
+        </script>
+    </section>
+
+
+    <!--session: collection that include in main menu-->
+
+    <section class="ega-home-collection">
+
+        <div class="ega-home-slider-products hidden-xs">
+            <div class="row">
+                <div class="col-xs-6">
+                    <h2 class="home-product-name">
+                        <a href="https://ega-bach-hoa.mysapo.net/thuc-pham-do-uong"
+                           title="Thực phẩm, đồ uống" class="ega-home-collection-name-title">
+                            Thực phẩm, đồ uống
+                            <img src="~/static/image/hot.gif" alt="hot">
+                        </a>
+                    </h2>
+                </div>
+            </div>
+
+            <div class="ega-home-product-items">
+                <div class="owl-carousel owl-theme ega-products-owl-carousel owl-loaded owl-drag"
+                     data-count="10" data-url="/thuc-pham-do-uong">
+
+                    <!-----------Dùng vòng for để thêm sản phẩm thuộc mục thực phẩm, đồ uống ở đây-->
+                    @foreach(var product in ViewBag.Products)
+                     {
+                         <div class="owl-stage-outer">
+                            <div class="owl-item active" style="width: 190px;">
+                                <div class="item">
+                                    <a class="ega-home-product-link"
+                                       href=""
+                                       title="@product.ProductName">
+                                        <img class="center-block"
+                                             src="@product.Image_Url"
+                                             alt="@product.ProductName">
+                                        <div>
+                                            <h3 class="ega-home-product-name">
+                                                @product.ProductName
+                                            </h3>
+                                            <div class="ega-main-price-home">
+                                                @String.Format("{0:C0}đ", product.UnitPrice)
+                                            </div>
+                                        </div>
+                                        <!--sale tag-->
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                     }
+
+
+                </div>
+            </div>
+        </div>
+
+        <div class="ega-home-slider-products hidden-xs">
+            <div class="row">
+                <div class="col-xs-6">
+                    <h2 class="home-product-name">
+                        <a href="https://ega-bach-hoa.mysapo.net/cham-soc-ca-nhan" title="Chăm sóc cá nhân"
+                           class="ega-home-collection-name-title">
+                            Chăm sóc cá nhân
+                            <img src="~/static/image/hot.gif" alt="hot">
+                        </a>
+                    </h2>
+                </div>
+
+            </div>
+
+            <div class="ega-home-product-items">
+                <div class="owl-carousel owl-theme ega-products-owl-carousel owl-loaded owl-drag"
+                     data-count="8" data-url="/cham-soc-ca-nhan">
+
+                    <!-----------Dùng vòng for để thêm sản phẩm thuộc mục chăm sóc cá nhân ở đây-->
+                    <div class="owl-stage-outer">
+                        <div class="owl-item active" style="width: 190px;">
+                            <div class="item">
+                                <a class="ega-home-product-link"
+                                   href="https://ega-bach-hoa.mysapo.net/bvs-hang-ngay-diana-khang-khuan-sieu-tham-40-mieng"
+                                   title="BVS hàng ngày Diana kháng khuẩn siêu thấm 40 miếng">
+                                    <img class="center-block"
+                                         src="~/static/image/anh-dianna.png"
+                                         alt="BVS hàng ngày Diana kháng khuẩn siêu thấm 40 miếng">
+                                    <div>
+                                        <h3 class="ega-home-product-name">
+                                            BVS hàng ngày Diana kháng khuẩn siêu thấm 40 miếng
+                                        </h3>
+                                        <div class="ega-main-price-home">
+                                            21.000₫
+                                        </div>
+
+                                        <div class="ega-old-price-home">
+                                            23.000₫
+                                        </div>
+                                    </div>
+                                    <!--sale tag-->
+
+                                    <div class="ega-percent-price">
+                                        -9%
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="ega-home-slider-products hidden-xs">
+            <div class="row">
+                <div class="col-xs-6">
+                    <h2 class="home-product-name">
+                        <a href="https://ega-bach-hoa.mysapo.net/ve-sinh-nha-cua" title="Vệ sinh nhà cửa"
+                           class="ega-home-collection-name-title">
+                            Vệ sinh nhà cửa
+                            <img src="~/static/image/hot.gif" alt="hot">
+                        </a>
+                    </h2>
+                </div>
+            </div>
+
+            <div class="ega-home-product-items">
+                <div class="owl-carousel owl-theme ega-products-owl-carousel owl-loaded owl-drag"
+                     data-count="8" data-url="/ve-sinh-nha-cua">
+                    <!-----------Dùng vòng for để thêm sản phẩm thuộc mục Vệ sinh nhà cửa ở đây-->
+                    <div class="owl-stage-outer">
+                        <div class="owl-stage"
+                             style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 1520px;">
+                            <div class="owl-item active" style="width: 190px;">
+                                <div class="item">
+                                    <a class="ega-home-product-link"
+                                       href="https://ega-bach-hoa.mysapo.net/kem-tay-da-nang-cif-sach-vet-bam-sang-be-mat-500ml"
+                                       title="Kem tẩy đa năng Cif Sạch vết bám, Sáng bề mặt 500ml">
+                                        <img class="center-block"
+                                             src="~/static/image/anh-ve-sinh.png"
+                                             alt="Kem tẩy đa năng Cif Sạch vết bám, Sáng bề mặt 500ml">
+                                        <div>
+                                            <h3 class="ega-home-product-name">
+                                                Kem tẩy đa năng Cif Sạch vết bám, Sáng bề...
+                                            </h3>
+                                            <div class="ega-main-price-home">
+                                                31.500₫
+                                            </div>
+
+                                        </div>
+                                        <!--sale tag-->
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="ega-home-slider-products hidden-xs">
+            <div class="row">
+                <div class="col-xs-6">
+                    <h2 class="home-product-name">
+                        <a href="https://ega-bach-hoa.mysapo.net/do-dung-gia-dinh" title="Đồ dùng gia đình"
+                           class="ega-home-collection-name-title">
+                            Đồ dùng gia đình
+                            <img src="~/static/image/hot.gif" alt="hot">
+                        </a>
+                    </h2>
+                </div>
+            </div>
+
+            <div class="ega-home-product-items">
+                <div class="owl-carousel owl-theme ega-products-owl-carousel owl-loaded owl-drag"
+                     data-count="9" data-url="/do-dung-gia-dinh">
+                    <!-----------Dùng vòng for để thêm sản phẩm thuộc mục Đồ dùng gia đình ở đây-->
+                    <div class="owl-stage-outer">
+                        <div class="owl-stage"
+                             style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 1710px;">
+                            <div class="owl-item active" style="width: 190px;">
+                                <div class="item">
+                                    <a class="ega-home-product-link"
+                                       href="https://ega-bach-hoa.mysapo.net/ky-rac-can-ngan-tu-lap-tl-959"
+                                       title="Ky rác cán ngắn Tự Lập TL 959">
+                                        <img class="center-block"
+                                             src="~/static/image/anh-dung-cu.webp"
+                                             alt="Ky rác cán ngắn Tự Lập TL 959">
+                                        <div>
+                                            <h3 class="ega-home-product-name">
+                                                Ky rác cán ngắn Tự Lập TL 959
+                                            </h3>
+                                            <div class="ega-main-price-home">
+                                                15.000₫
+                                            </div>
+                                        </div>
+                                        <!--sale tag-->
+
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+</div>

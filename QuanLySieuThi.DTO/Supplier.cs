@@ -1,0 +1,28 @@
+namespace QuanLySieuThi.DTO
+{
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
+
+    [Table("Supplier")]
+    public partial class Supplier
+    {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Supplier()
+        {
+            ImportBills = new HashSet<ImportBill>();
+        }
+
+        public int SupplierID { get; set; }
+
+        [StringLength(50)]
+        public string SupplierName { get; set; }
+
+        public string Description { get; set; }
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ImportBill> ImportBills { get; set; }
+    }
+}
