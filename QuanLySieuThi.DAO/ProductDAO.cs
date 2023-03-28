@@ -20,6 +20,12 @@ namespace QuanLySieuThi.DAO
             return products;
         }
 
+        public List<Product> GetProducts(string keyword)
+        {
+            List<Product> products = context.Products.Where(p => p.ProductName.Contains(keyword)).ToList();
+            return products;
+        }
+
         public Product GetProductById(int id)
         {
             return context.Products.SingleOrDefault(p => p.ProductID == id);
