@@ -6,30 +6,35 @@ using System.Web.Mvc;
 using QuanLySieuThi.DTO;
 using QuanLySieuThi.DAO;
 using QuanLySieuThi.BUS;
+using System.Xml.Linq;
+using Microsoft.Ajax.Utilities;
 
 namespace QuanLySieuThi.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index([Bind(Prefix = "search")] string searchKw)
         {
             ProductBUS productBUS = new ProductBUS();
-            List<Product> products = productBUS.GetProducts();
+            List<Product> products = null;
+            if (!searchKw.IsNullOrWhiteSpace())
+                products = productBUS.GetProducts(searchKw);
+            else
+                products = productBUS.GetProducts();
             ViewBag.Products = products;
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Product(string id)
         {
-            ViewBag.Message = "Your application description page.";
-
+            ProductBUS productBUS = new ProductBUS();
+            Product product = productBUS.GetProduct(id);
+            ViewBag.Product = product;
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Login()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }

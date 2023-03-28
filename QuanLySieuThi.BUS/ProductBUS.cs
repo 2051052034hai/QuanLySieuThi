@@ -16,5 +16,21 @@ namespace QuanLySieuThi.BUS
             return productDAO.GetProducts();
         }
 
+        public List<Product> GetProducts(string kw)
+        {
+            ProductDAO productDAO = new ProductDAO();
+            return productDAO.GetProducts(kw);
+        }
+
+        public Product GetProduct(int id)
+        {
+            ProductDAO productDAO = new ProductDAO();
+            return productDAO.GetProductById(id);
+        }
+
+        public Product GetProduct(string id)
+        {
+            return GetProduct(Convert.ToInt32(id));
+        }
     }
 }

@@ -50,6 +50,10 @@ namespace QuanLySieuThi.DTO
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Employee>()
+                .Property(e => e.EmployeeName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Employee>()
                 .Property(e => e.Phone)
                 .IsFixedLength()
                 .IsUnicode(false);

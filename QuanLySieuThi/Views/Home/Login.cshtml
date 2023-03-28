@@ -1,0 +1,105 @@
+﻿
+@{
+    ViewBag.title = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+
+    .divider-text {
+        position: relative;
+        text-align: center;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+        .divider-text span {
+            padding: 7px;
+            font-size: 12px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .divider-text:after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            border-bottom: 1px solid #ddd;
+            top: 55%;
+            left: 0;
+            z-index: 1;
+        }
+
+    .btn-facebook {
+        background-color: #405D9D;
+        color: #fff;
+    }
+
+    .btn-twitter {
+        background-color: #42AEEC;
+        color: #fff;
+    }
+
+    .login-center {
+        color: #F36F36;
+    }
+
+    .btn-block {
+        background-color: #F36F36 !important;
+        border-color: #F36F36 !important;
+    }
+
+    .tw {
+        background-color: #23527c !important;
+        border-color: #23527c !important;
+    }
+
+        .tw:hover {
+            color: red !important;
+        }
+
+    .fb {
+        background-color: #DD0000 !important;
+        border-color: #DD0000 !important;
+    }
+    .card {
+        margin: 0 auto !important;
+        width: 40%;
+    }
+</style>
+
+<div class="all-alls">
+    <div class="card bg-light">
+        <article class="card-body mx-auto" style="max-width: 400px; width:100%;">
+            <h4 class="card-title mt-3 text-center">ĐĂNG NHẬP TÀI KHOẢN</h4>
+            <p>
+                <a href="" class="btn btn-block btn-twitter tw"> <i class="fab fa-twitter"></i>   Đăng nhập bằng Twitter</a>
+                <a href="" class="btn btn-block btn-facebook fb"> <i class="fab fa-facebook-f"></i>   Đăng nhập bằng facebook</a>
+            </p>
+            <p class="divider-text">
+                <span class="bg-light">hoặc</span>
+            </p>
+            <form>
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                    </div>
+                    <input name="" class="form-control" placeholder="Tên đăng nhập" type="text">
+                </div> <!-- form-group// -->
+
+
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                    </div>
+                    <input class="form-control" placeholder="Nhập mật khẩu.." type="password">
+                </div> <!-- form-group// -->
+
+                <div class="form-group ">
+                    <button type="submit" class="btn btn-primary btn-block"> Đăng nhập </button>
+                </div> <!-- form-group// -->
+                <p class="text-center ">Bạn chưa có tài khoản? <a class="login-center" href="">Đăng ký ngay</a> </p>
+            </form>
+        </article>
+    </div> <!-- card.// -->
+</div>
+
