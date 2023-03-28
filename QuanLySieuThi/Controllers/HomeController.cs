@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using QuanLySieuThi.DTO;
 using QuanLySieuThi.DAO;
 using QuanLySieuThi.BUS;
+using System.Xml.Linq;
 
 namespace QuanLySieuThi.Controllers
 {
@@ -30,6 +31,14 @@ namespace QuanLySieuThi.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+
+        public ActionResult Products([Bind(Prefix = "id")] string id)
+        {
+            ProductBUS productBUS = new ProductBUS();
+            List<Product> products = productBUS.GetProducts();
+            ViewBag.Products = products;
             return View();
         }
     }
