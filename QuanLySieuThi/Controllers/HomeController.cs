@@ -20,6 +20,7 @@ namespace QuanLySieuThi.Controllers
             return View();
         }
 
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -39,6 +40,11 @@ namespace QuanLySieuThi.Controllers
             ProductBUS productBUS = new ProductBUS();
             List<Product> products = productBUS.GetProducts();
             ViewBag.Products = products;
+            return View();
+        }
+
+        public ActionResult Login()
+        {
             return View();
         }
     }

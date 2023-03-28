@@ -48,11 +48,12 @@
                             </span>
 
                             <span class="hidden-xs ega-header-top-item">
-                                <a title="Đăng ký/Đăng nhập" href="https://ega-bach-hoa.mysapo.net/account"
-                                   style="font-size: 12px;" class="ega-a-account-header">
-                                    <span class="glyphicon glyphicon-user"></span>
-                                    Đăng ký / Đăng nhập
-                                </a>
+
+
+                                @Html.ActionLink("<span class=\"glyphicon glyphicon-user\"></span> Đăng ký / Đăng nhập", "Login", "Home", null, new { @class = "ega-a-account-header", style = "font-size: 12px" })
+
+
+
                             </span>
 
 
@@ -363,7 +364,9 @@
                         <li>
                             <a href="https://ega-bach-hoa.mysapo.net/account" title="account">
                                 Đăng nhập/Đăng ký
+                                
                             </a>
+                            @Html.ActionLink(linkText: "Đăng nhập/Đăng ký", actionName: "Login", controllerName: "Home");
                         </li>
                     </ul>
 
