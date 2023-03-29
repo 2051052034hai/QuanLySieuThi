@@ -37,5 +37,32 @@ namespace QuanLySieuThi.Controllers
         {
             return View();
         }
+
+        public ActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddCustomer(string username, string email, string phone, string password)
+        {
+            var cus = new Customer
+            (
+                username,
+                email,
+                phone,
+                password
+            );
+
+            Console.WriteLine(cus);
+
+            // Thêm đối tượng Customer vào CSDL
+            CustomerDAO dao = new CustomerDAO();
+            dao.Create(cus);
+
+            return RedirectToAction("Login", "home");
+        }
+
+
     }
 }

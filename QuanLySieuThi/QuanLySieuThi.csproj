@@ -158,8 +158,11 @@
     <Content Include="static\css\bundle.css" />
     <Content Include="static\css\cf-stylesheet.css" />
     <Content Include="static\css\jquery-ui.css" />
+    <Content Include="static\css\login.css" />
     <Content Include="static\css\plugins.css" />
+    <Content Include="static\css\productDetail.css" />
     <Content Include="static\css\productReviews.css" />
+    <Content Include="static\css\register.css" />
     <Content Include="static\image\anh-dianna.png" />
     <Content Include="static\image\anh-dung-cu.png" />
     <Content Include="static\image\anh-ve-sinh.png" />
@@ -193,6 +196,7 @@
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Home\Product.cshtml" />
   </ItemGroup>
   <ItemGroup>

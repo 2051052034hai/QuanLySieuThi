@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.title = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" type="text/css" href="~/static/css/login.css" media="all">
+
+<div class="alls">
+    <div class="alls-form">
+        <h4>ĐĂNG KÝ TÀI KHOẢN</h4>
+
+        <form class="form-main">
+            <div class="form-item">
+                <label>Tên đăng nhập: </label>
+                <input name="username" type="text" placeholder="Nhập tên...">
+            </div>
+
+            <div class="form-item">
+                <label>Email: </label>
+                <input name="email" type="text" placeholder="Nhập email...">
+            </div>
+
+            <div class="form-item">
+                <label>Loại người dùng: </label>
+
+                <select class="form-control">
+                    <option selected="">Khách hàng</option>
+                    <option>Nhân viên</option>
+                    <option>Quản trị viên</option>
+
+                </select>
+            </div>
+
+            <div class="form-item">
+                <label>Mật khẩu: </label>
+                <input name="password" type="password" placeholder="Nhập mật khâu..." />
+            </div>
+
+            <div class="form-item">
+                <label>Nhập lại mật khẩu: </label>
+                <input name="cofirmpassword" type="password" placeholder="Nhập lại mật khâu..." />
+            </div>
+
+            <div class="form-btn">
+                <button type="submit">Đăng ký</button>
+                @Html.ActionLink("Đăng nhập", "Login", "Home", null, new { @class = "a-link" })
+            </div>
+
+            <div class="final-button">
+                <h5>Hoặc đăng nhập bằng</h5>
+                <div>
+                    <a href="" class="btn btn-twitter tw"> <i class="fab fa-twitter"></i>   Đăng nhập bằng Twitter</a>
+                    <a href="" class="btn  btn-facebook fb"> <i class="fab fa-facebook-f"></i>   Đăng nhập bằng facebook</a>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
