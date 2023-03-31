@@ -85,280 +85,49 @@
                 <div id="ega-menu-deiv-top" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav" style="margin-bottom: 0;">
 
-                        <!--submenu-->
-                        <li class="dropdown yamm-fw ega-dropdown-menu li-ega-menu-no-mega">
-                            <a href="https://ega-bach-hoa.mysapo.net/collections/all" title="Sản phẩm"
-                               data-toggle="dropdown" class="dropdown-toggle hidden-xs hidden-sm"
-                               aria-expanded="true">
-                                Sản phẩm
-                                <b class="caret hidden-xs"></b>
-                            </a>
-                            <div class="visible-ega-table-xs ega-menu-xs-drop-down">
-                                <a href="https://ega-bach-hoa.mysapo.net/collections/all" title="Sản phẩm">
-                                    Sản phẩm
+                        @if(ViewBag.Categories != null)
+                        {
+                            foreach (var c in ViewBag.Categories)
+                        {
+                            <!--submenu-->
+                            <li class="dropdown yamm-fw ega-dropdown-menu li-ega-menu-no-mega">
+                                <a href="https://ega-bach-hoa.mysapo.net/collections/all" title="Sản phẩm"
+                                   data-toggle="dropdown" class="dropdown-toggle hidden-xs hidden-sm"
+                                   aria-expanded="true">
+                                    @c.Name
+                                    <b class="caret hidden-xs"></b>
                                 </a>
-                                <a href="javascript:void(0)" class="ega-menu-right-down-ico">
-                                    <span class="">
-                                        <span class="glyphicon glyphicon-menu-down"></span>
-                                    </span>
-                                </a>
-                            </div>
-
-
-                            <ul class="dropdown-menu ega-menu-no-mega ">
-
-                                <!----------Danh sách các loại trong mục sản phẩm ----------->
-                                <!----------------Dùng vòng for để lặp ở đây------------------>
-                                <li class="dropdown-submenu-2">
-                                    <a title="Sản phẩm dạng danh sách"
-                                       href="#"
-                                       class="ega-sub-menu-a">
-                                        <div>
-                                            Sản phẩm dạng danh sách
-                                        </div>
+                                <div class="visible-ega-table-xs ega-menu-xs-drop-down">
+                                    <a href="https://ega-bach-hoa.mysapo.net/collections/all" title="Sản phẩm">
+                                        Sản phẩm
                                     </a>
-                                </li>
+                                    <a href="javascript:void(0)" class="ega-menu-right-down-ico">
+                                        <span class="">
+                                            <span class="glyphicon glyphicon-menu-down"></span>
+                                        </span>
+                                    </a>
+                                </div>
 
-                            </ul>
 
-                        </li>
+                                <ul class="dropdown-menu ega-menu-no-mega ">
 
-                        <!--submenu-->
-                        <li class="dropdown yamm-fw ega-dropdown-menu ">
-                            <a href="https://ega-bach-hoa.mysapo.net/thuc-pham-do-uong" title="Thực phẩm"
-                               data-toggle="dropdown" class="dropdown-toggle hidden-xs hidden-sm"
-                               aria-expanded="true">
-                                Thực phẩm
-                                <b class="caret hidden-xs"></b>
-                            </a>
-                            <div class="visible-ega-table-xs ega-menu-xs-drop-down">
-                                <a href="https://ega-bach-hoa.mysapo.net/thuc-pham-do-uong" title="Thực phẩm">
-                                    Thực phẩm
-                                </a>
-                                <a href="javascript:void(0)" class="ega-menu-right-down-ico">
-                                    <span class="">
-                                        <span class="glyphicon glyphicon-menu-down"></span>
-                                    </span>
-                                </a>
-                            </div>
-                            <ul class="dropdown-menu  ">
-
-                                <li>
-                                    <div class="yamm-content">
-                                        <div class="ega-menu-sub-container">
-
-                                            <!----------Danh sách các loại trong mục thực phẩm ----------->
-                                            <!----------------Dùng vòng for để lặp ở đây------------------>
-                                            <div class="ega-collection-in-menu aaa">
-                                                <a title="Bánh kẹo, ăn vặt"
-                                                   href="https://ega-bach-hoa.mysapo.net/banh-keo-an-vat"
-                                                   class="ega-sub-menu-a">
-                                                    <img alt="Bánh kẹo, ăn vặt" class="img-responsive"
-                                                         src="static/image/banh-keo-an-vat.webp">
-                                                    <div>
-                                                        Bánh kẹo, ăn vặt
-                                                    </div>
-                                                </a>
+                                    <!----------Danh sách các loại trong mục sản phẩm ----------->
+                                    <!----------------Dùng vòng for để lặp ở đây------------------>
+                                    <li class="dropdown-submenu-2">
+                                        <a title="Sản phẩm dạng danh sách"
+                                           href="#"
+                                           class="ega-sub-menu-a">
+                                            <div>
+                                                Sản phẩm dạng danh sách
                                             </div>
+                                        </a>
+                                    </li>
 
-                                        </div>
-                                    </div>
-                                </li>
+                                </ul>
 
-
-                            </ul>
-                        </li>
-
-                        <!--submenu-->
-                        <li class="dropdown yamm-fw ega-dropdown-menu li-ega-menu-no-mega">
-                            <a href="https://ega-bach-hoa.mysapo.net/cham-soc-ca-nhan" title="Chăm sóc cá nhân"
-                               data-toggle="dropdown" class="dropdown-toggle hidden-xs hidden-sm"
-                               aria-expanded="true">
-                                Chăm sóc cá nhân
-                                <b class="caret hidden-xs"></b>
-                            </a>
-                            <div class="visible-ega-table-xs ega-menu-xs-drop-down">
-                                <a href="https://ega-bach-hoa.mysapo.net/cham-soc-ca-nhan"
-                                   title="Chăm sóc cá nhân">
-                                    Chăm sóc cá nhân
-                                </a>
-                                <a href="javascript:void(0)" class="ega-menu-right-down-ico">
-                                    <span class="">
-                                        <span class="glyphicon glyphicon-menu-down"></span>
-                                    </span>
-                                </a>
-                            </div>
-                            <ul class="dropdown-menu ega-menu-no-mega ">
-
-
-                                <!----------Danh sách các loại trong mục chăm sóc cá nhân ----------->
-                                <!----------------Dùng vòng for để lặp ở đây------------------>
-                                <li class="dropdown-submenu-2">
-                                    <a title="Sữa rửa mặt" href="https://ega-bach-hoa.mysapo.net/sua-rua-mat"
-                                       class="ega-sub-menu-a">
-                                        <div>
-                                            Sữa rửa mặt
-
-                                        </div>
-
-                                    </a>
-
-                                </li>
-
-
-                            </ul>
-                        </li>
-
-                        <!--submenu-->
-                        <li class="dropdown yamm-fw ega-dropdown-menu li-ega-menu-no-mega">
-                            <a href="https://ega-bach-hoa.mysapo.net/ve-sinh-nha-cua" title="Vệ sinh nhà cửa"
-                               data-toggle="dropdown" class="dropdown-toggle hidden-xs hidden-sm"
-                               aria-expanded="true">
-                                Vệ sinh nhà cửa
-                                <b class="caret hidden-xs"></b>
-                            </a>
-                            <div class="visible-ega-table-xs ega-menu-xs-drop-down">
-                                <a href="https://ega-bach-hoa.mysapo.net/ve-sinh-nha-cua"
-                                   title="Vệ sinh nhà cửa">
-                                    Vệ sinh nhà cửa
-                                </a>
-                                <a href="javascript:void(0)" class="ega-menu-right-down-ico">
-                                    <span class="">
-                                        <span class="glyphicon glyphicon-menu-down"></span>
-                                    </span>
-                                </a>
-                            </div>
-                            <ul class="dropdown-menu ega-menu-no-mega ">
-
-                                <!----------Danh sách các loại trong mục vệ sinh nhà cửa----------->
-                                <!----------------Dùng vòng for để lặp ở đây------------------>
-                                <li class="dropdown-submenu-2">
-                                    <a title="Bột giặt" href="https://ega-bach-hoa.mysapo.net/bot-giat"
-                                       class="ega-sub-menu-a">
-                                        <div>
-                                            Bột giặt
-                                        </div>
-
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </li>
-
-                        <!--submenu-->
-                        <li class="dropdown yamm-fw ega-dropdown-menu li-ega-menu-no-mega">
-                            <a href="https://ega-bach-hoa.mysapo.net/do-dung-gia-dinh" title="Đồ dùng gia đình"
-                               data-toggle="dropdown" class="dropdown-toggle hidden-xs hidden-sm"
-                               aria-expanded="true">
-                                Đồ dùng gia đình
-                                <b class="caret hidden-xs"></b>
-                            </a>
-                            <div class="visible-ega-table-xs ega-menu-xs-drop-down">
-                                <a href="https://ega-bach-hoa.mysapo.net/do-dung-gia-dinh"
-                                   title="Đồ dùng gia đình">
-                                    Đồ dùng gia đình
-                                </a>
-                                <a href="javascript:void(0)" class="ega-menu-right-down-ico">
-                                    <span class="">
-                                        <span class="glyphicon glyphicon-menu-down"></span>
-                                    </span>
-                                </a>
-                            </div>
-                            <ul class="dropdown-menu ega-menu-no-mega ">
-
-
-                                <!----------Danh sách các loại trong mục đồ dùng gia đình----------->
-                                <!----------------Dùng vòng for để lặp ở đây------------------>
-                                <li class="dropdown-submenu-2">
-                                    <a title="Đồ điện" href="https://ega-bach-hoa.mysapo.net/do-dien"
-                                       class="ega-sub-menu-a">
-                                        <div>
-                                            Đồ điện
-                                        </div>
-
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </li>
-
-
-                        <!--submenu-->
-                        <li class="dropdown yamm-fw ega-dropdown-menu li-ega-menu-no-mega">
-                            <a href="https://ega-bach-hoa.mysapo.net/san-pham-cho-be" title="Cho bé"
-                               data-toggle="dropdown" class="dropdown-toggle hidden-xs hidden-sm"
-                               aria-expanded="true">
-                                Cho bé
-                                <b class="caret hidden-xs"></b>
-                            </a>
-                            <div class="visible-ega-table-xs ega-menu-xs-drop-down">
-                                <a href="https://ega-bach-hoa.mysapo.net/san-pham-cho-be" title="Cho bé">
-                                    Cho bé
-                                </a>
-                                <a href="javascript:void(0)" class="ega-menu-right-down-ico">
-                                    <span class="">
-                                        <span class="glyphicon glyphicon-menu-down"></span>
-                                    </span>
-                                </a>
-                            </div>
-                            <ul class="dropdown-menu ega-menu-no-mega ega-menu-no-mega--right">
-
-
-                                <!----------Danh sách các loại trong mục cho bé----------->
-                                <!----------------Dùng vòng for để lặp ở đây------------------>
-                                <li class="dropdown-submenu-2">
-                                    <a title="Sữa cho bé" href="https://ega-bach-hoa.mysapo.net/sua-cho-be"
-                                       class="ega-sub-menu-a">
-                                        <div>
-                                            Sữa cho bé
-                                        </div>
-                                    </a>
-                                </li>
-
-                            </ul>
-                        </li>
-
-
-
-                        <li>
-                            <a title="Điện gia dụng" href="https://ega-bach-hoa.mysapo.net/">Điện gia dụng</a>
-                            <!-----------tuỳ thiết kế thêm html ở mục này---------->
-                        </li>
-
-
-                        <!--submenu-->
-                        <li class="dropdown yamm-fw ega-dropdown-menu li-ega-menu-no-mega">
-                            <a href="https://ega-bach-hoa.mysapo.net/tin-tuc" title="Tin tức"
-                               data-toggle="dropdown" class="dropdown-toggle hidden-xs hidden-sm"
-                               aria-expanded="true">
-                                Tin tức
-                                <b class="caret hidden-xs"></b>
-                            </a>
-                            <div class="visible-ega-table-xs ega-menu-xs-drop-down">
-                                <a href="https://ega-bach-hoa.mysapo.net/tin-tuc" title="Tin tức">
-                                    Tin tức
-                                </a>
-                                <a href="javascript:void(0)" class="ega-menu-right-down-ico">
-                                    <span class="">
-                                        <span class="glyphicon glyphicon-menu-down"></span>
-                                    </span>
-                                </a>
-                            </div>
-
-                            <ul class="dropdown-menu ega-menu-no-mega ega-menu-no-mega--right">
-                                <!--------------dùng vòng for duyệt qua đây-------------->
-                                <li class="dropdown-submenu-2">
-                                    <a title="Làm đẹp" href="https://ega-bach-hoa.mysapo.net/lam-dep"
-                                       class="ega-sub-menu-a">
-                                        <div>
-                                            Làm đẹp
-                                        </div>
-                                    </a>
-                                </li>
-
-                            </ul>
-
-                        </li>
+                            </li>
+                        }
+                        }
                     </ul>
 
                     <ul class="nav navbar-nav visible-xs visible-sm" style="margin-top: 0; margin-bottom: 0;">

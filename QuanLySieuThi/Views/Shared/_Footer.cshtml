@@ -31,78 +31,22 @@
                 <ul class="ega-list-menu hidden-xs" data-show="c2">
 
 
-                    <li>
-                        <a href="#">
-                            <span class="">
-                                <img alt="Tất cả sản phẩm"
-                                     src="~/static/image/widget-link.png">
-                            </span>
-                            Tất cả sản phẩm
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#">
-                            <span class="">
-                                <img alt="Thực phẩm, đồ uống"
-                                     src="~/static/image/widget-link.png">
-                            </span>
-                            Thực phẩm, đồ uống
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#">
-                            <span class="">
-                                <img alt="Chăm sóc cá nhân"
-                                     src="~/static/image/widget-link.png">
-                            </span>
-                            Chăm sóc cá nhân
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#">
-                            <span class="">
-                                <img alt="Vệ sinh nhà cửa"
-                                     src="~/static/image/widget-link.png">
-                            </span>
-                            Vệ sinh nhà cửa
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#">
-                            <span class="">
-                                <img alt="Đồ dùng gia đình"
-                                     src="~/static/image/widget-link.png">
-                            </span>
-                            Đồ dùng gia đình
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#">
-                            <span class="">
-                                <img alt="Sản phẩm cho bé"
-                                     src="~/static/image/widget-link.png">
-                            </span>
-                            Sản phẩm cho bé
-                        </a>
-                    </li>
-
-                    <li>
-                        <a href="#">
-                            <span class="">
-                                <img alt="Điện gia dụng"
-                                     src="~/static/image/widget-link.png">
-                            </span>
-                            Điện gia dụng
-                        </a>
-                    </li>
-
-
-                </ul>
+                    @if (ViewBag.Categories != null)
+                    {
+                        foreach (var c in ViewBag.Categories)
+                        {
+                        <li>
+                            <a href="#">
+                                <span class="">
+                                    <img alt="Tất cả sản phẩm"
+                                         src="~/static/image/widget-link.png">
+                                </span>
+                                @c.Name
+                            </a>
+                        </li>
+                        }
+                    }
+                    </ul>
             </div>
             <div class="">
                 <h4 class="ega-ft-toggle-xs" data-show="c3">
