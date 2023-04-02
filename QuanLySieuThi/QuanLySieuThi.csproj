@@ -162,7 +162,6 @@
     <Content Include="static\css\plugins.css" />
     <Content Include="static\css\productDetail.css" />
     <Content Include="static\css\productReviews.css" />
-    <Content Include="static\css\register.css" />
     <Content Include="static\image\anh-dianna.png" />
     <Content Include="static\image\anh-dung-cu.png" />
     <Content Include="static\image\anh-ve-sinh.png" />
@@ -178,6 +177,7 @@
     <Content Include="static\js\all-Scripts.js" />
     <Content Include="static\js\carousel.js" />
     <Content Include="static\js\jquery1-12-4.js" />
+    <Content Include="static\js\validate_input.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -3,21 +3,51 @@
     ViewBag.title = "~/Views/Shared/_Layout.cshtml";
 }
 
-<link rel="stylesheet" type="text/css" href="~/static/css/login.css" media="all"> 
 
+
+<link rel="stylesheet" type="text/css" href="~/static/css/login.css" media="all"> 
+<script src="~/static/js/validate_input.js" type="text/javascript"></script>
+
+<style>
+    .invalid {
+        color: red;
+        font-size: 12px;
+    }
+
+    .input-error {
+        border: 1px solid red !important;
+        outline: 1px solid red !important;
+    }
+
+    div.form-item > label {
+        padding-top:5px;
+        color: black !important;
+        display: block;
+        font-size: 15px !important;
+    }
+    div.form-item input {
+        margin-bottom: 5px;
+    }
+    div.form-btn {
+        margin-top: 5px;
+    }
+
+</style>
 <div class="alls">
     <div class="alls-form">
         <h4>ĐĂNG NHẬP TÀI KHOẢN</h4>
 
-        <form class="form-main">
+        <form class="form-main" id="form-2" >
             <div class="form-item">
                 <label>Tên đăng nhập: </label>
-                <input name="username" type="text" placeholder="Nhập tên...">
+                <input id="fullname" name="username" type="text" placeholder="Nhập tên...">
+                <span class="form-message"></span>
             </div>
 
             <div class="form-item">
                 <label>Mật khẩu: </label>
-                <input name="password" type="password" placeholder="Nhập mật khâu..." />
+                <input id="password" name="password" type="password" placeholder="Nhập mật khâu..." />
+                <span class="form-message"></span>
             </div>
 
             <div class="form-btn">
@@ -36,3 +66,18 @@
         </form>
     </div>
 </div>
+
+<script>
+    Validator({
+        form: '#form-2',
+        formGroupSelector: '.form-item',
+        errorSelector: '.form-message',
+        rules: [
+            Validator.isRequired('#fullname', "Vui lòng nhập tên đầy đủ !"),
+            Validator.minLength('#password', 6)
+        ],
+        onSubmit: function (data) {
+            console.log(data)
+        }
+    })
+</script>
