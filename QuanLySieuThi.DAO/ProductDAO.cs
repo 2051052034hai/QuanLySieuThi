@@ -26,6 +26,24 @@ namespace QuanLySieuThi.DAO
             return products;
         }
 
+        public List<Product> GetProducts(Dictionary<string, string> queryParams)
+        {
+            var products = context.Products.AsQueryable();
+
+            if (queryParams.ContainsKey("kw"))
+            {
+                string keyword = queryParams["kw"];
+                products = products.Where(p => p.ProductName.Contains(keyword));
+            }
+            if (queryParams.ContainsKey("categoryId") && queryParams["categoryId"] != null)
+            {
+                int categoryId = int.Parse(queryParams["categoryId"]);
+                products = products.Where(p => p.CateID == (int) categoryId);
+            }
+
+            return products.ToList();
+        }
+
         public Product GetProductById(int id)
         {
             return context.Products.SingleOrDefault(p => p.ProductID == id);
