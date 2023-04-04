@@ -1,11 +1,11 @@
 ﻿
 @{
-    ViewBag.Title = "Đăng nhập";
+    ViewBag.title = "Đăng nhập";
 }
 
 
 
-<link rel="stylesheet" type="text/css" href="~/static/css/login.css" media="all"> 
+<link rel="stylesheet" type="text/css" href="~/static/css/login.css" media="all">
 <script src="~/static/js/validate_input.js" type="text/javascript"></script>
 
 <style>
@@ -20,24 +20,25 @@
     }
 
     div.form-item > label {
-        padding-top:5px;
+        padding-top: 5px;
         color: black !important;
         display: block;
         font-size: 15px !important;
     }
+
     div.form-item input {
         margin-bottom: 5px;
     }
+
     div.form-btn {
         margin-top: 5px;
     }
-
 </style>
 <div class="alls">
     <div class="alls-form">
         <h4>ĐĂNG NHẬP TÀI KHOẢN</h4>
 
-        <form class="form-main" id="form-2" >
+        <form class="form-main" id="form-2">
             <div class="form-item">
                 <label>Tên đăng nhập: </label>
                 <input id="fullname" name="username" type="text" placeholder="Nhập tên...">
@@ -52,9 +53,9 @@
 
             <div class="form-btn">
                 <button type="submit">Đăng nhập</button>
-                @Html.ActionLink("Đăng ký", "Register", "Home", null, new { @class = "a-link"})
+                @Html.ActionLink("Đăng ký", "Register", "Login", null, new { @class = "a-link" })
             </div>
-            
+
             <div class="final-button">
                 <h5>Hoặc đăng nhập bằng</h5>
                 <div>
@@ -62,7 +63,7 @@
                     <a href="" class="btn  btn-facebook fb"> <i class="fab fa-facebook-f"></i>   Đăng nhập bằng facebook</a>
                 </div>
             </div>
-            
+
         </form>
     </div>
 </div>
