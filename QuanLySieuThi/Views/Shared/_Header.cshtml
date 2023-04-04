@@ -8,8 +8,8 @@
 
                         <h1 class="h1-no-margin-padding">
                             <span style="display: none">EGA Bách Hóa</span>
-                            <a href="https://ega-bach-hoa.mysapo.net/" title="EGA Bách Hóa">
-                                <img alt="EGA Bách Hóa" src="~/static/image/logo.png"
+                            <a href="@Url.Action("Index", "Home")" title="Siêu thị IT01">
+                                <img alt="Siêu thị IT01" src="~/static/image/logo.png"
                                      class="ega-logo">
                             </a>
                         </h1>
@@ -49,11 +49,7 @@
 
                             <span class="hidden-xs ega-header-top-item">
 
-
                                 @Html.ActionLink("Đăng ký / Đăng nhập", "Login", "Home", null, new { @class = "ega-a-account-header", style = "font-size: 12px" })
-
-
-
 
                             </span>
 
@@ -85,59 +81,31 @@
                 <div id="ega-menu-deiv-top" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav" style="margin-bottom: 0;">
 
-                        @if(ViewBag.Categories != null)
+                        @if (ViewBag.Categories != null)
                         {
                             foreach (var c in ViewBag.Categories)
-                        {
-                            <!--submenu-->
-                            <li class="dropdown yamm-fw ega-dropdown-menu li-ega-menu-no-mega">
-                                <a href="https://ega-bach-hoa.mysapo.net/collections/all" title="Sản phẩm"
-                                   data-toggle="dropdown" class="dropdown-toggle hidden-xs hidden-sm"
-                                   aria-expanded="true">
-                                    @c.Name
-                                    <b class="caret hidden-xs"></b>
-                                </a>
-                                <div class="visible-ega-table-xs ega-menu-xs-drop-down">
-                                    <a href="https://ega-bach-hoa.mysapo.net/collections/all" title="Sản phẩm">
-                                        Sản phẩm
+                            {
+                                <!--submenu-->
+                                <li class="dropdown yamm-fw ega-dropdown-menu li-ega-menu-no-mega">
+                                    <a href="@Url.Action(actionName: "Index", controllerName: "Home", routeValues: new { categoryId = c.CateID })" title="Sản phẩm"
+                                       data-toggle="dropdown" class="dropdown-toggle hidden-xs hidden-sm"
+                                       aria-expanded="true">
+                                        @c.Name
+                                        <b class="caret hidden-xs"></b>
                                     </a>
-                                    <a href="javascript:void(0)" class="ega-menu-right-down-ico">
-                                        <span class="">
-                                            <span class="glyphicon glyphicon-menu-down"></span>
-                                        </span>
-                                    </a>
-                                </div>
-
-
-                                <ul class="dropdown-menu ega-menu-no-mega ">
-
-                                    <!----------Danh sách các loại trong mục sản phẩm ----------->
-                                    <!----------------Dùng vòng for để lặp ở đây------------------>
-                                    <li class="dropdown-submenu-2">
-                                        <a title="Sản phẩm dạng danh sách"
-                                           href="#"
-                                           class="ega-sub-menu-a">
-                                            <div>
-                                                Sản phẩm dạng danh sách
-                                            </div>
+                                    <div class="visible-ega-table-xs ega-menu-xs-drop-down">
+                                        <a href="@Url.Action(actionName: "Index", controllerName: "Home", routeValues: new { categoryId = c.CateID })" title="Sản phẩm">
+                                            Sản phẩm
                                         </a>
-                                    </li>
-
-                                </ul>
-
-                            </li>
+                                        <a href="javascript:void(0)" class="ega-menu-right-down-ico">
+                                            <span class="">
+                                                <span class="glyphicon glyphicon-menu-down"></span>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </li>
+                            }
                         }
-                        }
-                    </ul>
-
-                    <ul class="nav navbar-nav visible-xs visible-sm" style="margin-top: 0; margin-bottom: 0;">
-                        <li>
-                            <a href="https://ega-bach-hoa.mysapo.net/account" title="account">
-                                Đăng nhập/Đăng ký
-                                
-                            </a>
-                            @Html.ActionLink(linkText: "Đăng nhập/Đăng ký", actionName: "Login", controllerName: "Home");
-                        </li>
                     </ul>
 
                 </div>

@@ -21,7 +21,7 @@ namespace QuanLySieuThi.Controllers
             List<Category> category = categoryBUS.GetCategories();
             ViewBag.Categories = category;
         }
-        public ActionResult Index([Bind(Prefix = "search")] string searchKw)
+        public ActionResult Index([Bind(Prefix = "search")] string searchKw, [Bind(Prefix = "categoryId")] string categoryId)
         {
             ProductBUS productBUS = new ProductBUS();
             List<Product> products = null;
@@ -61,8 +61,7 @@ namespace QuanLySieuThi.Controllers
         [HttpPost]
         public ActionResult AddCustomer(string username, string email, string phone, string password)
         {
-            var cus = new Customer
-            (
+            var cus = new Customer(
                 username,
                 email,
                 phone,
@@ -75,8 +74,17 @@ namespace QuanLySieuThi.Controllers
             CustomerDAO dao = new CustomerDAO();
             dao.Create(cus);
 
-            return RedirectToAction("Login", "home");
+            return RedirectToAction("Login", "Home");
         }
 
+        public ActionResult Category(string id)
+        {
+            ProductBUS productBUS = new ProductBUS();
+            Dictionary<string, string> queryParams = new Dictionary<string, string>();
+            queryParams.Add("categoryId", id);
+            List<Product> products = productBUS.GetProducts(queryParams);
+            ViewBag.Products = products;
+            return View();
+        }
     }
 }

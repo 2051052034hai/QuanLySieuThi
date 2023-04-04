@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using QuanLySieuThi.DTO;
 using QuanLySieuThi.DAO;
+using System.Data.Entity.Core.Mapping;
 
 namespace QuanLySieuThi.BUS
 {
@@ -22,6 +23,12 @@ namespace QuanLySieuThi.BUS
             return productDAO.GetProducts(kw);
         }
 
+        public List<Product> GetProducts(Dictionary<string, string> queryParams)
+        {
+            ProductDAO productDAO = new ProductDAO();
+            return productDAO.GetProducts(queryParams);
+        }
+
         public Product GetProduct(int id)
         {
             ProductDAO productDAO = new ProductDAO();
@@ -32,5 +39,6 @@ namespace QuanLySieuThi.BUS
         {
             return GetProduct(Convert.ToInt32(id));
         }
+
     }
 }
