@@ -21,7 +21,7 @@ namespace QuanLySieuThi
 
             routes.MapRoute(
                 name: "Product",
-                url: "Home/Products/{id}",
+                url: "Home/Product/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
         }
