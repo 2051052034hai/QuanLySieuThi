@@ -158,7 +158,9 @@
     <Content Include="static\css\bundle.css" />
     <Content Include="static\css\cf-stylesheet.css" />
     <Content Include="static\css\jquery-ui.css" />
+    <Content Include="static\css\login.css" />
     <Content Include="static\css\plugins.css" />
+    <Content Include="static\css\productDetail.css" />
     <Content Include="static\css\productReviews.css" />
     <Content Include="static\image\anh-dianna.png" />
     <Content Include="static\image\anh-dung-cu.png" />
@@ -175,6 +177,7 @@
     <Content Include="static\js\all-Scripts.js" />
     <Content Include="static\js\carousel.js" />
     <Content Include="static\js\jquery1-12-4.js" />
+    <Content Include="static\js\validate_input.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -193,6 +196,7 @@
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Home\Product.cshtml" />
   </ItemGroup>
   <ItemGroup>

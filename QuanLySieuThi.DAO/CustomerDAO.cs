@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
@@ -20,8 +21,25 @@ namespace QuanLySieuThi.DAO
 
         public void Create(Customer customer)
         {
-            context.Customers.Add(customer);
-            context.SaveChanges();
+            try
+            {
+                context.Customers.Add(customer);
+                context.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                // Retrieve the validation errors
+                var errorMessages = ex.EntityValidationErrors
+                        .SelectMany(x => x.ValidationErrors)
+                        .Select(x => x.ErrorMessage);
+
+                // Join the error messages together
+                var fullErrorMessage = string.Join("; ", errorMessages);
+
+                // Throw a new exception with the full error message
+                var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
+                throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
+            }
         }
 
         // Read a customer by ID

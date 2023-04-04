@@ -13,6 +13,14 @@ namespace QuanLySieuThi.Controllers
 {
     public class HomeController : Controller
     {
+
+        // Hàm Lấy loại sẩn phẩm từ cơ sở dữ liệu
+        public void getAllCategories()
+        {
+            CategoryBUS categoryBUS = new CategoryBUS();
+            List<Category> category = categoryBUS.GetCategories();
+            ViewBag.Categories = category;
+        }
         public ActionResult Index([Bind(Prefix = "search")] string searchKw)
         {
             ProductBUS productBUS = new ProductBUS();
@@ -22,6 +30,9 @@ namespace QuanLySieuThi.Controllers
             else
                 products = productBUS.GetProducts();
             ViewBag.Products = products;
+
+            // Lấy loại sẩn phẩm từ cơ sở dữ liệu
+            getAllCategories();
             return View();
         }
 
@@ -35,7 +46,37 @@ namespace QuanLySieuThi.Controllers
 
         public ActionResult Login()
         {
+            // Lấy loại sẩn phẩm từ cơ sở dữ liệu
+            getAllCategories();
             return View();
         }
+
+        public ActionResult Register()
+        {
+            // Lấy loại sẩn phẩm từ cơ sở dữ liệu
+            getAllCategories();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddCustomer(string username, string email, string phone, string password)
+        {
+            var cus = new Customer
+            (
+                username,
+                email,
+                phone,
+                password
+            );
+
+            Console.WriteLine(cus);
+
+            // Thêm đối tượng Customer vào CSDL
+            CustomerDAO dao = new CustomerDAO();
+            dao.Create(cus);
+
+            return RedirectToAction("Login", "home");
+        }
+
     }
 }
