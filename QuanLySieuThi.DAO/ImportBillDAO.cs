@@ -54,7 +54,7 @@ namespace QuanLySieuThi.DAO
                 try
                 {
                     // Save import bill and details
-                    context.ImportBills.Add(importBill)
+                    context.ImportBills.Add(importBill);
                     context.ImportBillDetails.AddRange(details);
 
                     // Update product unit in stock and import bill subtotal

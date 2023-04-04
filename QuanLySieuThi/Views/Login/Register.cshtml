@@ -22,11 +22,13 @@
         display: block;
         font-size: 15px !important;
     }
+
     div.form-item input {
-        margin-bottom:5px;
+        margin-bottom: 5px;
     }
-    div.form-btn{
-        margin-top:5px;
+
+    div.form-btn {
+        margin-top: 5px;
     }
 </style>
 <div class="alls">
@@ -36,31 +38,26 @@
         <form class="form-main" id="form-1">
             <div class="form-item">
                 <label>Tên đăng nhập: </label>
-                <input id="fullname" name="username" type="text" placeholder="Nhập tên...">
+                <input id="username" name="username" type="text" placeholder="Nhập tên...">
                 <span class="form-message"></span>
             </div>
 
             <div class="form-item">
-                <label>Email: </label>
-                <input id="email" name="email" type="text" placeholder="Nhập email...">
+                <label>Họ tên: </label>
+                <input id="fullname" name="fullname" type="text" placeholder="Nhập họ tên...">
                 <span class="form-message"></span>
             </div>
 
             <div class="form-item">
                 <label>Số điện thoại: </label>
-                <input id="phone" id="email" name="email" type="text" placeholder="Nhập số điện thoại...">
+                <input id="phone" name="phone" type="text" placeholder="Nhập số điện thoại...">
                 <span class="form-message"></span>
             </div>
 
             <div class="form-item">
-                <label>Loại tài khoản: </label>
-
-                <select class="form-control">
-                    <option selected="">Khách hàng</option>
-                    <option>Nhân viên</option>
-                    <option>Quản trị viên</option>
-
-                </select>
+                <label>Địa chỉ: </label>
+                <input id="address" name="address" type="text" placeholder="Nhập địa chỉ...">
+                <span class="form-message"></span>
             </div>
 
             <div class="form-item">
@@ -77,7 +74,7 @@
 
             <div class="form-btn">
                 <button type="submit" class="form-submit">Đăng ký</button>
-                @Html.ActionLink("Đăng nhập", "Login", "Home", null, new { @class = "a-link" })
+                @Html.ActionLink("Đăng nhập", "Login", "Login", null, new { @class = "a-link" })
             </div>
 
             <div class="final-button">
@@ -98,8 +95,9 @@
         formGroupSelector: '.form-item',
         errorSelector: '.form-message',
         rules: [
+            Validator.isRequired('#username', "Vui lòng nhập tên đầy đủ !"),
             Validator.isRequired('#fullname', "Vui lòng nhập tên đầy đủ !"),
-            Validator.isEmail('#email'),
+            Validator.isRequired('#address', "Vui lòng nhập địa chỉ!"),
             Validator.minLength('#password', 6),
             Validator.isRequired('#cofirmpassword'),
             Validator.isEqualPhone("#phone", 10),
@@ -108,7 +106,18 @@
             }, 'Mật Khẩu nhập lại không chính xác!'),
         ],
         onSubmit: function (data) {
-            console.log(data)
+            const form = document.getElementById("form-1");
+            const formData = new FormData(form)
+            fetch('/Login/AddCustomer', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    console.log("fetch dữ liệu thành công lên server");
+                })
+                .catch(error => {
+                    console.log("fetch dữ liệu thất bại");
+                });
         }
     })
 </script>
