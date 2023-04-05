@@ -28,10 +28,11 @@ namespace QuanLySieuThi.Controllers
         {
             // Lấy loại sẩn phẩm từ cơ sở dữ liệu
             getAllCategories();
+           
             return View();
         }
 
-
+        
         public ActionResult Register()
         {
             // Lấy loại sẩn phẩm từ cơ sở dữ liệu
@@ -40,11 +41,13 @@ namespace QuanLySieuThi.Controllers
 
             return View();
         }
-
+        
+        
         [HttpPost]
         public ActionResult AddCustomer()
         {
             // Dữ liệu nhận được từ client fetch lên
+            string username = Request.Form["username"];
             string fullname = Request.Form["fullname"];
             string phone = Request.Form["phone"];
             string adress = Request.Form["address"];

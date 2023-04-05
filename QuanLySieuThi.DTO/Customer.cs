@@ -23,6 +23,7 @@ namespace QuanLySieuThi.DTO
             Password = password;
             UserName = customerName;
         }
+        
 
         public int CustomerID { get; set; }
 
