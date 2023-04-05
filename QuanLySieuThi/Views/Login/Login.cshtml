@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewBag.title = "Đăng nhập";
+    
 }
 
 
@@ -54,7 +55,9 @@
             <div class="form-btn">
                 <button type="submit">Đăng nhập</button>
                 @Html.ActionLink("Đăng ký", "Register", "Login", null, new { @class = "a-link" })
+                @Html.ActionLink("Chỉnh sửa", "Edit", "Login", new { id = 1 }, new { @class = "a-link" })
             </div>
+
 
             <div class="final-button">
                 <h5>Hoặc đăng nhập bằng</h5>
@@ -70,7 +73,7 @@
 
 <script>
     Validator({
-        form: '#form-2',
+                form: '#form-2',
         formGroupSelector: '.form-item',
         errorSelector: '.form-message',
         rules: [
@@ -78,7 +81,7 @@
             Validator.minLength('#password', 6)
         ],
         onSubmit: function (data) {
-            console.log(data)
+                        console.log(data)
         }
-    })
+                })
 </script>

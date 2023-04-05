@@ -47,14 +47,33 @@ namespace QuanLySieuThi.DAO
         {
             return context.Customers.FirstOrDefault(c => c.CustomerID == customerId);
         }
-
+        public Customer ViewDetail(int id)
+        {
+            return context.Customers.Find(id);
+        }
         // Update an existing customer
         public void Update(Customer customer)
         {
             context.Entry(customer).State = EntityState.Modified;
             context.SaveChanges();
         }
-
+        
+        public bool UpdateInfo(Customer customer, string name, string phone , string address, string password)
+        {
+            try
+            {
+                customer.CustomerName = name;
+                customer.CustomerPhone = phone;
+                customer.CustomerAddress = address;
+                customer.Password = password;
+                context.SaveChanges();
+                return true;
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+        }
         public void Delete(int customerId)
         {
             Customer customer = GetCustomerById(customerId);
