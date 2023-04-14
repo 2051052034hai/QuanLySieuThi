@@ -8,7 +8,7 @@ namespace QuanLySieuThi.Areas.Areas.Controllers
 {
     public class HomeAdminController : Controller
     {
-        // GET: Areas/Home
+        // GET: Areas/HomeAdmin
         public ActionResult Index()
         {
             return View();
