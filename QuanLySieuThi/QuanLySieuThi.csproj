@@ -128,6 +128,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Areas\AreasAreaRegistration.cs" />
     <Compile Include="Areas\Areas\Controllers\HomeAdminController.cs" />
+    <Compile Include="Areas\Areas\Controllers\ProductsListController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -146,6 +147,7 @@
     <Content Include="Areas\Areas\assets\libs\jslib\google_map.js" />
     <Content Include="Areas\Areas\assets\libs\jslib\jvectormap.custom.js" />
     <Content Include="Areas\Areas\assets\libs\jslib\main-js.js" />
+    <Content Include="Areas\Areas\assets\vendor\allAdminCss\alls.css" />
     <Content Include="Areas\Areas\assets\vendor\bootstrapv\cssv\bootstrap.min.css" />
     <Content Include="Areas\Areas\assets\vendor\bootstrapv\jsv\bootstrapbundle.js" />
     <Content Include="Areas\Areas\assets\vendor\charts\c3charts\c3.css" />
@@ -165,6 +167,13 @@
     <Content Include="Areas\Areas\assets\vendor\charts\morris-bundle\raphael.min.js" />
     <Content Include="Areas\Areas\assets\vendor\charts\sparkline\jquery.sparkline.js" />
     <Content Include="Areas\Areas\assets\vendor\charts\sparkline\spark-js.js" />
+    <Content Include="Areas\Areas\assets\vendor\datatables\csstables\buttons.bootstrap4.css" />
+    <Content Include="Areas\Areas\assets\vendor\datatables\csstables\dataTables.bootstrap4.css" />
+    <Content Include="Areas\Areas\assets\vendor\datatables\csstables\fixedHeader.bootstrap4.css" />
+    <Content Include="Areas\Areas\assets\vendor\datatables\csstables\select.bootstrap4.css" />
+    <Content Include="Areas\Areas\assets\vendor\datatables\jstables\buttons.bootstrap4.min.js" />
+    <Content Include="Areas\Areas\assets\vendor\datatables\jstables\data-table.js" />
+    <Content Include="Areas\Areas\assets\vendor\datatables\jstables\dataTables.bootstrap4.min.js" />
     <Content Include="Areas\Areas\assets\vendor\fontsv\circular-std\stylestd.css" />
     <Content Include="Areas\Areas\assets\vendor\fontsv\flag-icon-css\flag-icon.min.css" />
     <Content Include="Areas\Areas\assets\vendor\fontsv\flag-icon-css\flags\ad.svg" />
@@ -427,6 +436,7 @@
     <Content Include="Areas\Areas\assets\vendor\fontsv\material-design-iconic-font\fonts\materialdesignicons-webfontdc99.html" />
     <Content Include="Areas\Areas\assets\vendor\fontsv\material-design-iconic-font\fonts\materialdesignicons-webfontdc99.svg" />
     <Content Include="Areas\Areas\assets\vendor\jqueryv\jquery-3.3.1.min.js" />
+    <Content Include="Areas\Areas\assets\vendor\muti-select\jsselect\jquery.multi-select.js" />
     <Content Include="Areas\Areas\documentation\cssdoc\32px.png" />
     <Content Include="Areas\Areas\documentation\cssdoc\bootstrap.min.css" />
     <Content Include="Areas\Areas\documentation\cssdoc\style.css" />
@@ -474,6 +484,9 @@
     <Content Include="Areas\Areas\assets\vendor\fontsv\material-design-iconic-font\fonts\materialdesignicons-webfontdc99.eot" />
     <Content Include="Areas\Areas\assets\vendor\fontsv\material-design-iconic-font\fonts\materialdesignicons-webfontdc99.ttf" />
     <Content Include="Areas\Areas\assets\vendor\fontsv\material-design-iconic-font\fonts\materialdesignicons-webfontdc99.woff" />
+    <Content Include="Areas\Areas\Views\Shared\_HeaderAdmin.cshtml" />
+    <Content Include="Areas\Areas\Views\Shared\NavBarAdmin.cshtml" />
+    <Content Include="Areas\Areas\Views\ProductsList\ProductIndex.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

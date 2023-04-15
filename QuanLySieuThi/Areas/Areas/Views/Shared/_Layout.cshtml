@@ -16,44 +16,42 @@
     <link rel="stylesheet" href="~/Areas/Areas/assets/vendor/charts/c3charts/c3.css">
     <link rel="stylesheet" href="~/Areas/Areas/assets/vendor/fontsv/flag-icon-css/flag-icon.min.css">
     <link rel="stylesheet" href="~/Areas/Areas/assets/vendor/charts/chartist-bundle/chartist.css">
-    <title>Concept - Bootstrap 4 Admin Dashboard Template</title>
+    <title>Trang quản trị quản lý siêu thị</title>
 
-
-    @*<link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
-        <link href="assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
-        <link rel="stylesheet" href="assets/libs/css/style.css">
-        <link rel="stylesheet" href="assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
-        <link rel="stylesheet" href="assets/vendor/charts/chartist-bundle/chartist.css">
-        <link rel="stylesheet" href="assets/vendor/charts/morris-bundle/morris.css">
-        <link rel="stylesheet" href="assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css">
-        <link rel="stylesheet" href="assets/vendor/charts/c3charts/c3.css">
-        <link rel="stylesheet" href="assets/vendor/fonts/flag-icon-css/flag-icon.min.css">*@
 
 
 </head>
 
 <body>
-    @RenderBody()
+    <div class="dashboard-main-wrapper">
+        @RenderPage("~/Areas/Areas/Views/Shared/_HeaderAdmin.cshtml")
+        @RenderPage("~/Areas/Areas/Views/Shared/NavBarAdmin.cshtml")
+        @RenderBody()
+    </div>
 
 
 
 
-    <script src="~/Areas/Areas/assets/vendor/jqueryv/jquery-3.3.1.min.js"></script>
+        <script src="~/Areas/Areas/assets/vendor/jqueryv/jquery-3.3.1.min.js"></script>
 
 
-    <script src="~/Areas/Areas/assets/vendor/bootstrapv/jsv/bootstrapbundle.js"></script>
+        <script src="~/Areas/Areas/assets/vendor/bootstrapv/jsv/bootstrapbundle.js"></script>
 
-    <script src="~/Areas/Areas/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+        <script src="~/Areas/Areas/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
 
-    <script src="~/Areas/Areas/assets/libs/jslib/main-js.js"></script>
+        <script src="~/Areas/Areas/assets/libs/jslib/main-js.js"></script>
 
-    <script src="~/Areas/Areas/assets/vendor/charts/chartist-bundle/chartist.min.js"></script>
-    <script src="~/Areas/Areas/assets/vendor/charts/sparkline/jquery.sparkline.js"></script>
-    <script src="~/Areas/Areas/assets/vendor/charts/morris-bundle/raphael.min.js"></script>
-    <script src="~/Areas/Areas/assets/vendor/charts/morris-bundle/morris.js"></script>
-    <script src="~/Areas/Areas/assets/vendor/charts/c3charts/c3.min.js"></script>
-    <script src="~/Areas/Areas/assets/vendor/charts/c3charts/d3-5.4.0.min.js"></script>
-    <script src="~/Areas/Areas/assets/vendor/charts/c3charts/C3chartjs.js"></script>
-    <script src="~/Areas/Areas/assets/libs/jslib/dashboard-ecommerce.js"></script>
+        <script src="~/Areas/Areas/assets/vendor/charts/chartist-bundle/chartist.min.js"></script>
+        <script src="~/Areas/Areas/assets/vendor/charts/sparkline/jquery.sparkline.js"></script>
+        <script src="~/Areas/Areas/assets/vendor/charts/morris-bundle/raphael.min.js"></script>
+        <script src="~/Areas/Areas/assets/vendor/charts/morris-bundle/morris.js"></script>
+        <script src="~/Areas/Areas/assets/vendor/charts/c3charts/c3.min.js"></script>
+        <script src="~/Areas/Areas/assets/vendor/charts/c3charts/d3-5.4.0.min.js"></script>
+        <script src="~/Areas/Areas/assets/vendor/charts/c3charts/C3chartjs.js"></script>
+        <script src="~/Areas/Areas/assets/libs/jslib/dashboard-ecommerce.js"></script>
+
+
+
+
 </body>
 </html>
