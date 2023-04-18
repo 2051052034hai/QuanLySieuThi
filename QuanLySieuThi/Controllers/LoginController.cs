@@ -21,15 +21,14 @@ namespace QuanLySieuThi.Controllers
         // GET: Login
         public ActionResult Index()
         {
+            // Lấy loại sẩn phẩm từ cơ sở dữ liệu
+            getAllCategories();
             return View();
         }
 
         public ActionResult Login()
         {
-            // Lấy loại sẩn phẩm từ cơ sở dữ liệu
-            getAllCategories();
-           
-            return View();
+            return RedirectToAction("Index");
         }
 
         
