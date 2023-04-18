@@ -17,23 +17,35 @@ namespace QuanLySieuThi.DAO
             context = new QuanLySieuThiContext();
         }
 
-        public Bill Create(Bill bill, List<BillDetail> billDetails)
+        public int Create(Bill bill, List<BillDetail> billDetails)
         {
-            // Add bill to database
-            context.Bills.Add(bill);
-            context.SaveChanges();
-
-            // Assign BillID to each BillDetail
-            foreach (var billDetail in billDetails)
+            using (var transaction = context.Database.BeginTransaction())
             {
-                billDetail.BillID = bill.BillID;
+                try
+                {
+                    // Add bill to database
+                    context.Bills.Add(bill);
+                    context.SaveChanges();
+
+                    // Assign BillID to each BillDetail
+                    foreach (var billDetail in billDetails)
+                    {
+                        billDetail.BillID = bill.BillID;
+                    }
+
+                    // Add bill details to database
+                    context.BillDetails.AddRange(billDetails);
+                    context.SaveChanges();
+
+                    transaction.Commit();
+                    return bill.BillID;
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
             }
-
-            // Add bill details to database
-            context.BillDetails.AddRange(billDetails);
-            context.SaveChanges();
-
-            return bill;
         }
 
         public Bill GetBillById(int id)
@@ -51,16 +63,42 @@ namespace QuanLySieuThi.DAO
             return context.Bills.Where(b => b.CustomerID == customerId).ToList();
         }
 
-        public void Update(Bill bill)
+        public int Update(Bill bill)
         {
-            context.Entry(bill).State = EntityState.Modified;
-            context.SaveChanges();
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    context.Entry(bill).State = EntityState.Modified;
+                    context.SaveChanges();
+                    transaction.Commit();
+                    return 1;
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            }
         }
 
-        public void Delete(Bill bill)
+        public int Delete(Bill bill)
         {
-            context.Bills.Remove(bill);
-            context.SaveChanges();
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    context.Bills.Remove(bill);
+                    context.SaveChanges();
+                    transaction.Commit();
+                    return 1;
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            }
         }
     }
 

@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,9 +18,13 @@ namespace QuanLySieuThi.DAO
             db = new QuanLySieuThiContext();
         }
 
+        public List<Employee> GetAllEmployees()
+        {
+            return db.Employees.ToList();
+        }
         public Employee GetEmployeeById(int id)
         {
-            return db.Employees.FirstOrDefault(e => e.EmployeeID == id);
+            return db.Employees.Find(id);
         }
 
         public Employee Authenticate(string username, string password)
@@ -27,23 +32,53 @@ namespace QuanLySieuThi.DAO
             return db.Employees.FirstOrDefault(e => e.UserName == username && e.Password == password);
         }
 
-        public void UpdateEmployee(Employee employee)
+        public int UpdateEmployee(Employee employee)
         {
-            db.Entry(employee).State = EntityState.Modified;
-            db.SaveChanges();
+            try
+            {
+                var existingEmployee = db.Employees.Find(employee.EmployeeID);
+
+                if (existingEmployee != null)
+                {
+                    // Update existing employee entity properties
+                    existingEmployee.EmployeeName = employee.EmployeeName;
+                    existingEmployee.EmployeeAddress = employee.EmployeeAddress;
+                    existingEmployee.Phone = employee.Phone;
+                    existingEmployee.UserName = employee.UserName;
+                    existingEmployee.Password = employee.Password;
+                    existingEmployee.Role = employee.Role;
+
+                    // Save changes to the database
+                    return db.SaveChanges();
+                }
+                return 0;
+            }
+            catch
+            {
+                return 0;
+            }
         }
 
-        public void AddEmployee(Employee employee)
+        public int AddEmployee(Employee employee)
         {
-            db.Employees.Add(employee);
-            db.SaveChanges();
+            try
+            {
+                db.Employees.Add(employee);
+                return db.SaveChanges();
+            }
+            catch { return 0; }
         }
 
-        public void DeleteEmployee(int id)
+        public int DeleteEmployee(int id)
         {
             var employee = db.Employees.Find(id);
-            db.Employees.Remove(employee);
-            db.SaveChanges();
+
+            if (employee != null)
+            {
+                db.Employees.Remove(employee);
+                return db.SaveChanges();
+            }
+            return 0;
         }
 
         public bool IsAuthorized(int id, string role)

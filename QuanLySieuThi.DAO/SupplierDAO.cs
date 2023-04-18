@@ -20,16 +20,20 @@ namespace QuanLySieuThi.DAO
         }
 
         // Create a new supplier
-        public void Create(Supplier supplier)
+        public int Create(Supplier supplier)
         {
-            context.Suppliers.Add(supplier);
-            context.SaveChanges();
+            try
+            {
+                context.Suppliers.Add(supplier);
+                return context.SaveChanges();
+            }
+            catch { return 0; }
         }
 
         // Read a supplier by ID
         public Supplier GetSupplierById(int supplierId)
         {
-            return context.Suppliers.FirstOrDefault(s => s.SupplierID == supplierId);
+            return context.Suppliers.Find(supplierId);
         }
 
         // Read a supplier by name
@@ -39,18 +43,18 @@ namespace QuanLySieuThi.DAO
         }
 
         // Update an existing supplier
-        public void Update(Supplier supplier)
+        public int Update(Supplier supplier)
         {
             context.Entry(supplier).State = EntityState.Modified;
-            context.SaveChanges();
+            return context.SaveChanges();
         }
 
-        // Delete an existing supplier by ID
-        public void Delete(int supplierId)
+        // Delete an existing supplier by ID and return the number of rows affected
+        public int Delete(int supplierId)
         {
             Supplier supplier = GetSupplierById(supplierId);
             context.Suppliers.Remove(supplier);
-            context.SaveChanges();
+            return context.SaveChanges();
         }
     }
 }

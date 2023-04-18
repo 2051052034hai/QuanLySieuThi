@@ -9,14 +9,14 @@ namespace QuanLySieuThi.DAO
 {
     public class EventDAO
     {
-        private readonly QuanLySieuThiContext context;
+        private QuanLySieuThiContext context;
 
         public EventDAO()
         {
             context = new QuanLySieuThiContext(); // Replace with your actual DbContext instance
         }
 
-        public void Save(Event eventModel, List<EventDetail> eventDetails)
+        public int Save(Event eventModel, List<EventDetail> eventDetails)
         {
             using (var transaction = context.Database.BeginTransaction())
             {
@@ -31,31 +31,41 @@ namespace QuanLySieuThi.DAO
                         context.EventDetails.Add(detail);
                     }
 
-                    context.SaveChanges();
+                    int res = context.SaveChanges();
                     transaction.Commit();
+                    return res;
                 }
                 catch (Exception)
                 {
                     transaction.Rollback();
-                    throw;
+                    return 0;
                 }
             }
         }
 
-        public void Update(Event eventModel)
+        public int Update(Event eventModel)
         {
-            var existingEvent = context.Events.Find(eventModel.EventID);
-
-            if (existingEvent == null)
+            try
             {
-                throw new Exception($"Event with ID {eventModel.EventID} not found.");
+
+
+                var existingEvent = context.Events.Find(eventModel.EventID);
+
+                if (existingEvent == null)
+                {
+                    throw new Exception($"Event with ID {eventModel.EventID} not found.");
+                }
+
+                existingEvent.StartDate = eventModel.StartDate;
+                existingEvent.EndDate = eventModel.EndDate;
+                existingEvent.Description = eventModel.Description;
+
+                return context.SaveChanges();
             }
-
-            existingEvent.StartDate = eventModel.StartDate;
-            existingEvent.EndDate = eventModel.EndDate;
-            existingEvent.Description = eventModel.Description;
-
-            context.SaveChanges();
+            catch
+            {
+                return 0;
+            }
         }
 
         public Event GetById(int id)
