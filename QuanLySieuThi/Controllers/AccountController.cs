@@ -57,7 +57,7 @@ namespace QuanLySieuThi.Controllers
                 TempData["SuccessMsg"] = "Cập nhật thành công!!!";
             else
                 TempData["FailMsg"] = "Cập nhật thất bại!!!";
-            return RedirectToAction("ChangePassword", "Account");
+            return Json(new { success = true });
 
         }
     }
