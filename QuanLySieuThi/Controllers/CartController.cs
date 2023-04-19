@@ -9,23 +9,17 @@ using QuanLySieuThi.BUS;
 using Newtonsoft.Json;
 using System.IO;
 using Newtonsoft.Json.Linq;
+using QuanLySieuThi.Filter;
 
 namespace QuanLySieuThi.Controllers
 {
+    [AddCategoriesFilter]
     public class CartController : Controller
     {
-        public void getAllCategories()
-        {
-            CategoryBUS categoryBUS = new CategoryBUS();
-            List<Category> category = categoryBUS.GetCategories();
-            ViewBag.Categories = category;
-        }
         // GET: Cart
         [HttpPost]
         public ActionResult Index()
         {
-            getAllCategories();
-
             var cart = Session["Cart"] as List<Product> ?? new List<Product>();
             Session["Cart"] = cart;
 
@@ -48,8 +42,6 @@ namespace QuanLySieuThi.Controllers
                 ProductBUS bus = new ProductBUS();
                 Product newProduct = new Product();
                 newProduct = bus.GetProduct(productId);
-
-
 
             }
             

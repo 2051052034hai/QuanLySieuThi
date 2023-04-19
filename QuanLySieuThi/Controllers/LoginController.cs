@@ -9,25 +9,18 @@ using Microsoft.AspNet.Identity;
 //using Microsoft.AspNet.Identity.Owin;
 //using Microsoft.Owin.Security;
 using System.Web.Helpers;
+using QuanLySieuThi.Filter;
 
 namespace QuanLySieuThi.Controllers
 {
+    [AddCategoriesFilter]
     public class LoginController : Controller
     {
-        //private ApplicationUserManager
-
-        public void getAllCategories()
-        {
-            CategoryBUS categoryBUS = new CategoryBUS();
-            List<Category> category = categoryBUS.GetCategories();
-            ViewBag.Categories = category;
-        }
         // GET: Login
         public ActionResult Index()
         {
-            // Lấy loại sẩn phẩm từ cơ sở dữ liệu
-            getAllCategories();
             ViewBag.FailMsg = TempData["FailMsg"] as string;
+            ViewBag.Username = TempData["username"] as string;
             return View();
         }
         public ActionResult Login()
@@ -41,46 +34,56 @@ namespace QuanLySieuThi.Controllers
             if (loginType.Equals("customer"))
             {
                 CustomerBUS customerBUS = new CustomerBUS();
-                if (customerBUS.Authenticate(username, password) != null)
+                Customer customer = customerBUS.Authenticate(username, password);
+                if (customer != null)
                 {
-                    
+                    Session["currentUser"] = customer;
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
                     TempData["FailMsg"] = "Đăng nhập thất bại!!! Username hoặc password không khớp";
+                    TempData["username"] = username;
                     return RedirectToAction("Index", "Login");
                 }
             }
             else
             {
                 EmployeeBUS employeeBUS = new EmployeeBUS();
+                return RedirectToAction("Index");
             }
-            // Authenticate the user here using the provided username and password
-            if (true)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                // If authentication fails, display an error message
-                ViewBag.Error = "Invalid username or password. Please try again.";
-                getAllCategories();
-                return View();
-            }
+            //// Authenticate the user here using the provided username and password
+            //if (true)
+            //{
+            //    return RedirectToAction("Index", "Home");
+            //}
+            //else
+            //{
+            //    // If authentication fails, display an error message
+            //    ViewBag.Error = "Invalid username or password. Please try again.";
+            //    getAllCategories();
+            //    return View();
+            //}
+        }
+
+        [AuthenticationFilter]
+        public ActionResult Logout()
+        {
+            Session.Remove("currentUser");
+            return RedirectToAction("Login", "Login");
         }
 
         [HttpGet]
+        [AuthenticationFilter]
         public ViewResult Register()
         {
-            // Lấy loại sẩn phẩm từ cơ sở dữ liệu
-            getAllCategories();
             ViewBag.FailMsg = TempData["FailMsg"] as string;
             return View();
         }
         
         
         [HttpPost]
+        [AuthenticationFilter]
         public ActionResult AddCustomer()
         {
             // Dữ liệu nhận được từ client fetch lên

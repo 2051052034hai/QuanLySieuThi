@@ -5,24 +5,26 @@ using System.Web;
 using System.Web.Mvc;
 using QuanLySieuThi.DTO;
 using QuanLySieuThi.BUS;
+using QuanLySieuThi.Filter;
+
 namespace QuanLySieuThi.Controllers
 {
+    [AddCategoriesFilter]
+    [AuthenticationFilter]
     public class AccountController : Controller
     {
         // GET: Account
         public ActionResult Index()
         {
-            CustomerBUS customerBUS = new CustomerBUS();
-            Customer cus = customerBUS.GetCustomerById(1);
-            ViewBag.Customer = cus;
+            Customer customer = Session["currentUser"] as Customer;
+            ViewBag.Customer = customer;
             ViewBag.SuccessMsg = TempData["SuccessMsg"] as string;
             return View();
         }
         [HttpGet]
         public ActionResult ChangePassword()
         {
-            CustomerBUS customerBUS = new CustomerBUS();
-            Customer cus = customerBUS.GetCustomerById(1);
+            Customer cus = Session["currentUser"] as Customer;
             ViewBag.Customer = cus;
             ViewBag.SuccessMsg = TempData["SuccessMsg"] as string;
             ViewBag.FailMsg = TempData["FailMsg"] as string;
@@ -40,9 +42,13 @@ namespace QuanLySieuThi.Controllers
             string point = Request.Form["point"];
             CustomerBUS customerBUS = new CustomerBUS();
             if (customerBUS.Update(ID, fullname, phone, address, password, Int32.Parse(point)) > 0)
+            {
                 TempData["SuccessMsg"] = "Cập nhật thành công!!!";
+                Session["currentUser"] = customerBUS.GetCustomerById(Int32.Parse(ID));
+            }
             return RedirectToAction("Index", "Account");
         }
+
         [HttpPost]
         public ActionResult Change()
         {
@@ -52,7 +58,10 @@ namespace QuanLySieuThi.Controllers
             string newPass = Request.Form["newPassword"];
             CustomerBUS customerBUS = new CustomerBUS();
             if (customerBUS.Update(ID: ID, password: password, newPass: newPass) > 0)
+            {
                 TempData["SuccessMsg"] = "Cập nhật thành công!!!";
+                Session["currentUser"] = customerBUS.GetCustomerById(Int32.Parse(ID));
+            }
             else
                 TempData["FailMsg"] = "Cập nhật thất bại!!!";
             return Json(new { success = true });
