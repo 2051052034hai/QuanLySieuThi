@@ -21,15 +21,31 @@ namespace QuanLySieuThi.Controllers
         // GET: Login
         public ActionResult Index()
         {
+            // Lấy loại sẩn phẩm từ cơ sở dữ liệu
+            getAllCategories();
             return View();
         }
 
+        [HttpPost]
+        public ActionResult Index(string username, string password)
+        {
+            // Authenticate the user here using the provided username and password
+            if (true)
+            {
+                // If authentication succeeds, redirect the user to the appropriate page
+                return RedirectToAction("AdminDashboard", "Admin");
+            }
+            else
+            {
+                // If authentication fails, display an error message
+                ViewBag.Error = "Invalid username or password. Please try again.";
+                getAllCategories();
+                return View();
+            }
+        }
         public ActionResult Login()
         {
-            // Lấy loại sẩn phẩm từ cơ sở dữ liệu
-            getAllCategories();
-           
-            return View();
+            return RedirectToAction("Index");
         }
 
         
