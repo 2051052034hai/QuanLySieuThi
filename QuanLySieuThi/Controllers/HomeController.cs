@@ -36,13 +36,13 @@ namespace QuanLySieuThi.Controllers
             return View();
         }
 
-        public ActionResult Product(string id)
-        {
-            ProductBUS productBUS = new ProductBUS();
-            Product product = productBUS.GetProduct(id);
-            ViewBag.Product = product;
-            return View();
-        }
+        //public ActionResult Product(string id)
+        //{
+        //    ProductBUS productBUS = new ProductBUS();
+        //    Product product = productBUS.GetProduct(id);
+        //    ViewBag.Product = product;
+        //    return View();
+        //}
 
         public ActionResult Category(string id)
         {

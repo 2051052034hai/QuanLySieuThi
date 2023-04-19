@@ -1,9 +1,14 @@
 ﻿
 @{
-    ViewBag.Title = "Chi tiết sản phẩm";
-}
+    ViewBag.Title = "Product";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<style>
+    .ega-product-xs-no-pd {
+        padding-top: 20px;
+    }
+</style>
 
 <main>
 
@@ -15,110 +20,17 @@
                 <div id="ega-product-app" class="ega-product-page-info-item ega-product-page-info">
                     <div class="row">
                         <div class="col-xs-12 col-sm-6">
+
                             <div role="img">
                                 <a href="javascript:void(0)"
                                    data-rel="prettyPhoto[product-gallery]">
                                     <img id="main-img"
-                                         src="https://bizweb.dktcdn.net/thumb/large/100/172/033/products/sua-bot-pediasure-lon-1600g-1-org-4.jpg"
+                                         src="@ViewBag.product.Image_Url"
                                          data-zoom-image="https://bizweb.dktcdn.net/thumb/large/100/172/033/products/sua-bot-pediasure-lon-1600g-1-org-4.jpg"
                                          alt="" class="img-responsive center-block">
                                 </a>
-                                <div class="ega-product-imgs-child">
-                                    <ul class="ega-product-imgs" style="display: none;">
-                                        <li>
-                                            <div class="ega-img-div-child">
-                                                <img index="0" alt=""
-                                                     src="https://bizweb.dktcdn.net/thumb/large/100/172/033/products/sua-bot-pediasure-lon-1600g-1-org-1.jpg"
-                                                     class="ega-product-img">
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ega-img-div-child">
-                                                <img index="1" alt=""
-                                                     src="https://bizweb.dktcdn.net/thumb/large/100/172/033/products/sua-bot-pediasure-lon-1600g-1-org-2.jpg"
-                                                     class="ega-product-img">
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ega-img-div-child">
-                                                <img index="2" alt=""
-                                                     src="https://bizweb.dktcdn.net/thumb/large/100/172/033/products/sua-bot-pediasure-lon-1600g-1-org-3.jpg"
-                                                     class="ega-product-img">
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ega-img-div-child">
-                                                <img index="3" alt=""
-                                                     src="https://bizweb.dktcdn.net/thumb/large/100/172/033/products/sua-bot-pediasure-lon-1600g-1-org-4.jpg"
-                                                     class="ega-product-img">
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="ega-img-div-child">
-                                                <img index="4" alt=""
-                                                     src="https://bizweb.dktcdn.net/thumb/large/100/172/033/products/sua-bot-pediasure-lon-1600g-1-org-5.jpg"
-                                                     class="ega-product-img">
-                                            </div>
-                                        </li>
-                                    </ul>
-                                    <div class="owl-carousel owl-theme ega-product-img-carousel owl-drag owl-loaded"
-                                         style="margin-top: 15px;">
-                                        <div class="owl-stage-outer">
-                                            <div class="owl-stage"
-                                                 style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 634px;">
-                                                <div class="owl-item active" style="width: 126.75px;">
-                                                    <div class="item">
-                                                        <img class="ega-product-img"
-                                                             alt="Sữa bột Abbott PediaSure B/A 1.6kg (cho bé 1-10 tuổi)"
-                                                             index="0"
-                                                             src="https://bizweb.dktcdn.net/thumb/large/100/172/033/products/sua-bot-pediasure-lon-1600g-1-org-1.jpg">
-                                                    </div>
-                                                </div>
-                                                <div class="owl-item active" style="width: 126.75px;">
-                                                    <div class="item">
-                                                        <img class="ega-product-img"
-                                                             alt="Sữa bột Abbott PediaSure B/A 1.6kg (cho bé 1-10 tuổi)"
-                                                             index="1"
-                                                             src="https://bizweb.dktcdn.net/thumb/large/100/172/033/products/sua-bot-pediasure-lon-1600g-1-org-2.jpg">
-                                                    </div>
-                                                </div>
-                                                <div class="owl-item active" style="width: 126.75px;">
-                                                    <div class="item">
-                                                        <img class="ega-product-img"
-                                                             alt="Sữa bột Abbott PediaSure B/A 1.6kg (cho bé 1-10 tuổi)"
-                                                             index="2"
-                                                             src="https://bizweb.dktcdn.net/thumb/large/100/172/033/products/sua-bot-pediasure-lon-1600g-1-org-3.jpg">
-                                                    </div>
-                                                </div>
-                                                <div class="owl-item active" style="width: 126.75px;">
-                                                    <div class="item">
-                                                        <img class="ega-product-img"
-                                                             alt="Sữa bột Abbott PediaSure B/A 1.6kg (cho bé 1-10 tuổi)"
-                                                             index="3"
-                                                             src="https://bizweb.dktcdn.net/thumb/large/100/172/033/products/sua-bot-pediasure-lon-1600g-1-org-4.jpg">
-                                                    </div>
-                                                </div>
-                                                <div class="owl-item" style="width: 126.75px;">
-                                                    <div class="item">
-                                                        <img class="ega-product-img"
-                                                             alt="Sữa bột Abbott PediaSure B/A 1.6kg (cho bé 1-10 tuổi)"
-                                                             index="4"
-                                                             src="https://bizweb.dktcdn.net/thumb/large/100/172/033/products/sua-bot-pediasure-lon-1600g-1-org-5.jpg">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="owl-nav">
-                                            <div class="owl-prev disabled">
-                                                <span class="glyphicon glyphicon-menu-left"></span>
-                                            </div>
-                                            <div class="owl-next">
-                                                <span class="glyphicon glyphicon-menu-right"></span>
-                                            </div>
-                                        </div>
-                                        <div class="owl-dots disabled"></div>
-                                    </div>
-                                </div>
+
+
                                 <div class="ega-top-img-slider" style="display: none;">
                                     <div class="ega-close-fixed-img-slider">
                                         <span class="glyphicon glyphicon-remove"></span>
@@ -152,15 +64,23 @@
                                     </div>
                                 </div>
                             </div>
+
+
                         </div>
                         <div class="col-xs-12 col-sm-6">
                             <h1 class="ega-product-title">
-                                Sữa bột Abbott PediaSure B/A 1.6kg (cho bé 1-10 tuổi)
+                                @ViewBag.product.ProductName
                             </h1>
                             <div itemscope="itemscope" itemtype="http://schema.org/Offer" class="ega-show-after"
                                  style="display: block;">
                                 <strong itemprop="price"
-                                        class="ega-pr-page-price">1.018.500₫</strong>
+                                        class="ega-pr-page-price">
+                                    <script>
+                                        var formattedPrice = "@String.Format("{0:C0}đ", @ViewBag.product.UnitPrice)".replace("$", "");
+                                        document.write(formattedPrice);
+                                    </script>
+
+                                </strong>
                                 <meta itemprop="priceCurrency" content="VND"> <del itemprop="priceSpecification"
                                                                                    class="ega-old-price-home" style="display: inline-block;"></del>
                                 <meta itemprop="priceCurrency" content="VND"> <span itemscope="itemscope"
@@ -220,10 +140,12 @@
                                         </div>
                                         <div class="col-xs-8">
                                             <div class="input-group ega-qty-control">
-                                                <div class="input-group-addon">-</div> <input type="text"
-                                                                                              name="quantity" maxlength="4" id="exampleInputAmount"
-                                                                                              value="1" class="form-control">
-                                                <div class="input-group-addon">+</div>
+                                                <div class="input-group-addon pre-sub">-</div>
+
+                                                <input type="text" name="quantity" maxlength="4" id="exampleInputAmount"
+                                                       value="1" class="form-control">
+
+                                                <div class="input-group-addon next-plus">+</div>
                                             </div>
                                         </div>
                                     </div>
@@ -296,6 +218,7 @@
                     <div class="related-product-items">
 
                         <!----------Dùng vòng for lặp qua đây------------------->
+
                         <div>
                             <a class="ega-related-pr-page"
                                href="/sua-bot-abbott-similac-iq-2-400g-cho-be-6-12-thang"
@@ -311,6 +234,7 @@
 
                             </a>
                         </div>
+
                         <!----------------------------------------------------->
 
                     </div>
@@ -321,3 +245,68 @@
     </div>
 </main>
 
+<script>
+
+    /*////////////Script đẩy dữ liệu mua hàng lên CartController ///////////*/
+
+    var addcartElement = document.getElementsByClassName("ega-pr-page-add-cart")[0];
+
+    addcartElement.onclick = function () {
+        event.preventDefault()
+        var titleElemet = document.getElementsByClassName("ega-product-title")[0].innerHTML;
+        var currentUrl = window.location.href;
+        var productID = currentUrl.match(/\/(\d+)$/)[1];
+        var priceDouble = parseFloat(formattedPrice.replace(/[^0-9]/g, ""))
+        var urlElement = document.getElementById("main-img").getAttribute("src");
+
+        fetch('/Cart/Index', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "productId": productID,
+                "productName": titleElemet.trim(),
+                "productPrice": priceDouble,
+                "productImg": urlElement,
+                "productQuality": inputElement.value
+            })
+        }).then(function (response) {
+            if (response.ok) {
+
+                var countCartElement = document.getElementById("numberCart");
+                countCartElement.innerHTML = parseInt(countCartElement.innerHTML) + parseInt(inputElement.value);
+
+
+                // Lưu giá trị vào Local Storage
+                localStorage.setItem("cartItemCount", countCartElement.innerHTML);
+            }
+        });
+
+
+    }
+
+
+    /*////////////Script cho nút tăng giảm số lượng sản phẩm /////*/
+
+    var nextElement = document.getElementsByClassName("next-plus")[0];
+    var preElement = document.getElementsByClassName("pre-sub")[0];
+    var inputElement = document.getElementById("exampleInputAmount");
+
+    nextElement.onclick = function () {
+
+        if (parseInt(inputElement.value) <= 999)
+            inputElement.value = parseInt(inputElement.value) + 1;
+        else
+            alert("Số lượng sản phẩm vượt quá quy định");
+
+    }
+
+    preElement.onclick = function () {
+        if (parseInt(inputElement.value) > 1)
+            inputElement.value = parseInt(inputElement.value) - 1;
+        else
+            alert("Số lượng sản phẩm tối thiểu là 1");
+
+    }
+</script>
