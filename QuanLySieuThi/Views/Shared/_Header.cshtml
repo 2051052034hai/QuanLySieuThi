@@ -55,12 +55,12 @@
 
 
                             <span class="ega-header-top-item ega-top-cart-sendo">
-                                <a class="ega-a-cart-icon-top" href="https://ega-bach-hoa.mysapo.net/cart"
+                                <a class="ega-a-cart-icon-top" href="/Cart/Index"
                                    title="cart">
                                     <span class="glyphicon glyphicon-shopping-cart">
 
                                     </span>
-                                    <span class="ega-a-cart-icon-top__number ega-header-top-item">0</span>
+                                    <span class="ega-a-cart-icon-top__number ega-header-top-item" id="numberCart" >0</span>
                                 </a>
                             </span>
 
@@ -115,3 +115,17 @@
     </div>
 
 </header>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lấy giá trị từ Local Storage
+        var cartItemCount = localStorage.getItem("cartItemCount");
+
+        // Nếu giá trị không null hoặc undefined, cập nhật lại trên giao diện
+        if (cartItemCount != null && cartItemCount != undefined) {
+            var countCartElement = document.getElementById("numberCart");
+            countCartElement.innerHTML = cartItemCount;
+        }
+    });
+
+</script>

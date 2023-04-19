@@ -24,6 +24,8 @@ namespace QuanLySieuThi
                 url: "Home/Product/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+          
         }
     }
 }

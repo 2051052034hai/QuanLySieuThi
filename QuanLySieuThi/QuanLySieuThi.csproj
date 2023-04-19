@@ -130,8 +130,10 @@
     <Compile Include="Areas\Areas\Controllers\HomeAdminController.cs" />
     <Compile Include="Areas\Areas\Controllers\ProductsListController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -543,10 +545,12 @@
     <Content Include="Views\Shared\_Header.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
     <Content Include="Views\Login\Register.cshtml" />
-    <Content Include="Views\Home\Product.cshtml" />
     <Content Include="Views\Home\Category.cshtml" />
     <Content Include="Views\Login\Edit.cshtml" />
     <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Product\Index.cshtml" />
+    <Content Include="Views\Product\Product.cshtml" />
+    <Content Include="Views\Cart\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
