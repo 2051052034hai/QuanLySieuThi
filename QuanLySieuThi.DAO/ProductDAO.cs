@@ -56,7 +56,7 @@ namespace QuanLySieuThi.DAO
                 context.SaveChanges();
                 return product;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

@@ -4,14 +4,18 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using QuanLySieuThi.DTO;
-using QuanLySieuThi.DAO;
 using QuanLySieuThi.BUS;
-
+using Microsoft.AspNet.Identity;
+//using Microsoft.AspNet.Identity.Owin;
+//using Microsoft.Owin.Security;
+using System.Web.Helpers;
 
 namespace QuanLySieuThi.Controllers
 {
     public class LoginController : Controller
     {
+        //private ApplicationUserManager
+
         public void getAllCategories()
         {
             CategoryBUS categoryBUS = new CategoryBUS();
@@ -23,17 +27,39 @@ namespace QuanLySieuThi.Controllers
         {
             // Lấy loại sẩn phẩm từ cơ sở dữ liệu
             getAllCategories();
+            ViewBag.FailMsg = TempData["FailMsg"] as string;
             return View();
+        }
+        public ActionResult Login()
+        {
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public ActionResult Index(string username, string password)
+        public ActionResult Login(string loginType, string username, string password)
         {
+            if (loginType.Equals("customer"))
+            {
+                CustomerBUS customerBUS = new CustomerBUS();
+                if (customerBUS.Authenticate(username, password) != null)
+                {
+                    
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    TempData["FailMsg"] = "Đăng nhập thất bại!!! Username hoặc password không khớp";
+                    return RedirectToAction("Index", "Login");
+                }
+            }
+            else
+            {
+                EmployeeBUS employeeBUS = new EmployeeBUS();
+            }
             // Authenticate the user here using the provided username and password
             if (true)
             {
-                // If authentication succeeds, redirect the user to the appropriate page
-                return RedirectToAction("AdminDashboard", "Admin");
+                return RedirectToAction("Index", "Home");
             }
             else
             {
@@ -43,18 +69,13 @@ namespace QuanLySieuThi.Controllers
                 return View();
             }
         }
-        public ActionResult Login()
-        {
-            return RedirectToAction("Index");
-        }
 
-        
-        public ActionResult Register()
+        [HttpGet]
+        public ViewResult Register()
         {
             // Lấy loại sẩn phẩm từ cơ sở dữ liệu
             getAllCategories();
-
-
+            ViewBag.FailMsg = TempData["FailMsg"] as string;
             return View();
         }
         
@@ -69,11 +90,16 @@ namespace QuanLySieuThi.Controllers
             string adress = Request.Form["address"];
             string password = Request.Form["password"];
 
-            Customer cus = new Customer(fullname, adress, phone, password);
-            CustomerDAO dao = new CustomerDAO();
-            dao.Create(cus);
-
-            return RedirectToAction("Login", "Login");
+            Customer cus = new Customer(fullname, adress, phone, password, username);
+            CustomerBUS customerBUS = new CustomerBUS();
+            if (customerBUS.Create(cus) > 0)
+                return RedirectToAction("Login", "Login");
+            else
+            {
+                TempData["FailMsg"] = "Đăng ký không thành công!!! Tài khoản đã có trong hệ thống";
+                return RedirectToAction("Register", "Login");
+            }     
         }
+
     }
 }

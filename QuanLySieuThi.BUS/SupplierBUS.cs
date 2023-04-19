@@ -23,7 +23,7 @@ namespace QuanLySieuThi.BUS
             {
                 return supplierDAO.Create(supplier);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return 0;
             }
@@ -48,7 +48,7 @@ namespace QuanLySieuThi.BUS
                 supplierDAO.Update(supplier);
                 result = 1;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Log the exception
             }
@@ -62,7 +62,7 @@ namespace QuanLySieuThi.BUS
             {
                 return supplierDAO.Delete(supplierId);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return 0;
             }

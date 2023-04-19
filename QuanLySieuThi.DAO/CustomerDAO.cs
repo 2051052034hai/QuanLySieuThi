@@ -19,12 +19,12 @@ namespace QuanLySieuThi.DAO
             this.context = new QuanLySieuThiContext();
         }
 
-        public void Create(Customer customer)
+        public int Create(Customer customer)
         {
             try
             {
                 context.Customers.Add(customer);
-                context.SaveChanges();
+                return context.SaveChanges();
             }
             catch (DbEntityValidationException ex)
             {
@@ -38,7 +38,7 @@ namespace QuanLySieuThi.DAO
 
                 // Throw a new exception with the full error message
                 var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
-                throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
+                return 0;
             }
         }
 
@@ -70,6 +70,12 @@ namespace QuanLySieuThi.DAO
             Customer customer = GetCustomerById(customerId);
             context.Customers.Remove(customer);
             context.SaveChanges();
+        }
+
+
+        public Customer GetByUsername(string username)
+        {
+            return context.Customers.FirstOrDefault(c => c.UserName == username);
         }
     }
 }

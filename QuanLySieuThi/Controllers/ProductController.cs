@@ -6,7 +6,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using QuanLySieuThi.DTO;
-using QuanLySieuThi.DAO;
 using QuanLySieuThi.BUS;
 
 namespace QuanLySieuThi.Controllers
