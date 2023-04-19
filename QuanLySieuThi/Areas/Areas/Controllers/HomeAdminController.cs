@@ -13,5 +13,6 @@ namespace QuanLySieuThi.Areas.Areas.Controllers
         {
             return View();
         }
+        
     }
 }

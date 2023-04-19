@@ -129,6 +129,7 @@
     <Compile Include="Areas\Areas\AreasAreaRegistration.cs" />
     <Compile Include="Areas\Areas\Controllers\HomeAdminController.cs" />
     <Compile Include="Areas\Areas\Controllers\ProductsListController.cs" />
+    <Compile Include="Areas\Areas\Controllers\UsersListController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
@@ -487,6 +488,9 @@
     <Content Include="Areas\Areas\Views\Shared\_HeaderAdmin.cshtml" />
     <Content Include="Areas\Areas\Views\Shared\NavBarAdmin.cshtml" />
     <Content Include="Areas\Areas\Views\ProductsList\ProductIndex.cshtml" />
+    <Content Include="Areas\Areas\Views\UsersList\UsersIndex.cshtml" />
+    <Content Include="Areas\Areas\Views\UsersList\EditUsersIndex.cshtml" />
+    <Content Include="Areas\Areas\Views\UsersList\AddUserIndex.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
