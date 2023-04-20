@@ -259,7 +259,7 @@
         var priceDouble = parseFloat(formattedPrice.replace(/[^0-9]/g, ""))
         var urlElement = document.getElementById("main-img").getAttribute("src");
 
-        fetch('/Cart/Index', {
+        fetch('/Cart/AddCart', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
