@@ -16,14 +16,18 @@ namespace QuanLySieuThi
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                namespaces: new[] { "QuanLySieuThi.Controllers" }
             );
 
             routes.MapRoute(
                 name: "Product",
                 url: "Home/Product/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional },
+                namespaces: new[] { "QuanLySieuThi.Controllers" }
             );
+
+          
         }
     }
 }

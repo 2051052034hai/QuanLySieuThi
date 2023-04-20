@@ -9,6 +9,19 @@ namespace QuanLySieuThi.DTO
     [Table("BillDetail")]
     public partial class BillDetail
     {
+        public BillDetail()
+        {
+
+        }
+
+        public BillDetail(int Quantity, decimal Price, int ProductID, Product product)
+        {
+            this.BillDetailID = BillDetailID;
+            this.Quantity = Quantity;
+            this.Price = Price;
+            this.ProductID = ProductID;
+            this.Product = product;
+        }
         public int BillDetailID { get; set; }
 
         public int? Quantity { get; set; }

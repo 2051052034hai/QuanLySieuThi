@@ -15,9 +15,10 @@ namespace QuanLySieuThi.Areas.Areas
         public override void RegisterArea(AreaRegistrationContext context) 
         {
             context.MapRoute(
-                "Areas_default",
-                "Areas/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                name: "Areas_default",
+                url: "Areas/{controller}/{action}/{id}",
+                defaults: new { action = "Index", id = UrlParameter.Optional },
+                namespaces: new[] { "QuanLySieuThi.Areas.Areas" }
             );
         }
     }

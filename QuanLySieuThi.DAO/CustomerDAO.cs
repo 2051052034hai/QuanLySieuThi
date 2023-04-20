@@ -19,12 +19,12 @@ namespace QuanLySieuThi.DAO
             this.context = new QuanLySieuThiContext();
         }
 
-        public void Create(Customer customer)
+        public int Create(Customer customer)
         {
             try
             {
                 context.Customers.Add(customer);
-                context.SaveChanges();
+                return context.SaveChanges();
             }
             catch (DbEntityValidationException ex)
             {
@@ -38,47 +38,44 @@ namespace QuanLySieuThi.DAO
 
                 // Throw a new exception with the full error message
                 var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
-                throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
+                return 0;
             }
         }
 
         // Read a customer by ID
         public Customer GetCustomerById(int customerId)
         {
-            return context.Customers.FirstOrDefault(c => c.CustomerID == customerId);
+            return context.Customers.Find(customerId);
         }
         public Customer ViewDetail(int id)
         {
             return context.Customers.Find(id);
         }
         // Update an existing customer
-        public void Update(Customer customer)
-        {
-            context.Entry(customer).State = EntityState.Modified;
-            context.SaveChanges();
-        }
-        
-        public bool UpdateInfo(Customer customer, string name, string phone , string address, string password)
+        public int Update(Customer customer)
         {
             try
             {
-                customer.CustomerName = name;
-                customer.CustomerPhone = phone;
-                customer.CustomerAddress = address;
-                customer.Password = password;
-                context.SaveChanges();
-                return true;
+                context.Entry(customer).State = EntityState.Modified;
+                return context.SaveChanges();
             }
-            catch(Exception ex)
+            catch
             {
-                return false;
+                return 0;
             }
         }
+
         public void Delete(int customerId)
         {
             Customer customer = GetCustomerById(customerId);
             context.Customers.Remove(customer);
             context.SaveChanges();
+        }
+
+
+        public Customer GetByUsername(string username)
+        {
+            return context.Customers.FirstOrDefault(c => c.UserName == username);
         }
     }
 }

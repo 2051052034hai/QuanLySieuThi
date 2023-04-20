@@ -29,6 +29,11 @@ namespace QuanLySieuThi.BUS
             return productDAO.GetProducts(queryParams);
         }
 
+        public object GetProduct(int? productID)
+        {
+            throw new NotImplementedException();
+        }
+
         public Product GetProduct(int id)
         {
             ProductDAO productDAO = new ProductDAO();

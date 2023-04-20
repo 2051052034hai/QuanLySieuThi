@@ -95,7 +95,7 @@ namespace QuanLySieuThi.DAO
         }
         public Product GetProductById(int id)
         {
-            return context.Products.SingleOrDefault(p => p.ProductID == id);
+            return context.Products.Find(id);
         }
         public Product AddProduct(Product product)
         {
@@ -105,7 +105,7 @@ namespace QuanLySieuThi.DAO
                 context.SaveChanges();
                 return product;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

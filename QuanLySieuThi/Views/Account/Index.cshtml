@@ -34,52 +34,43 @@
 <div class="alls">
     <div class="alls-form">
         <h4>CHỈNH SỬA TÀI KHOẢN</h4>
+        @if (ViewBag.SuccessMsg != null)
+        {
+            <div class="alert alert-success show">
+                <strong>@ViewBag.SuccessMsg</strong>
+            </div>
+        }
         @using (Html.BeginForm("Edit", "Account", FormMethod.Post))
         {
-        <form class="form-main" id="form-3">
-            <div class="form-item">
-                <label>ID: </label>
-                <input id="text" name="ID" value="@ViewBag.ID" readonly type="password" placeholder="Nhập mật khâu..." />
-                <span class="form-message"></span>
-            </div>
-            <div class="form-item">
-                <label>Tên đăng nhập: </label>
-                <input id="username" name="username" readonly value="@ViewBag.Username" type="text" placeholder="Nhập tên...">
-                <span class="form-message"></span>
-            </div>
+            <form class="form-main" id="form-3">
+                <input id="text" name="ID" value="@ViewBag.Customer.CustomerID" readonly type="hidden" placeholder="" />
+                <input id="text" name="password" value="@ViewBag.Customer.Password" readonly type="hidden" placeholder="" />
+                <input id="text" name="point" value="@ViewBag.Customer.AccumulatePoint" readonly type="hidden" placeholder="" />
+                <div class="form-item">
+                    <label>Tên đăng nhập: </label>
+                    <input id="username" name="username" readonly value="@ViewBag.Customer.UserName" type="text" placeholder="Nhập tên...">
+                    <span class="form-message"></span>
+                </div>
 
-            <div class="form-item">
-                <label>Họ tên: </label>
-                <input id="fullname" name="fullname" value="@ViewBag.FullName" type="text" placeholder="Nhập họ tên...">
-                <span class="form-message"></span>
-            </div>
-
-            <div class="form-item">
-                <label>Số điện thoại: </label>
-                <input id="phone" name="phone" value="@ViewBag.Phone" type="text" placeholder="Nhập số điện thoại...">
-                <span class="form-message"></span>
-            </div>
-
-            <div class="form-item">
-                <label>Địa chỉ: </label>
-                <input id="address" name="address" value="@ViewBag.Address" type="text" placeholder="Nhập địa chỉ...">
-                <span class="form-message"></span>
-            </div>
-
-            <div class="form-item">
-                <label>Mật khẩu: </label>
-                <input id="password" name="password" value="@ViewBag.Password" type="password" placeholder="Nhập mật khâu..." />
-                <span class="form-message"></span>
-            </div>
-
-            <div class="form-btn">
-                <button type="submit" class="form-submit">Xác nhận</button>
-
-            </div>
-
-
-
-        </form>
+                <div class="form-item">
+                    <label>Họ tên: </label>
+                    <input id="fullname" name="fullname" value="@ViewBag.Customer.CustomerName" type="text" placeholder="Nhập họ tên...">
+                    <span class="form-message"></span>
+                </div>
+                <div class="form-item">
+                    <label>Số điện thoại: </label>
+                    <input id="phone" name="phone" value="@ViewBag.Customer.CustomerPhone" type="text" placeholder="Nhập số điện thoại...">
+                    <span class="form-message"></span>
+                </div>
+                <div class="form-item">
+                    <label>Địa chỉ: </label>
+                    <input id="address" name="address" value="@ViewBag.Customer.CustomerAddress" type="text" placeholder="Nhập địa chỉ...">
+                    <span class="form-message"></span>
+                </div>
+                <div class="form-btn">
+                    <button type="submit" class="form-submit">Xác nhận</button>
+                </div>
+            </form>
         }
     </div>
 </div>
@@ -90,12 +81,10 @@
         formGroupSelector: '.form-item',
         errorSelector: '.form-message',
         rules: [
-            
             Validator.isRequired('#fullname', "Vui lòng nhập tên đầy đủ !"),
             Validator.isRequired('#address', "Vui lòng nhập địa chỉ!"),
             Validator.minLength('#password', 6),
             Validator.isEqualPhone("#phone", 10)
-           
         ],
         onSubmit: function (data) {
             const form = document.getElementById("form-3");

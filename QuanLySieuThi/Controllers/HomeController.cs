@@ -8,19 +8,13 @@ using QuanLySieuThi.DAO;
 using QuanLySieuThi.BUS;
 using System.Xml.Linq;
 using Microsoft.Ajax.Utilities;
+using QuanLySieuThi.Filter;
 
 namespace QuanLySieuThi.Controllers
 {
+    [AddCategoriesFilter]
     public class HomeController : Controller
     {
-
-        // Hàm Lấy loại sẩn phẩm từ cơ sở dữ liệu
-        public void getAllCategories()
-        {
-            CategoryBUS categoryBUS = new CategoryBUS();
-            List<Category> category = categoryBUS.GetCategories();
-            ViewBag.Categories = category;
-        }
         public ActionResult Index([Bind(Prefix = "search")] string searchKw, [Bind(Prefix = "categoryId")] string categoryId)
         {
             ProductBUS productBUS = new ProductBUS();
@@ -31,18 +25,16 @@ namespace QuanLySieuThi.Controllers
                 products = productBUS.GetProducts();
             ViewBag.Products = products;
 
-            // Lấy loại sẩn phẩm từ cơ sở dữ liệu
-            getAllCategories();
             return View();
         }
 
-        public ActionResult Product(string id)
-        {
-            ProductBUS productBUS = new ProductBUS();
-            Product product = productBUS.GetProduct(id);
-            ViewBag.Product = product;
-            return View();
-        }
+        //public ActionResult Product(string id)
+        //{
+        //    ProductBUS productBUS = new ProductBUS();
+        //    Product product = productBUS.GetProduct(id);
+        //    ViewBag.Product = product;
+        //    return View();
+        //}
 
         public ActionResult Category(string id)
         {

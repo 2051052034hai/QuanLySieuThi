@@ -1,0 +1,201 @@
+﻿
+@{
+    ViewBag.Title = "cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    h1.cart-null {
+        font-size: 30px;
+        background-color: white;
+        padding: 20px 25px;
+        text-align: center;
+        width: 100%;
+        color: #CC6633;
+    }
+
+    div.row-width {
+        background-color: white;
+       
+        margin-bottom: 50px;
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
+    .ega-footer {
+        margin-bottom: 0px;
+    }
+
+    .media-heading > a {
+        text-decoration: none;
+        margin-left: 10px;
+    }
+
+    .tr-view > td {
+        text-align: center;
+    }
+
+    div.media > .media-body {
+        padding-top: 30px;
+    }
+
+    .padding-view {
+        padding-top: 35px !important;
+    }
+
+    #exampleInputEmail1 {
+        margin-top: 20px;
+        width: 60px;
+        text-align: center;
+    }
+
+    .delete-view {
+        margin-top: 20px;
+    }
+
+    .subtotal-view {
+        font-size: 20px;
+        width: 150px;
+        padding-left: 0px;
+        margin-left: 0px;
+        color: #DD0000;
+    }
+
+    .sub-view {
+        text-align: right;
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+    .div-view {
+        display: flex;
+        padding-top: 10px;
+        padding-bottom: 15px;
+        border-top: 1px solid #DDDDDD;
+        width: 100%;
+    }
+
+        .div-view > div {
+            margin-right: 0.5%;
+        }
+
+        .div-view div:first-child {
+            margin-left: auto;
+        }
+    .text-cart {
+        color: #EE0000;
+    }
+</style>
+
+<h2 class="text-center text-cart">Giỏ Hàng</h2>
+<div class="row row-width">
+    <div class="col-sm-12 col-md-10 col-md-offset-1">
+        @if (ViewBag.Cart == null || ViewBag.Cart.Count == 0)
+        {
+            <h1 class="cart-null">Không có sản phẩm nào trong giỏ</h1>
+        }
+        else
+        {
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th>Số Lượng</th>
+                        <th class="text-center">Giá</th>
+                        <th class="text-center">Tổng</th>
+                        <th class="text-center">Thao Tác</th>
+                    </tr>
+                </thead>
+                <tbody class="all-subtotal">
+
+
+                    @foreach (var item in ViewBag.Cart)
+                    {
+                        <tr class="tr-view">
+
+                            <td class="col-sm-8 col-md-6">
+                                <div class="media">
+                                    <a class="thumbnail pull-left" href="#"> <img class="media-object" src="@item.Product.Image_Url" style="width: 72px; height: 72px;"> </a>
+
+                                    <div class="media-body">
+
+
+
+                                        @if (item.Product != null)
+                                        {
+                                            <h4 class="media-heading"><a href="#">@item.Product.ProductName</a></h4>
+                                        }
+                                        else
+                                        {
+                                            <h4 class="media-heading"><a href="#">lỗi không hiển thị</a></h4>
+                                        }
+
+                                    </div>
+
+                                </div>
+                            </td>
+
+                            <td class="col-sm-1 col-md-1 " style="text-align: center">
+                                <input type="email" class="form-control " id="exampleInputEmail1" value="@item.Quantity.ToString()">
+                            </td>
+                            <td class="col-sm-1 col-md-1 text-center padding-view"><strong>@item.Price.ToString("N0") VNĐ</strong></td>
+                            <td class="col-sm-1 col-md-1 text-center padding-view"><strong class="subtotal">@((item.Quantity * item.Price).ToString("N0")) VNĐ</strong></td>
+                            <td class="col-sm-1 col-md-1">
+                                <button type="button" class="btn btn-danger delete-view">
+                                    <span class="glyphicon glyphicon-remove "></span> Xoá
+                                </button>
+                            </td>
+                        </tr>
+                    }
+
+                    <tr>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>   </td>
+                        <td><h3 class="sub-view">Tổng tiền: </h3></td>
+                        <td class="text-right "><h3 class="subtotal-view"><strong id="strongSubtotal"> SUBTOTAL</strong></h3></td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <div class="div-view">
+                <div>
+                    <a class="btn btn-default" href="@Url.Action("Index", "Home")">
+                        <span class="glyphicon glyphicon-shopping-cart"></span> Tiếp tục mua sắm
+                    </a>
+                </div>
+                <div>
+                    @using (Html.BeginForm("Checkout", "Cart", FormMethod.Post))
+                    {
+                        <button type="button" class="btn btn-success">
+                            Thanh toán <span class="glyphicon glyphicon-play"></span>
+                        </button>
+                    }
+                    </div>
+    
+                </div>
+
+        }
+
+
+
+    </div>
+</div>
+
+<script>
+    var tbodyElement = document.getElementsByClassName("all-subtotal")[0];
+    var strongElements = tbodyElement.querySelectorAll("strong.subtotal");
+    var subTotal = document.getElementById("strongSubtotal")
+    var sum = 0;
+
+    for (var i = 0; i < strongElements.length; i++) {
+        // Thực hiện các xử lý với các thẻ td có class là "subtotal" ở đây
+        // Ví dụ:
+        var newStrongElement = parseFloat(strongElements[i].innerHTML.replace(/[^0-9]/g, ""))
+        sum += newStrongElement;
+        subTotal.innerHTML = sum.toLocaleString().replaceAll(".", ",") + " VNĐ";
+    }
+</script>

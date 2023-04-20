@@ -34,8 +34,14 @@
 <div class="alls">
     <div class="alls-form">
         <h4>ĐĂNG KÝ TÀI KHOẢN</h4>
-
-        <form class="form-main" id="form-1">
+        @if (ViewBag.FailMsg != null)
+        {
+            <div class="alert alert-danger show">
+                <strong>@ViewBag.FailMsg</strong>
+            </div>
+        }
+        @using (Html.BeginForm("AddCustomer", "Login", FormMethod.Post, new { @class = "form-main", id = "form-1" }))
+        {
             <div class="form-item">
                 <label>Tên đăng nhập: </label>
                 <input id="username" name="username" type="text" placeholder="Nhập tên...">
@@ -84,8 +90,7 @@
                     <a href="" class="btn  btn-facebook fb"> <i class="fab fa-facebook-f"></i>   Đăng nhập bằng facebook</a>
                 </div>
             </div>
-
-        </form>
+        }
     </div>
 </div>
 
@@ -104,20 +109,6 @@
             Validator.isConfirmed('#cofirmpassword', function () {
                 return document.querySelector('#form-1 #password').value;
             }, 'Mật Khẩu nhập lại không chính xác!'),
-        ],
-        onSubmit: function (data) {
-            const form = document.getElementById("form-1");
-            const formData = new FormData(form)
-            fetch('/Login/AddCustomer', {
-                method: 'POST',
-                body: formData
-            })
-                .then(response => {
-                    console.log("fetch dữ liệu thành công lên server");
-                })
-                .catch(error => {
-                    console.log("fetch dữ liệu thất bại");
-                });
-        }
+        ]
     })
 </script>
