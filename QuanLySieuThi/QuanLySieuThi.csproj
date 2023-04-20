@@ -491,6 +491,8 @@
     <Content Include="Areas\Areas\Views\UsersList\UsersIndex.cshtml" />
     <Content Include="Areas\Areas\Views\UsersList\EditUsersIndex.cshtml" />
     <Content Include="Areas\Areas\Views\UsersList\AddUserIndex.cshtml" />
+    <Content Include="Areas\Areas\Views\ProductsList\EditProductIndex.cshtml" />
+    <Content Include="Areas\Areas\Views\ProductsList\AddProductIndex.cshtml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />

@@ -27,12 +27,7 @@ namespace QuanLySieuThi.Areas.Areas.Controllers
         {
             EmployeeDAO empDAO = new EmployeeDAO();
             Employee emp = empDAO.ViewDetail(id);
-            ViewBag.Username = emp.UserName;
-            ViewBag.FullName = emp.EmployeeName;
-            ViewBag.Phone = emp.Phone;
-            ViewBag.Address = emp.EmployeeAddress;
-            ViewBag.Password = emp.Password;
-            ViewBag.ID = emp.EmployeeID;
+            ViewBag.Employee = emp;
 
             return View(emp);
         }
@@ -55,7 +50,6 @@ namespace QuanLySieuThi.Areas.Areas.Controllers
         public ActionResult Delete(int id)
         {
             EmployeeDAO dao = new EmployeeDAO();
-            Employee emp = new Employee();
             dao.DeleteEmployee(id);
             return RedirectToAction("UsersIndex", "UsersList");
         }
