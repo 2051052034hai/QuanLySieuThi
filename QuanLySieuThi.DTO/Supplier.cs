@@ -15,10 +15,10 @@ namespace QuanLySieuThi.DTO
             ImportBills = new HashSet<ImportBill>();
         }
 
-        public int SupplierID { get; set; }
+        public int ID { get; set; }
 
         [StringLength(50)]
-        public string SupplierName { get; set; }
+        public string Name { get; set; }
 
         public string Description { get; set; }
 

@@ -15,7 +15,7 @@ namespace QuanLySieuThi.DTO
             EventDetails = new HashSet<EventDetail>();
         }
 
-        public int EventID { get; set; }
+        public int ID { get; set; }
 
         public DateTime StartDate { get; set; }
 

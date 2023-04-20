@@ -14,29 +14,28 @@ namespace QuanLySieuThi.DTO
         {
             Bills = new HashSet<Bill>();
         }
-
         public Customer(string customerName, string customerAddress, string customerPhone, string password, string username)
         {
-            CustomerName = customerName;
-            CustomerAddress = customerAddress;
-            CustomerPhone = customerPhone;
+            Name = customerName;
+            Address = customerAddress;
+            Phone = customerPhone;
             Password = password;
             UserName = username;
             AccumulatePoint = 0;
-        }
-        
+            Bills = new HashSet<Bill>();
 
-        public int CustomerID { get; set; }
+        }
+        public int ID { get; set; }
 
         [Required]
         [StringLength(50)]
-        public string CustomerName { get; set; }
+        public string Name { get; set; }
 
         [StringLength(100)]
-        public string CustomerAddress { get; set; }
+        public string Address { get; set; }
 
         [StringLength(10)]
-        public string CustomerPhone { get; set; }
+        public string Phone { get; set; }
 
         [Required]
         [StringLength(30)]

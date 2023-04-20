@@ -9,7 +9,7 @@ using QuanLySieuThi.Filter;
 
 namespace QuanLySieuThi.Controllers
 {
-    [AddCategoriesFilter]
+    [CommonAttributeFilter]
     [AuthenticationFilter]
     public class AccountController : Controller
     {

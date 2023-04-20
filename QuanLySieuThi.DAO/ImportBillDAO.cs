@@ -26,7 +26,7 @@ namespace QuanLySieuThi.DAO
             return context.ImportBills
                 .Include(x => x.Supplier)
                 .Include(x => x.ImportBillDetails)
-                .SingleOrDefault(x => x.ImportBillID == id);
+                .SingleOrDefault(x => x.ID == id);
         }
 
         public List<ImportBill> GetByMonth(int year, int month)
@@ -60,7 +60,7 @@ namespace QuanLySieuThi.DAO
                     // Update product unit in stock and import bill subtotal
                     foreach (var detail in details)
                     {
-                        var product = context.Products.FirstOrDefault(p => p.ProductID == detail.ProductID);
+                        var product = context.Products.FirstOrDefault(p => p.ID == detail.ID);
                         if (product != null)
                         {
                             product.UnitInStock += detail.Quantity ?? 0;

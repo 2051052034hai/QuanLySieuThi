@@ -36,9 +36,9 @@ namespace QuanLySieuThi.BUS
         {
             CustomerDAO customerDAO = new CustomerDAO();
             Customer customer = customerDAO.GetCustomerById(int.Parse(ID));
-            customer.CustomerName = fullname;
-            customer.CustomerPhone = phone;
-            customer.CustomerAddress = address; 
+            customer.Name = fullname;
+            customer.Phone = phone;
+            customer.Address = address; 
             customer.Password = password;
             customer.AccumulatePoint = point;
             if (customerDAO.Update(customer) > 0)

@@ -26,7 +26,7 @@ namespace QuanLySieuThi.DAO
         }
         public List<Product> GetProducts(string keyword)
         {
-            List<Product> products = context.Products.Where(p => p.ProductName.Contains(keyword)).ToList();
+            List<Product> products = context.Products.Where(p => p.Name.Contains(keyword)).ToList();
             return products;
         }
         public void DeleteProduct(int id)
@@ -42,7 +42,7 @@ namespace QuanLySieuThi.DAO
             if (queryParams.ContainsKey("kw"))
             {
                 string keyword = queryParams["kw"];
-                products = products.Where(p => p.ProductName.Contains(keyword));
+                products = products.Where(p => p.Name.Contains(keyword));
             }
             if (queryParams.ContainsKey("categoryId") && queryParams["categoryId"] != null)
             {
@@ -74,11 +74,11 @@ namespace QuanLySieuThi.DAO
                 throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
             }
         }
-        public bool UpdateInfo(Product product, string ProductName, string UnitPrice, string UnitInStock, string CateID, string Description, string SuppilerID,string Image_Url)
+        public bool UpdateInfo(Product product, string Name, string UnitPrice, string UnitInStock, string CateID, string Description, string SuppilerID,string Image_Url)
         {
             try
             {
-                product.ProductName = ProductName;
+                product.Name = Name;
                 product.UnitPrice = decimal.Parse(UnitPrice);
                 product.UnitInStock = int.Parse(UnitInStock);
                 product.CateID = int.Parse(CateID);

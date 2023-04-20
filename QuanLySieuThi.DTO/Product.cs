@@ -16,10 +16,9 @@ namespace QuanLySieuThi.DTO
             EventDetails = new HashSet<EventDetail>();
             ImportBillDetails = new HashSet<ImportBillDetail>();
         }
-
         public Product(string productName, string unitPrice, string unitInStock, string cateID, string suppilerID, string description, string image_Url)
         {
-            ProductName = productName;
+            Name = productName;
             UnitPrice = decimal.Parse(unitPrice);
             UnitInStock = int.Parse(unitInStock);
             CateID = int.Parse(cateID);
@@ -28,11 +27,11 @@ namespace QuanLySieuThi.DTO
             Image_Url = image_Url;
         }
 
-        public int ProductID { get; set; }
+        public int ID { get; set; }
 
         [Required]
-        [StringLength(100)]
-        public string ProductName { get; set; }
+        [StringLength(50)]
+        public string Name { get; set; }
 
         [Column(TypeName = "money")]
         public decimal UnitPrice { get; set; }
@@ -41,8 +40,6 @@ namespace QuanLySieuThi.DTO
 
         public int CateID { get; set; }
 
-        [Required]
-        [StringLength(50)]
         public string SuppilerID { get; set; }
 
         public string Description { get; set; }

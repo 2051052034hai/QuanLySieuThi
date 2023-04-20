@@ -27,10 +27,10 @@ namespace QuanLySieuThi.DAO
                     context.Bills.Add(bill);
                     context.SaveChanges();
 
-                    // Assign BillID to each BillDetail
+                    // Assign ID to each BillDetail
                     foreach (var billDetail in billDetails)
                     {
-                        billDetail.BillID = bill.BillID;
+                        billDetail.ID = bill.ID;
                     }
 
                     // Add bill details to database
@@ -38,7 +38,7 @@ namespace QuanLySieuThi.DAO
                     context.SaveChanges();
 
                     transaction.Commit();
-                    return bill.BillID;
+                    return bill.ID;
                 }
                 catch (Exception)
                 {
@@ -50,7 +50,7 @@ namespace QuanLySieuThi.DAO
 
         public Bill GetBillById(int id)
         {
-            return context.Bills.FirstOrDefault(b => b.BillID == id);
+            return context.Bills.FirstOrDefault(b => b.ID == id);
         }
 
         public List<Bill> GetAll()

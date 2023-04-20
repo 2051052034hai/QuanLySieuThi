@@ -40,7 +40,7 @@
                         foreach (var c in ViewBag.Categories)
                         {
                         <li>
-                            <a href="@Url.Action(actionName: "Index", controllerName: "Home", routeValues: new { categoryId = c.CateID })">
+                            <a href="@Url.Action(actionName: "Index", controllerName: "Home", routeValues: new { categoryId = c.ID })">
                                 <span class="">
                                     <img alt="Tất cả sản phẩm"
                                          src="~/static/image/widget-link.png">

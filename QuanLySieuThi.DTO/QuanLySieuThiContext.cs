@@ -1,10 +1,10 @@
-using System;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Data.Entity;
-using System.Linq;
-
 namespace QuanLySieuThi.DTO
 {
+    using System;
+    using System.Data.Entity;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Linq;
+
     public partial class QuanLySieuThiContext : DbContext
     {
         public QuanLySieuThiContext()
@@ -42,15 +42,19 @@ namespace QuanLySieuThi.DTO
             modelBuilder.Entity<Category>()
                 .HasMany(e => e.Products)
                 .WithRequired(e => e.Category)
+                .HasForeignKey(e => e.CateID)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Customer>()
-                .HasMany(e => e.Bills)
-                .WithRequired(e => e.Customer)
-                .WillCascadeOnDelete(false);
+                .Property(e => e.Phone)
+                .IsUnicode(false);
 
-            modelBuilder.Entity<Employee>()
-                .Property(e => e.EmployeeName)
+            modelBuilder.Entity<Customer>()
+                .Property(e => e.UserName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Customer>()
+                .Property(e => e.Password)
                 .IsUnicode(false);
 
             modelBuilder.Entity<Employee>()
@@ -59,9 +63,12 @@ namespace QuanLySieuThi.DTO
                 .IsUnicode(false);
 
             modelBuilder.Entity<Employee>()
-                .HasMany(e => e.Bills)
-                .WithRequired(e => e.Employee)
-                .WillCascadeOnDelete(false);
+                .Property(e => e.UserName)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<Employee>()
+                .Property(e => e.Password)
+                .IsUnicode(false);
 
             modelBuilder.Entity<Event>()
                 .HasMany(e => e.EventDetails)
@@ -102,11 +109,6 @@ namespace QuanLySieuThi.DTO
             modelBuilder.Entity<Product>()
                 .HasMany(e => e.ImportBillDetails)
                 .WithRequired(e => e.Product)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<Supplier>()
-                .HasMany(e => e.ImportBills)
-                .WithRequired(e => e.Supplier)
                 .WillCascadeOnDelete(false);
         }
     }

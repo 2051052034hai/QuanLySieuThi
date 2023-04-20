@@ -9,7 +9,7 @@ namespace QuanLySieuThi.DTO
     [Table("EventDetail")]
     public partial class EventDetail
     {
-        public int EventDetailID { get; set; }
+        public int ID { get; set; }
 
         public int EventID { get; set; }
 

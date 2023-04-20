@@ -13,7 +13,7 @@ using QuanLySieuThi.Filter;
 
 namespace QuanLySieuThi.Controllers
 {
-    [AddCategoriesFilter]
+    [CommonAttributeFilter]
     public class CartController : Controller
     {
         public void getAllCategories()
@@ -45,12 +45,6 @@ namespace QuanLySieuThi.Controllers
         // GET: Cart
         public ActionResult Index()
         {
-
-            var cart = Session["Cart"] as List<Product> ?? new List<Product>();
-            Session["Cart"] = cart;
-
-            getAllCategories();
-
             var cart = this.Cart;
 
             ViewBag.Cart = cart;
@@ -80,7 +74,7 @@ namespace QuanLySieuThi.Controllers
                 {
                     // Nếu sản phẩm đã tồn tại, cập nhật trường quality của sản phẩm đó
                     existingBillDetail.Quantity += productQuality;
-                   
+
                 }
                 else
                 {
@@ -90,7 +84,7 @@ namespace QuanLySieuThi.Controllers
 
                     BillDetail newBillDetail = new BillDetail(productQuality, productPrice, productId, p);
 
-        cart.Add(newBillDetail);
+                    cart.Add(newBillDetail);
                 }
 
                 Session["Cart"] = cart;
@@ -109,7 +103,7 @@ namespace QuanLySieuThi.Controllers
             int total = 0;
             foreach (var item in cart)
             {
-              
+
                 total += (int)item.Quantity * (int)item.Price;
             }
 

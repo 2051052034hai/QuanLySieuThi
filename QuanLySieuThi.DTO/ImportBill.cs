@@ -15,13 +15,13 @@ namespace QuanLySieuThi.DTO
             ImportBillDetails = new HashSet<ImportBillDetail>();
         }
 
-        public int ImportBillID { get; set; }
+        public int ID { get; set; }
 
         public DateTime? CreatedDate { get; set; }
 
-        public int SupplierID { get; set; }
+        public int? SupplierID { get; set; }
 
-        public int EmployeeID { get; set; }
+        public int? EmployeeID { get; set; }
 
         [Column(TypeName = "money")]
         public decimal? SubTotal { get; set; }

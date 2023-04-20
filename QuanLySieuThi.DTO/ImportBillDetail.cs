@@ -9,7 +9,7 @@ namespace QuanLySieuThi.DTO
     [Table("ImportBillDetail")]
     public partial class ImportBillDetail
     {
-        public int ImportBillDetailID { get; set; }
+        public int ID { get; set; }
 
         public int? Quantity { get; set; }
 

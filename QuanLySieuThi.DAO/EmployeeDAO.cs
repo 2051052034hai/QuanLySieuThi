@@ -40,9 +40,9 @@ namespace QuanLySieuThi.DAO
         {
             try
             {
-                employee.EmployeeName = name;
+                employee.Name = name;
                 employee.Phone = phone;
-                employee.EmployeeAddress = address;
+                employee.Address = address;
                 employee.Password = password;
                 db.SaveChanges();
                 return true;
@@ -61,13 +61,13 @@ namespace QuanLySieuThi.DAO
         {
             try
             {
-                var existingEmployee = db.Employees.Find(employee.EmployeeID);
+                var existingEmployee = db.Employees.Find(employee.ID);
 
                 if (existingEmployee != null)
                 {
                     // Update existing employee entity properties
-                    existingEmployee.EmployeeName = employee.EmployeeName;
-                    existingEmployee.EmployeeAddress = employee.EmployeeAddress;
+                    existingEmployee.Name = employee.Name;
+                    existingEmployee.Address = employee.Address;
                     existingEmployee.Phone = employee.Phone;
                     existingEmployee.UserName = employee.UserName;
                     existingEmployee.Password = employee.Password;

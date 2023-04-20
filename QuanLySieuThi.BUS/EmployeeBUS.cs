@@ -29,7 +29,7 @@ namespace QuanLySieuThi.BUS
 
         public bool AddEmployee(Employee employee)
         {
-            if (employee != null && !string.IsNullOrEmpty(employee.EmployeeName) && !string.IsNullOrEmpty(employee.UserName) && !string.IsNullOrEmpty(employee.Password))
+            if (employee != null && !string.IsNullOrEmpty(employee.Name) && !string.IsNullOrEmpty(employee.UserName) && !string.IsNullOrEmpty(employee.Password))
             {
                 employee.Password = EncryptPassword(employee.Password);
                 return employeeDAO.AddEmployee(employee) > 0;
@@ -39,7 +39,7 @@ namespace QuanLySieuThi.BUS
 
         public bool UpdateEmployee(Employee employee)
         {
-            if (employee != null && employee.EmployeeID > 0 && !string.IsNullOrEmpty(employee.EmployeeName) && !string.IsNullOrEmpty(employee.UserName) && !string.IsNullOrEmpty(employee.Password))
+            if (employee != null && employee.ID > 0 && !string.IsNullOrEmpty(employee.Name) && !string.IsNullOrEmpty(employee.UserName) && !string.IsNullOrEmpty(employee.Password))
             {
                 employee.Password = EncryptPassword(employee.Password);
                 return employeeDAO.UpdateEmployee(employee) > 0;

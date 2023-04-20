@@ -11,7 +11,7 @@ using QuanLySieuThi.Filter;
 
 namespace QuanLySieuThi.Controllers
 {
-    [AddCategoriesFilter]
+    [CommonAttributeFilter]
     public class ProductController : Controller
     {
         public ActionResult Index()

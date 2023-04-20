@@ -37,9 +37,9 @@ namespace QuanLySieuThi.DAO
         }
 
         // Read a supplier by name
-        public Supplier GetSupplierByName(string supplierName)
+        public Supplier GetSupplierByName(string Name)
         {
-            return context.Suppliers.FirstOrDefault(s => s.SupplierName == supplierName);
+            return context.Suppliers.FirstOrDefault(s => s.Name == Name);
         }
 
         // Update an existing supplier

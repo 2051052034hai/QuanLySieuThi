@@ -17,22 +17,23 @@ namespace QuanLySieuThi.DTO
 
         public Employee(string employeeName, string employeeAddress, string phone, string userName, string password, string role)
         {
-            EmployeeName = employeeName;
-            EmployeeAddress = employeeAddress;
+            Name = employeeName;
+            Address = employeeAddress;
             Phone = phone;
             UserName = userName;
             Password = password;
             Role = role;
+            Bills = new HashSet<Bill>();
         }
 
-        public int EmployeeID { get; set; }
+        public int ID { get; set; }
 
         [Required]
         [StringLength(50)]
-        public string EmployeeName { get; set; }
+        public string Name { get; set; }
 
         [StringLength(100)]
-        public string EmployeeAddress { get; set; }
+        public string Address { get; set; }
 
         [StringLength(10)]
         public string Phone { get; set; }
@@ -44,6 +45,8 @@ namespace QuanLySieuThi.DTO
         [Required]
         [StringLength(50)]
         public string Password { get; set; }
+
+        public bool? Active { get; set; }
 
         [StringLength(10)]
         public string Role { get; set; }

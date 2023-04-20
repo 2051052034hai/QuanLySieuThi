@@ -27,7 +27,7 @@ namespace QuanLySieuThi.DAO
 
                     foreach (var detail in eventDetails)
                     {
-                        detail.EventID = eventModel.EventID;
+                        detail.ID = eventModel.ID;
                         context.EventDetails.Add(detail);
                     }
 
@@ -49,11 +49,11 @@ namespace QuanLySieuThi.DAO
             {
 
 
-                var existingEvent = context.Events.Find(eventModel.EventID);
+                var existingEvent = context.Events.Find(eventModel.ID);
 
                 if (existingEvent == null)
                 {
-                    throw new Exception($"Event with ID {eventModel.EventID} not found.");
+                    throw new Exception($"Event with ID {eventModel.ID} not found.");
                 }
 
                 existingEvent.StartDate = eventModel.StartDate;
@@ -71,7 +71,7 @@ namespace QuanLySieuThi.DAO
         public Event GetById(int id)
         {
             return context.Events
-                     .FirstOrDefault(e => e.EventID == id);
+                     .FirstOrDefault(e => e.ID == id);
         }
 
         public List<Event> GetCurrentEvents()

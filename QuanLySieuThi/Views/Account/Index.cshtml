@@ -43,7 +43,7 @@
         @using (Html.BeginForm("Edit", "Account", FormMethod.Post))
         {
             <form class="form-main" id="form-3">
-                <input id="text" name="ID" value="@ViewBag.Customer.CustomerID" readonly type="hidden" placeholder="" />
+                <input id="text" name="ID" value="@ViewBag.Customer.ID" readonly type="hidden" placeholder="" />
                 <input id="text" name="password" value="@ViewBag.Customer.Password" readonly type="hidden" placeholder="" />
                 <input id="text" name="point" value="@ViewBag.Customer.AccumulatePoint" readonly type="hidden" placeholder="" />
                 <div class="form-item">
@@ -54,17 +54,17 @@
 
                 <div class="form-item">
                     <label>Họ tên: </label>
-                    <input id="fullname" name="fullname" value="@ViewBag.Customer.CustomerName" type="text" placeholder="Nhập họ tên...">
+                    <input id="fullname" name="fullname" value="@ViewBag.Customer.Name" type="text" placeholder="Nhập họ tên...">
                     <span class="form-message"></span>
                 </div>
                 <div class="form-item">
                     <label>Số điện thoại: </label>
-                    <input id="phone" name="phone" value="@ViewBag.Customer.CustomerPhone" type="text" placeholder="Nhập số điện thoại...">
+                    <input id="phone" name="phone" value="@ViewBag.Customer.Phone" type="text" placeholder="Nhập số điện thoại...">
                     <span class="form-message"></span>
                 </div>
                 <div class="form-item">
                     <label>Địa chỉ: </label>
-                    <input id="address" name="address" value="@ViewBag.Customer.CustomerAddress" type="text" placeholder="Nhập địa chỉ...">
+                    <input id="address" name="address" value="@ViewBag.Customer.Address" type="text" placeholder="Nhập địa chỉ...">
                     <span class="form-message"></span>
                 </div>
                 <div class="form-btn">

@@ -86,19 +86,19 @@
                             <div class="owl-item active" style="width: 190px;">
                                 <div class="item">
                                     <a class="ega-home-product-link"
-                                       href="/Product/Product/@product.ProductID"
-                                       title="@product.ProductName">
+                                       href="/Product/Product/@product.ID"
+                                       title="@product.Name">
                                         <img class="center-block"
                                              src="@product.Image_Url"
-                                             alt="@product.ProductName">
+                                             alt="@product.Name">
                                         <div>
                                             <h3 class="ega-home-product-name">
-                                                @product.ProductName
+                                                @product.Name
                                             </h3>
                                             <div class="ega-main-price-home">
 
                                                 <script>
-                                                    var formattedPrice = "@String.Format("{0:C0}đ", product.UnitPrice)".replace("$", "");
+                                                    var formattedPrice = "@String.Format("{0:C0}đ", product.UnitPrice)".replace("Rp", "");
                                                     document.write(formattedPrice);
                                                 </script>
                                             </div>

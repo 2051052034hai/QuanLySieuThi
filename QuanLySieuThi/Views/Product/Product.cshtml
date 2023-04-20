@@ -69,14 +69,14 @@
                         </div>
                         <div class="col-xs-12 col-sm-6">
                             <h1 class="ega-product-title">
-                                @ViewBag.product.ProductName
+                                @ViewBag.product.Name
                             </h1>
                             <div itemscope="itemscope" itemtype="http://schema.org/Offer" class="ega-show-after"
                                  style="display: block;">
                                 <strong itemprop="price"
                                         class="ega-pr-page-price">
                                     <script>
-                                        var formattedPrice = "@String.Format("{0:C0}đ", @ViewBag.product.UnitPrice)".replace("$", "");
+                                        var formattedPrice = "@String.Format("{0:C0}đ", @ViewBag.product.UnitPrice)".replace("Rp", "");
                                         document.write(formattedPrice);
                                     </script>
 

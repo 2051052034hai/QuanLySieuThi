@@ -15,8 +15,7 @@ namespace QuanLySieuThi.DTO
             Products = new HashSet<Product>();
         }
 
-        [Key]
-        public int CateID { get; set; }
+        public int ID { get; set; }
 
         [Required]
         [StringLength(50)]

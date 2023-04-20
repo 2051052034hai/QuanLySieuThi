@@ -12,7 +12,7 @@ using QuanLySieuThi.Filter;
 
 namespace QuanLySieuThi.Controllers
 {
-    [AddCategoriesFilter]
+    [CommonAttributeFilter]
     public class HomeController : Controller
     {
         public ActionResult Index([Bind(Prefix = "search")] string searchKw, [Bind(Prefix = "categoryId")] string categoryId)

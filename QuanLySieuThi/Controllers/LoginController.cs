@@ -13,7 +13,7 @@ using QuanLySieuThi.Filter;
 
 namespace QuanLySieuThi.Controllers
 {
-    [AddCategoriesFilter]
+    [CommonAttributeFilter]
     public class LoginController : Controller
     {
         // GET: Login
@@ -74,7 +74,6 @@ namespace QuanLySieuThi.Controllers
         }
 
         [HttpGet]
-        [AuthenticationFilter]
         public ViewResult Register()
         {
             ViewBag.FailMsg = TempData["FailMsg"] as string;
@@ -83,7 +82,6 @@ namespace QuanLySieuThi.Controllers
         
         
         [HttpPost]
-        [AuthenticationFilter]
         public ActionResult AddCustomer()
         {
             // Dữ liệu nhận được từ client fetch lên

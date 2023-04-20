@@ -59,7 +59,7 @@
                             else
                             {
                                 <span class="hidden-xs ega-header-top-item">
-                                    <span>Welcome @currentUser.CustomerID</span>
+                                    <span>Welcome @currentUser.Name</span>
                                     <span>@Html.ActionLink("Đăng xuất", "Logout", "Login", null, new { @class = "ega-a-account-header", style = "font-size: 12px" })</span>
                                 </span>
                             }
@@ -98,14 +98,14 @@
                             {
                                 <!--submenu-->
                                 <li class="dropdown yamm-fw ega-dropdown-menu li-ega-menu-no-mega">
-                                    <a href="@Url.Action(actionName: "Index", controllerName: "Home", routeValues: new { categoryId = c.CateID })" title="Sản phẩm"
+                                    <a href="@Url.Action(actionName: "Index", controllerName: "Home", routeValues: new { categoryId = c.ID })" title="Sản phẩm"
                                        data-toggle="dropdown" class="dropdown-toggle hidden-xs hidden-sm"
                                        aria-expanded="true">
                                         @c.Name
                                         <b class="caret hidden-xs"></b>
                                     </a>
                                     <div class="visible-ega-table-xs ega-menu-xs-drop-down">
-                                        <a href="@Url.Action(actionName: "Index", controllerName: "Home", routeValues: new { categoryId = c.CateID })" title="Sản phẩm">
+                                        <a href="@Url.Action(actionName: "Index", controllerName: "Home", routeValues: new { categoryId = c.ID })" title="Sản phẩm">
                                             Sản phẩm
                                         </a>
                                         <a href="javascript:void(0)" class="ega-menu-right-down-ico">
