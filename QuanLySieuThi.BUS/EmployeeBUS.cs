@@ -57,6 +57,16 @@ namespace QuanLySieuThi.BUS
             // Implement your own password encryption logic here
             return password;
         }
+
+        public Employee Authenticate(string username, string password)
+        {
+            Employee employee = employeeDAO.GetByUsername(username);
+            if (employee == null || !employee.Password.Equals(password))
+            {
+                return null;
+            }
+            return employee;
+        }
     }
 
 }

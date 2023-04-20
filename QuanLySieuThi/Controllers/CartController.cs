@@ -9,10 +9,11 @@ using QuanLySieuThi.BUS;
 using Newtonsoft.Json;
 using System.IO;
 using Newtonsoft.Json.Linq;
+using QuanLySieuThi.Filter;
 
 namespace QuanLySieuThi.Controllers
 {
-
+    [AddCategoriesFilter]
     public class CartController : Controller
     {
         public void getAllCategories()
@@ -44,6 +45,10 @@ namespace QuanLySieuThi.Controllers
         // GET: Cart
         public ActionResult Index()
         {
+
+            var cart = Session["Cart"] as List<Product> ?? new List<Product>();
+            Session["Cart"] = cart;
+
             getAllCategories();
 
             var cart = this.Cart;
@@ -85,7 +90,7 @@ namespace QuanLySieuThi.Controllers
 
                     BillDetail newBillDetail = new BillDetail(productQuality, productPrice, productId, p);
 
-                    cart.Add(newBillDetail);
+        cart.Add(newBillDetail);
                 }
 
                 Session["Cart"] = cart;

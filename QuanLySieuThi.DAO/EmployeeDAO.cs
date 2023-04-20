@@ -86,6 +86,11 @@ namespace QuanLySieuThi.DAO
             var employee = db.Employees.Find(id);
             return employee.Role == role;
         }
+
+        public Employee GetByUsername(string username)
+        {
+            return db.Employees.FirstOrDefault(e => e.UserName == username);
+        }
     }
 
 }

@@ -38,12 +38,31 @@
 <div class="alls">
     <div class="alls-form">
         <h4>ĐĂNG NHẬP TÀI KHOẢN</h4>
-
-        @using (Html.BeginForm("Index", "Login", FormMethod.Post, new { @class = "form-main", id = "form-2" }))
+        @if (ViewBag.FailMsg != null)
+        {
+            <div class="alert alert-danger show">
+                <strong>@ViewBag.FailMsg</strong>
+            </div>
+        }
+        @using (Html.BeginForm("Login", "Login", FormMethod.Post, new { @class = "form-main", id = "form-2" }))
         {
             <div class="form-item">
+                <label>Chức vụ: </label>
+                <select name="loginType">
+                    <option value="customer" selected>Khách hàng</option>
+                    <option value="employee">Nhân viên</option>
+                </select>
+            </div>
+            <div class="form-item">
                 <label>Tên đăng nhập: </label>
-                <input id="fullname" name="username" type="text" placeholder="Nhập tên...">
+                @if (ViewBag.Username != null)
+                {
+                    <input id="fullname" name="username" type="text" placeholder="Nhập tên..." value="@ViewBag.Username">
+                }
+                else
+                {
+                    <input id="fullname" name="username" type="text" placeholder="Nhập tên...">
+                }
                 <span class="form-message"></span>
             </div>
 
@@ -63,8 +82,6 @@
                 <a href="" class="btn  btn-facebook fb"> <i class="fab fa-facebook-f"></i>   Đăng nhập bằng facebook</a>
             </div>
         </div>
-
-        </form>
     </div>
 </div>
 
@@ -76,9 +93,6 @@
         rules: [
             Validator.isRequired('#fullname', "Vui lòng nhập tên đầy đủ !"),
             Validator.minLength('#password', 6)
-        ],
-        onSubmit: function (data) {
-            console.log(data)
-        }
+        ]
     })
 </script>
