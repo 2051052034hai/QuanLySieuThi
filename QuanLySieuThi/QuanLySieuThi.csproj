@@ -138,6 +138,7 @@
     <Compile Include="Areas\Areas\AreasAreaRegistration.cs" />
     <Compile Include="Areas\Areas\Controllers\HomeAdminController.cs" />
     <Compile Include="Areas\Areas\Controllers\ProductsListController.cs" />
+    <Compile Include="Areas\Areas\Controllers\UsersListController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -810,6 +811,12 @@
     <Content Include="Areas\Areas\Views\Shared\_HeaderAdmin.cshtml" />
     <Content Include="Areas\Areas\Views\Shared\NavBarAdmin.cshtml" />
     <Content Include="Areas\Areas\Views\ProductsList\ProductIndex.cshtml" />
+
+    <Content Include="Areas\Areas\Views\UsersList\UsersIndex.cshtml" />
+    <Content Include="Areas\Areas\Views\UsersList\EditUsersIndex.cshtml" />
+    <Content Include="Areas\Areas\Views\UsersList\AddUserIndex.cshtml" />
+    <Content Include="Areas\Areas\Views\ProductsList\EditProductIndex.cshtml" />
+    <Content Include="Areas\Areas\Views\ProductsList\AddProductIndex.cshtml" />
     <Content Include="Areas\Admin\Views\web.config" />
     <Content Include="Areas\Admin\assets\vendor\fontsv\circular-std\CircularStd-Black.woff" />
     <Content Include="Areas\Admin\assets\vendor\fontsv\circular-std\CircularStd-BlackItalic.woff" />

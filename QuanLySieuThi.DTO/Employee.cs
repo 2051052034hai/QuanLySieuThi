@@ -15,6 +15,16 @@ namespace QuanLySieuThi.DTO
             Bills = new HashSet<Bill>();
         }
 
+        public Employee(string employeeName, string employeeAddress, string phone, string userName, string password, string role)
+        {
+            EmployeeName = employeeName;
+            EmployeeAddress = employeeAddress;
+            Phone = phone;
+            UserName = userName;
+            Password = password;
+            Role = role;
+        }
+
         public int EmployeeID { get; set; }
 
         [Required]

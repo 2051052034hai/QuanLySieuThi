@@ -17,6 +17,17 @@ namespace QuanLySieuThi.DTO
             ImportBillDetails = new HashSet<ImportBillDetail>();
         }
 
+        public Product(string productName, string unitPrice, string unitInStock, string cateID, string suppilerID, string description, string image_Url)
+        {
+            ProductName = productName;
+            UnitPrice = decimal.Parse(unitPrice);
+            UnitInStock = int.Parse(unitInStock);
+            CateID = int.Parse(cateID);
+            SuppilerID = suppilerID;
+            Description = description;
+            Image_Url = image_Url;
+        }
+
         public int ProductID { get; set; }
 
         [Required]

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Data.Entity.Validation;
 namespace QuanLySieuThi.DAO
 {
     public class EmployeeDAO
@@ -17,16 +17,41 @@ namespace QuanLySieuThi.DAO
         {
             db = new QuanLySieuThiContext();
         }
+        
+        public List<Employee> GetEmployees()
+        {
+            return db.Employees.ToList();
+        }
+        public Employee ViewDetail(int id)
+        {
+            return db.Employees.Find(id);
+        }
 
         public List<Employee> GetAllEmployees()
         {
             return db.Employees.ToList();
         }
+        
         public Employee GetEmployeeById(int id)
         {
             return db.Employees.Find(id);
         }
-
+        public bool UpdateInfo(Employee employee, string name, string phone, string address, string password)
+        {
+            try
+            {
+                employee.EmployeeName = name;
+                employee.Phone = phone;
+                employee.EmployeeAddress = address;
+                employee.Password = password;
+                db.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         public Employee Authenticate(string username, string password)
         {
             return db.Employees.FirstOrDefault(e => e.UserName == username && e.Password == password);
@@ -67,6 +92,28 @@ namespace QuanLySieuThi.DAO
                 return db.SaveChanges();
             }
             catch { return 0; }
+        }
+        public void Create(Employee employee)
+        {
+            try
+            {
+                db.Employees.Add(employee);
+                db.SaveChanges();
+            }
+            catch (DbEntityValidationException ex)
+            {
+                // Retrieve the validation errors
+                var errorMessages = ex.EntityValidationErrors
+                        .SelectMany(x => x.ValidationErrors)
+                        .Select(x => x.ErrorMessage);
+
+                // Join the error messages together
+                var fullErrorMessage = string.Join("; ", errorMessages);
+
+                // Throw a new exception with the full error message
+                var exceptionMessage = string.Concat(ex.Message, " The validation errors are: ", fullErrorMessage);
+                throw new DbEntityValidationException(exceptionMessage, ex.EntityValidationErrors);
+            }
         }
 
         public int DeleteEmployee(int id)

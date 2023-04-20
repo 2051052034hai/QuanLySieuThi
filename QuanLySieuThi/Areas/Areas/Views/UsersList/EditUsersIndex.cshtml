@@ -1,0 +1,189 @@
+﻿
+@{
+    ViewBag.Title = "EditUsersIndex";
+    Layout = "~/Areas/Areas/Views/Shared/_Layout.cshtml";
+}
+@model QuanLySieuThi.DTO.Employee
+<style>
+
+
+
+
+    #userTable th,
+    #userTable td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+    }
+
+    #userTable th {
+        background-color: #f2f2f2;
+    }
+
+    #userTable tr:nth-child(even) {
+        background-color: #f9f9f9;
+    }
+
+    #userTable tr:hover {
+        background-color: #ddd;
+    }
+
+
+
+    .search-buttons {
+        border-radius: 3px;
+        border: 1px solid black;
+        padding: 5px 10px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .text-right {
+        text-align: right !important;
+    }
+
+    .main-seach {
+        margin-bottom: 5px;
+        float: right;
+        top: 10px;
+        right: 10px;
+    }
+
+    #userTable {
+        border-collapse: collapse;
+    }
+
+        #userTable th,
+        #userTable td {
+            border: none;
+            background-color: #fff;
+            border-top: 1px solid #dee2e6;
+            vertical-align: middle;
+        }
+
+
+    body {
+        background: #f1f1f1;
+    }
+
+    div.all-tables {
+        border-collapse: collapse;
+        background-color: #fff;
+        padding: 20px 25px;
+        width: 75%;
+        float: right;
+        margin-left: 5%;
+        margin-top: 5%;
+        margin-right: 3%;
+    }
+
+    .btn-rounded {
+        width: 47px;
+    }
+
+    #userTable {
+        width: 100%;
+    }
+
+    div.form-item > label {
+        padding-top: 5px;
+        color: black !important;
+        display: block;
+        font-size: 15px !important;
+    }
+
+    div.form-item input {
+        margin-bottom: 5px;
+    }
+
+    div.form-btn {
+        margin-top: 5px;
+    }
+</style>
+
+
+<div class="all-tables">
+    <div class="main-seach">
+        <span>Seach:</span>
+        <input type="text" onchange="searchUser()" id="searchInput" class="search-buttons" oninput="searchUser()" placeholder="Nhập tên hoặc email">
+    </div>
+
+
+    <div id="userTable">
+        @using (Html.BeginForm("Edit", "UsersList", FormMethod.Post))
+        {
+        <form class="form-main" id="form-4">
+            <div class="form-item">
+                <div class="form-item">
+                    <label>ID: </label>
+                    <input id="text" name="ID" value="@ViewBag.ID" readonly type="password" placeholder="Nhập mật khâu..." />
+                    <span class="form-message"></span>
+                </div>
+                <label>Tên đăng nhập: </label>
+                <input id="username" name="username" value="@ViewBag.Username" type="text" placeholder="Nhập tên...">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-item">
+                <label>Họ tên: </label>
+                <input id="fullname" name="fullname" value="@ViewBag.FullName" type="text" placeholder="Nhập họ tên...">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-item">
+                <label>Số điện thoại: </label>
+                <input id="phone" name="phone" value="@ViewBag.Phone" type="text" placeholder="Nhập số điện thoại...">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-item">
+                <label>Địa chỉ: </label>
+                <input id="address" name="address" value="@ViewBag.Address" type="text" placeholder="Nhập địa chỉ...">
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-item">
+                <label>Mật khẩu: </label>
+                <input id="password" name="password" value="@ViewBag.Password" type="password" placeholder="Nhập mật khâu..." />
+                <span class="form-message"></span>
+            </div>
+
+
+            <div class="form-btn">
+                <button type="submit" class="form-submit">Xác nhận</button>
+
+            </div>
+        </form>
+            }
+     </div>
+</div>
+
+<script>
+    Validator({
+        form: '#form-4',
+        formGroupSelector: '.form-item',
+        errorSelector: '.form-message',
+        rules: [
+
+            Validator.isRequired('#fullname', "Vui lòng nhập tên đầy đủ !"),
+            Validator.isRequired('#address', "Vui lòng nhập địa chỉ!"),
+            Validator.minLength('#password', 6),
+            Validator.isEqualPhone("#phone", 10)
+
+        ],
+        onSubmit: function (data) {
+            const form = document.getElementById("form-4");
+            const formData = new FormData(form)
+            fetch('/UsersList/Edit', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => {
+                    console.log("fetch dữ liệu thành công lên server");
+                })
+                .catch(error => {
+                    console.log("fetch dữ liệu thất bại");
+                });
+        }
+    })
+</script>
