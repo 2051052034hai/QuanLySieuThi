@@ -1,6 +1,8 @@
 ﻿using QuanLySieuThi.DTO;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,10 +26,12 @@ namespace QuanLySieuThi.DAO
                 {
                     context.Events.Add(eventModel);
                     context.SaveChanges();
-
+                    context.Entry(eventModel).State = EntityState.Detached;
                     foreach (var detail in eventDetails)
                     {
-                        detail.ID = eventModel.ID;
+                        detail.EventID = eventModel.ID;
+                        detail.ProductID = detail.Product.ID;
+                        detail.Product = null;
                         context.EventDetails.Add(detail);
                     }
 
@@ -35,8 +39,9 @@ namespace QuanLySieuThi.DAO
                     transaction.Commit();
                     return res;
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
+                    Debug.WriteLine(ex);
                     transaction.Rollback();
                     return 0;
                 }
@@ -79,6 +84,14 @@ namespace QuanLySieuThi.DAO
             DateTime currentDate = DateTime.Now.Date;
             return context.Events
                      .Where(e => e.StartDate <= currentDate && (!e.EndDate.HasValue || e.EndDate >= currentDate))
+                     .ToList();
+        }
+
+        public List<Event> GetEventsFromNow()
+        {
+            DateTime currentDate = DateTime.Now.Date;
+            return context.Events
+                     .Where(e => e.EndDate >= currentDate)
                      .ToList();
         }
     }

@@ -16,25 +16,16 @@
     <link rel="stylesheet" href="~/Areas/Admin/assets/vendor/charts/c3charts/c3.css">
     <link rel="stylesheet" href="~/Areas/Admin/assets/vendor/fontsv/flag-icon-css/flag-icon.min.css">
     <link rel="stylesheet" href="~/Areas/Admin/assets/vendor/charts/chartist-bundle/chartist.css">
-    <title>Trang quản trị quản lý siêu thị</title>
-
-
-
+    <title>@ViewBag.Title</title>
 </head>
 
 <body>
     <div class="dashboard-main-wrapper">
         @RenderPage("~/Areas/Admin/Views/Shared/_HeaderAdmin.cshtml")
         @RenderPage("~/Areas/Admin/Views/Shared/NavBarAdmin.cshtml")
-        @RenderBody()
+        <div class="dashboard-wrapper">@RenderBody()</div>
     </div>
-
-
-
-
         <script src="~/Areas/Admin/assets/vendor/jqueryv/jquery-3.3.1.min.js"></script>
-
-
         <script src="~/Areas/Admin/assets/vendor/bootstrapv/jsv/bootstrapbundle.js"></script>
 
         <script src="~/Areas/Admin/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
