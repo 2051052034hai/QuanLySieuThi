@@ -95,6 +95,15 @@
         @if (ViewBag.Cart == null || ViewBag.Cart.Count == 0)
         {
             <h1 class="cart-null">Không có sản phẩm nào trong giỏ</h1>
+
+            <div class="div-view">
+                <div>
+                    <a class="btn btn-default" href="@Url.Action("Index", "Home")">
+                        <span class="glyphicon glyphicon-shopping-cart"></span> Tiếp tục mua sắm
+                    </a>
+                </div>
+
+            </div>
         }
         else
         {
@@ -138,14 +147,17 @@
                             </td>
 
                             <td class="col-sm-1 col-md-1 " style="text-align: center">
-                                <input type="email" class="form-control " id="exampleInputEmail1" value="@item.Quantity.ToString()">
+                                <input type="email" class="form-control value-quality" id="exampleInputEmail1" value="@item.Quantity.ToString()">
                             </td>
                             <td class="col-sm-1 col-md-1 text-center padding-view"><strong>@item.Price.ToString("N0") VNĐ</strong></td>
                             <td class="col-sm-1 col-md-1 text-center padding-view"><strong class="subtotal">@((item.Quantity * item.Price).ToString("N0")) VNĐ</strong></td>
                             <td class="col-sm-1 col-md-1">
-                                <button type="button" class="btn btn-danger delete-view">
-                                    <span class="glyphicon glyphicon-remove "></span> Xoá
-                                </button>
+
+
+                                <a href="@Url.Action("DeleteCart", "Cart", new { productId = item.Product.ID })" class="btn btn-danger delete-view">
+                                    <span class="glyphicon glyphicon-remove "></span> Xóa
+                                </a>
+
                             </td>
                         </tr>
                     }
@@ -168,15 +180,14 @@
                     </a>
                 </div>
                 <div>
-                    @using (Html.BeginForm("Checkout", "Cart", FormMethod.Post))
-                    {
-                        <button type="button" class="btn btn-success">
-                            Thanh toán <span class="glyphicon glyphicon-play"></span>
-                        </button>
-                    }
-                    </div>
-    
+
+                    <a href="@Url.Action("Checkout", "Cart")" class="btn btn-success">
+                        Thanh toán <span class="glyphicon glyphicon-play"></span>
+                    </a>
+
                 </div>
+
+            </div>
 
         }
 
@@ -187,15 +198,57 @@
 
 <script>
     var tbodyElement = document.getElementsByClassName("all-subtotal")[0];
+
     var strongElements = tbodyElement.querySelectorAll("strong.subtotal");
+
     var subTotal = document.getElementById("strongSubtotal")
     var sum = 0;
 
-    for (var i = 0; i < strongElements.length; i++) {
-        // Thực hiện các xử lý với các thẻ td có class là "subtotal" ở đây
-        // Ví dụ:
-        var newStrongElement = parseFloat(strongElements[i].innerHTML.replace(/[^0-9]/g, ""))
-        sum += newStrongElement;
-        subTotal.innerHTML = sum.toLocaleString().replaceAll(".", ",") + " VNĐ";
+    if (strongElements) {
+
+        for (var i = 0; i < strongElements.length; i++) {
+            // Thực hiện các xử lý với các thẻ td có class là "subtotal" ở đây
+            // Ví dụ:
+            var newStrongElement = parseFloat(strongElements[i].innerHTML.replace(/[^0-9]/g, ""))
+            sum += newStrongElement;
+            subTotal.innerHTML = sum.toLocaleString().replaceAll(".", ",") + " VNĐ";
+        }
     }
+    
+
+
+
+
+    /////// thay đổi số lượng trên giỏ khi xoá giỏ //////////
+    var deleteCartElement = document.querySelectorAll(".delete-view")
+
+    if (deleteCartElement) {
+
+        deleteCartElement.forEach(function (link) {
+            link.addEventListener('click', function (event) {
+
+
+                var parentElemet = link.parentElement.parentElement;
+                var countQualityElement = parentElemet.getElementsByClassName("value-quality")[0];
+
+                // Lấy giá trị từ Local Storage
+                var cartItemCount = localStorage.getItem("cartItemCount");
+
+                var updatecart = document.getElementById("numberCart");
+
+                if (!isNaN(cartItemCount)) {
+
+                    updatecart.innerHTML -= parseInt(countQualityElement.value);
+
+                    localStorage.setItem("cartItemCount", updatecart.innerHTML);
+                    }
+
+               
+            });
+        });
+
+    }
+    
+   
+
 </script>

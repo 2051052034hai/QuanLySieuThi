@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using QuanLySieuThi.BUS;
 using QuanLySieuThi.DTO;
+using QuanLySieuThi.Filter;
 
 namespace QuanLySieuThi.Areas.Admin.Controllers
 {
@@ -18,8 +19,11 @@ namespace QuanLySieuThi.Areas.Admin.Controllers
             return View();
         }
 
+        [CommonAttributeFilter]
         public ActionResult EditProductIndex(int id)
         {
+            SupplierBUS supplierBUS = new SupplierBUS();
+            ViewBag.Suppliers = supplierBUS.GetSupplliers();
             ProductBUS bus = new ProductBUS();
             Product prod = bus.GetProduct(id);
             ViewBag.Product = prod;
@@ -28,25 +32,23 @@ namespace QuanLySieuThi.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Edit()
         {
-            string ProductID = Request.Form["ProductID"];
-            string ProductName = Request.Form["ProductName"];
+            string ID = Request.Form["ID"];
+            string Name = Request.Form["Name"];
             string UnitPrice = Request.Form["UnitPrice"];
             string UnitInStock = Request.Form["UnitInStock"];
             string CateID = Request.Form["CateID"];
             string Description = Request.Form["Description"];
-            string SuppilerID = Request.Form["SuppilerID"];
+            string SuppilerID = Request.Form["SupplierID"];
             string Image_Url = Request.Form["Image_Url"];
-            //Product prod = new Product();
-            //ProductDAO dao = new ProductDAO();
-            //prod = dao.GetProductById(Int32.Parse(ProductID));
-            //dao.UpdateInfo(prod, ProductName, UnitPrice, UnitInStock, CateID, Description, SuppilerID, Image_Url);
+            ProductBUS productBUS = new ProductBUS();
+            productBUS.UpdateProductInfo(ID, Name, UnitPrice, UnitInStock, CateID, Description, SuppilerID, Image_Url);
 
             return RedirectToAction("Index", "Product");
         }
         public ActionResult Delete(int id)
         {
             ProductBUS productBUS = new ProductBUS();
-            //productBUS
+            productBUS.Delete(id);
             return RedirectToAction("Index", "Product");
         }
         public ActionResult AddProductIndex()
@@ -56,18 +58,18 @@ namespace QuanLySieuThi.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Add()
         {
-            string ProductName = Request.Form["ProductName"];
+            string Name = Request.Form["Name"];
             string UnitPrice = Request.Form["UnitPrice"];
             string UnitInStock = Request.Form["UnitInStock"];
             string CateID = Request.Form["CateID"];
             string Description = Request.Form["Description"];
             string SuppilerID = Request.Form["SuppilerID"];
             string Image_Url = Request.Form["Image_Url"];
-            Product prod = new Product(ProductName, UnitPrice, UnitInStock, CateID, SuppilerID, Description, Image_Url);
-            //ProductDAO dao = new ProductDAO();
+            Product prod = new Product(Name, UnitPrice, UnitInStock, CateID, SuppilerID, Description, Image_Url);
+            ProductBUS productBUS = new ProductBUS();
 
-            //dao.Create(prod);
-            return RedirectToAction("ProductIndex", "Product");
+            productBUS.Add(prod);
+            return RedirectToAction("Index", "Product");
         }
     }
 }

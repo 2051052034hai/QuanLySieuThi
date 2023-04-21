@@ -30,23 +30,23 @@ namespace QuanLySieuThi.Areas.Admin.Controllers
         public ActionResult Edit()
         {
             string ID = Request.Form["ID"];
-            string fullname = Request.Form["fullname"];
+            string name = Request.Form["name"];
             string phone = Request.Form["phone"];
             string adress = Request.Form["address"];
             string password = Request.Form["password"];
             string username = Request.Form["username"];
             Employee emp = new Employee();
-            //EmployeeDAO dao = new EmployeeDAO();
-            //emp = dao.GetEmployeeById(Int32.Parse(ID));
-            //dao.UpdateInfo(emp, fullname, phone, adress, password);
+            EmployeeBUS employeeBUS = new EmployeeBUS();
+            emp = employeeBUS.GetEmployeeById(Int32.Parse(ID));
+            employeeBUS.UpdateEmployeeInfo(emp, name, phone, adress, password);
 
-            return RedirectToAction("UsersIndex", "UsersList");
+            return RedirectToAction("Index", "User");
         }
         public ActionResult Delete(int id)
         {
-            //EmployeeDAO dao = new EmployeeDAO();
-            //dao.DeleteEmployee(id);
-            return RedirectToAction("UsersIndex", "UsersList");
+            EmployeeBUS employeeBUS = new EmployeeBUS();
+            employeeBUS.DeleteEmployee(id);
+            return RedirectToAction("Index", "User");
         }
 
         public ActionResult AddUserIndex()
@@ -63,10 +63,10 @@ namespace QuanLySieuThi.Areas.Admin.Controllers
             string adress = Request.Form["address"];
             string password = Request.Form["password"];
             string role = Request.Form["role"];
-            //Employee emp = new Employee(fullname, adress, phone, username, password, role);
-            //EmployeeDAO dao = new EmployeeDAO();
-            //dao.Create(emp);
-            return RedirectToAction("UsersIndex", "UsersList");
+            Employee emp = new Employee(fullname, adress, phone, username, password, role);
+            EmployeeBUS employeeBUS = new EmployeeBUS();
+            employeeBUS.AddEmployee(emp);
+            return RedirectToAction("Index", "User");
         }
     }
 }

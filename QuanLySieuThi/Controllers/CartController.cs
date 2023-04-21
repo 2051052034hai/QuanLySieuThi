@@ -51,6 +51,14 @@ namespace QuanLySieuThi.Controllers
 
             return View();
         }
+        /* -------phương thức đếm số lượng sản phẩm trong giỏ--------------*/
+        public ActionResult Count()
+        {
+            var cart = this.Cart;
+            var cartCount = cart.Sum(BD => BD.Quantity);
+
+            return Json(new { cartCount }, JsonRequestBehavior.AllowGet);
+        }
 
         /* -------phương thức khi thêm sản phẩm vào trong giỏ--------------*/
         [HttpPost]
@@ -98,18 +106,40 @@ namespace QuanLySieuThi.Controllers
         {
             // Lấy giỏ hàng từ Session
             var cart = this.Cart;
+            DateTime DateNow = DateTime.Now;
 
             // Tính tổng số tiền cần thanh toán
-            int total = 0;
+            decimal total = 0;
             foreach (var item in cart)
             {
 
-                total += (int)item.Quantity * (int)item.Price;
+                total += (decimal)item.Quantity * (decimal)item.Price;
+
             }
+            // Lưu thông tin vào cơ sở dữ liệu
+            BillBUS billBUS = new BillBUS();
+            Bill bill = new Bill(DateNow, total);
+            billBUS.Create(bill, cart);
 
             // Xóa giỏ hàng khỏi Session
             Session.Remove("Cart");
             return View();
+        }
+
+        /* -------phương thức khi xoá sản phẩm trong giỏ------------*/
+        public ActionResult DeleteCart(int productId)
+        {
+            var cart = this.Cart;
+            var existingBillDetail = cart.FirstOrDefault(BD => BD.ProductID == productId);
+
+            if (existingBillDetail != null)
+            {
+                // Nếu sản phẩm đã tồn tại trong giỏ hàng, tiến hành xóa
+                cart.Remove(existingBillDetail);
+                Session["Cart"] = cart; // Lưu giỏ hàng mới vào session
+            }
+
+            return RedirectToAction("Index");
         }
     }
 }

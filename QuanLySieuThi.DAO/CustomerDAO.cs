@@ -18,6 +18,10 @@ namespace QuanLySieuThi.DAO
         {
             this.context = new QuanLySieuThiContext();
         }
+        public List<Customer> GetAllCustomers()
+        {
+            return context.Customers.ToList();
+        }
 
         public int Create(Customer customer)
         {
