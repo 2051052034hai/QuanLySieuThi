@@ -93,8 +93,13 @@ namespace QuanLySieuThi.Controllers
         }
 
         /* -------phương thức khi thanh toán sản phẩm trong giỏ--------------*/
+        [AuthenticationFilter]
         public ActionResult Checkout()
         {
+            //khai báo
+            BillBUS billBUS = new BillBUS();
+            ProductBUS productBUS = new ProductBUS();
+
             // Lấy giỏ hàng từ Session
             var cart = this.Cart;
             DateTime DateNow = DateTime.Now;
@@ -103,14 +108,19 @@ namespace QuanLySieuThi.Controllers
             decimal total = 0;
             foreach (var item in cart)
             {
-
                 total += (decimal)item.Quantity * (decimal)item.Price;
-
             }
+            var currentUser = Session["currentUser"] as Customer;
             // Lưu thông tin vào cơ sở dữ liệu
-            BillBUS billBUS = new BillBUS();
-            Bill bill = new Bill(DateNow, total);
-            billBUS.Create(bill, cart);
+            if (currentUser != null)
+            {
+                Bill bill = new Bill() { CreatedDate = DateTime.Now, SubTotal = total, CustomerID = currentUser.ID };
+                billBUS.Create(bill, cart);
+                CustomerBUS customerBUS = new CustomerBUS();
+                customerBUS.Update(currentUser.ID, (int)(total / 100));
+            }
+
+
 
             // Xóa giỏ hàng khỏi Session
             Session.Remove("Cart");

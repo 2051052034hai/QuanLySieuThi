@@ -57,6 +57,14 @@ namespace QuanLySieuThi.BUS
                 return 1;
             return 0;
         }
+
+        public int Update(int ID, int bonus)
+        {
+            CustomerDAO customerDAO = new CustomerDAO();
+            Customer customer = customerDAO.GetCustomerById(ID);
+            customer.AccumulatePoint += bonus;
+            return customerDAO.Update(customer);
+        }
         public Customer Authenticate(string username, string password)
         {
             Customer customer = customerDAO.GetByUsername(username);

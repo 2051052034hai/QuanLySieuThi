@@ -87,9 +87,11 @@
 
                                 @if (ViewBag.product.UnitInStock > 0)
                                 {
-                            <span itemscope="itemscope"
-                                  itemtype="http://schema.org/ItemAvailability" itemprop="supersededBy"
-                                  class="ega-avai-pr-page max-count-product">còn hàng (@ViewBag.product.UnitInStock)</span>
+                                    <span itemscope="itemscope"
+                                          itemtype="http://schema.org/ItemAvailability" itemprop="supersededBy"
+                                          class="ega-avai-pr-page max-count-product">
+                                        còn hàng (@ViewBag.product.UnitInStock)
+                                    </span>
                                 }
                                 else
                                 {
@@ -148,50 +150,67 @@
                                         <li><!----></li>
                                     </ul>
                                 </div>
+                                @if (ViewBag.product.UnitInStock > 0)
+                                {
+                                    <div role="qty " class="qty-disable">
+                                        <div class="row">
+                                            <div class="col-xs-4">
+                                                <label class="ega-option-title">Số lượng</label>
+                                            </div>
+                                            <div class="col-xs-8">
+                                                <div class="input-group ega-qty-control">
+                                                    <div class="input-group-addon pre-sub">-</div>
 
-                                <div role="qty " class="qty-disable">
-                                    <div class="row">
-                                        <div class="col-xs-4">
-                                            <label class="ega-option-title">Số lượng</label>
-                                        </div>
-                                        <div class="col-xs-8">
-                                            <div class="input-group ega-qty-control">
-                                                <div class="input-group-addon pre-sub">-</div>
+                                                    <input type="text" name="quantity" maxlength="4" id="exampleInputAmount"
+                                                           value="1" class="form-control">
 
-                                                <input type="text" name="quantity" maxlength="4" id="exampleInputAmount"
-                                                       value="1" class="form-control">
-
-                                                <div class="input-group-addon next-plus">+</div>
+                                                    <div class="input-group-addon next-plus">+</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div role="btn" class="ega-btn-product-div" style="">
+                                    <div role="btn" class="ega-btn-product-div" style="">
 
-                                    <button type="submit"
-                                            title="Cho vào giỏ hàng" class="btn ega-pr-page-add-cart">
-                                        <b>
-                                            MUA HÀNG
-                                        </b>
-                                    </button>
+                                        <button type="submit"
+                                                title="Cho vào giỏ hàng" class="btn ega-pr-page-add-cart">
+                                            <b>
+                                                MUA HÀNG
+                                            </b>
+                                        </button>
 
-                                </div>
+                                    </div>
+                                }
                             </form>
+
                         </div>
+
                     </div>
+
                     <ul id="color-schema" style="display: none;">
+
                         <li data-title="đỏ" data-hex="#eb0707"></li>
+
                         <li data-title="vàng" data-hex="#ebcc1a"></li>
+
                         <li data-title="xanh" data-hex="#a1c600"></li>
+
                         <li data-title="đen" data-hex="#0a0909"></li>
+
                         <li data-title="nâu" data-hex="#571111"></li>
+
                         <li data-title="hồng" data-hex="#db0da7"></li>
+
                         <li data-title="cam" data-hex="#FF8040"></li>
+
                         <li data-title="trắng" data-hex="#FFFFFF"></li>
+
                     </ul>
+
                 </div>
+
                 <!--description-->
+
 
 
                 <div class="ega-product-page-info-item">
@@ -289,6 +308,7 @@
                 "productPrice": priceDouble,
                 "productImg": urlElement,
                 "productQuality": inputElement.value
+
             })
         }).then(function (response) {
             if (response.ok) {
@@ -302,8 +322,8 @@
                 }).then(function (response) {
                     console.log(response)
                     if (response.ok) {
-                       
-                        response.json().then( async function (data) {
+
+                        response.json().then(async function (data) {
                             console.log(data);
                             var countCartElement = document.getElementById("numberCart");
                             countCartElement.innerHTML = data.cartCount;
@@ -313,13 +333,13 @@
                         });
                     }
                 });
-                
-            
+
+
             }
         });
     }
 
-   
+
 
 
     /*////////////Script cho nút tăng giảm số lượng sản phẩm /////*/
@@ -330,15 +350,30 @@
     var max = document.getElementsByClassName("max-count-product")[0];
     var numberMax = max.innerHTML.match(/\d+/);
 
+    inputElement.oninput = function () {
+        if (parseInt(inputElement.value) > numberMax[0]) {
+            alert("Bạn không được nhập quá số lượng tồn kho của sản phẩm");
+            inputElement.value = 1;
+        }
+
+    }
+
+    inputElement.onblur = function () {
+        if (inputElement.value.trim() === "") {
+            inputElement.value = 1;
+        }
+    };
+
 
     nextElement.onclick = function () {
-      
-        if (parseInt(inputElement.value) <= parseInt(numberMax[0]) - 1 )
+
+        if (parseInt(inputElement.value) <= parseInt(numberMax[0]) - 1)
             inputElement.value = parseInt(inputElement.value) + 1;
         else
             alert("Số lượng sản phẩm vượt quá quy định");
 
     }
+
 
     preElement.onclick = function () {
         if (parseInt(inputElement.value) > 1)
@@ -349,13 +384,5 @@
     }
 
 
-    var outOfStockElement = document.getElementsByClassName("out-of-stock");
-
-    //if (outOfStockElement) {
-    //    var qtyElement = document.getElementsByClassName("qty-disable")[0];
-    //    var addCartElement = document.getElementsByClassName("ega-pr-page-add-cart")[0];
-
-    //    qtyElement.style.display = "none";
-    //    addCartElement.style.display = "none";    
-    //}
+  
 </script>

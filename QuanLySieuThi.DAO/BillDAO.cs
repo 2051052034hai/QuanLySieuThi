@@ -26,11 +26,17 @@ namespace QuanLySieuThi.DAO
                     // Add bill to database
                     context.Bills.Add(bill);
                     context.SaveChanges();
-
+                    ProductDAO productDAO = new ProductDAO();
                     // Assign ID to each BillDetail
                     foreach (var billDetail in billDetails)
                     {
                         billDetail.BillID = bill.ID;
+                        if (billDetail.Quantity != null)
+                        {
+                            Product product = productDAO.GetProductById(billDetail.Product.ID);
+                            product.UnitInStock -= (int)billDetail.Quantity;
+                            productDAO.Update(product);
+                        }
                         billDetail.Product = null;
 
                     }

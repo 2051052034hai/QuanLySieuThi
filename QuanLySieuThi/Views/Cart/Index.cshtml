@@ -16,7 +16,6 @@
 
     div.row-width {
         background-color: white;
-       
         margin-bottom: 50px;
     }
 
@@ -84,6 +83,7 @@
         .div-view div:first-child {
             margin-left: auto;
         }
+
     .text-cart {
         color: #EE0000;
     }
@@ -180,10 +180,16 @@
                     </a>
                 </div>
                 <div>
-
-                    <a href="@Url.Action("Checkout", "Cart")" class="btn btn-success">
-                        Thanh toán <span class="glyphicon glyphicon-play"></span>
-                    </a>
+                    @if (Session["currentUser"] != null)
+                    {
+                        <a href="@Url.Action("Checkout", "Cart")" class="btn btn-success">
+                            Thanh toán <span class="glyphicon glyphicon-play"></span>
+                        </a>
+                    }
+                    else
+                    {
+                        <span>Vui lòng <a href="@Url.Action("Login", "Login")">đăng nhập </a>để thanh toán</span>
+                    }
 
                 </div>
 
@@ -214,7 +220,7 @@
             subTotal.innerHTML = sum.toLocaleString().replaceAll(".", ",") + " VNĐ";
         }
     }
-    
+
 
 
 
@@ -241,14 +247,14 @@
                     updatecart.innerHTML -= parseInt(countQualityElement.value);
 
                     localStorage.setItem("cartItemCount", updatecart.innerHTML);
-                    }
+                }
 
-               
+
             });
         });
 
     }
-    
-   
+
+
 
 </script>
