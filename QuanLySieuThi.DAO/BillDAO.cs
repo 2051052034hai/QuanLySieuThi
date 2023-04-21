@@ -30,8 +30,11 @@ namespace QuanLySieuThi.DAO
                     // Assign ID to each BillDetail
                     foreach (var billDetail in billDetails)
                     {
-                        billDetail.ID = bill.ID;
+                        billDetail.BillID = bill.ID;
+                        billDetail.Product = null;
+
                     }
+
 
                     // Add bill details to database
                     context.BillDetails.AddRange(billDetails);

@@ -83,10 +83,25 @@
                                 </strong>
                                 <meta itemprop="priceCurrency" content="VND"> <del itemprop="priceSpecification"
                                                                                    class="ega-old-price-home" style="display: inline-block;"></del>
-                                <meta itemprop="priceCurrency" content="VND"> <span itemscope="itemscope"
-                                                                                    itemtype="http://schema.org/ItemAvailability" itemprop="supersededBy"
-                                                                                    class="ega-avai-pr-page">Còn hàng</span>
+                                <meta itemprop="priceCurrency" content="VND">
+
+                                @if (ViewBag.product.UnitInStock > 0)
+                                {
+                            <span itemscope="itemscope"
+                                  itemtype="http://schema.org/ItemAvailability" itemprop="supersededBy"
+                                  class="ega-avai-pr-page max-count-product">còn hàng (@ViewBag.product.UnitInStock)</span>
+                                }
+                                else
+                                {
+                                    <span itemscope="itemscope"
+                                          itemtype="http://schema.org/ItemAvailability" itemprop="supersededBy"
+                                          class="ega-avai-pr-page out-of-stock">Đã hết hàng</span>
+
+                                }
+
+
                             </div>
+
                             <div role="giao-hang">
                                 <ul class="ega-pr-page-ul-policies">
                                     <li>
@@ -133,7 +148,8 @@
                                         <li><!----></li>
                                     </ul>
                                 </div>
-                                <div role="qty">
+
+                                <div role="qty " class="qty-disable">
                                     <div class="row">
                                         <div class="col-xs-4">
                                             <label class="ega-option-title">Số lượng</label>
@@ -150,13 +166,16 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div role="btn" class="ega-btn-product-div" style="">
+
                                     <button type="submit"
                                             title="Cho vào giỏ hàng" class="btn ega-pr-page-add-cart">
                                         <b>
                                             MUA HÀNG
                                         </b>
                                     </button>
+
                                 </div>
                             </form>
                         </div>
@@ -273,18 +292,34 @@
             })
         }).then(function (response) {
             if (response.ok) {
+                console.log("thanh cong")
 
-                var countCartElement = document.getElementById("numberCart");
-                countCartElement.innerHTML = parseInt(countCartElement.innerHTML) + parseInt(inputElement.value);
+                fetch('/Cart/Count', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                }).then(function (response) {
+                    console.log(response)
+                    if (response.ok) {
+                       
+                        response.json().then( async function (data) {
+                            console.log(data);
+                            var countCartElement = document.getElementById("numberCart");
+                            countCartElement.innerHTML = data.cartCount;
 
-
-                // Lưu giá trị vào Local Storage
-                localStorage.setItem("cartItemCount", countCartElement.innerHTML);
+                            // Lưu giá trị vào Local Storage
+                            localStorage.setItem("cartItemCount", data.cartCount);
+                        });
+                    }
+                });
+                
+            
             }
         });
-
-
     }
+
+   
 
 
     /*////////////Script cho nút tăng giảm số lượng sản phẩm /////*/
@@ -292,10 +327,13 @@
     var nextElement = document.getElementsByClassName("next-plus")[0];
     var preElement = document.getElementsByClassName("pre-sub")[0];
     var inputElement = document.getElementById("exampleInputAmount");
+    var max = document.getElementsByClassName("max-count-product")[0];
+    var numberMax = max.innerHTML.match(/\d+/);
+
 
     nextElement.onclick = function () {
-
-        if (parseInt(inputElement.value) <= 999)
+      
+        if (parseInt(inputElement.value) <= parseInt(numberMax[0]) - 1 )
             inputElement.value = parseInt(inputElement.value) + 1;
         else
             alert("Số lượng sản phẩm vượt quá quy định");
@@ -309,4 +347,15 @@
             alert("Số lượng sản phẩm tối thiểu là 1");
 
     }
+
+
+    var outOfStockElement = document.getElementsByClassName("out-of-stock");
+
+    //if (outOfStockElement) {
+    //    var qtyElement = document.getElementsByClassName("qty-disable")[0];
+    //    var addCartElement = document.getElementsByClassName("ega-pr-page-add-cart")[0];
+
+    //    qtyElement.style.display = "none";
+    //    addCartElement.style.display = "none";    
+    //}
 </script>

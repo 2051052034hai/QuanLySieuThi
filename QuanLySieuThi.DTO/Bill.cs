@@ -15,6 +15,12 @@ namespace QuanLySieuThi.DTO
             BillDetails = new HashSet<BillDetail>();
         }
 
+        public Bill(DateTime CreateDate, decimal SubTotal)
+        {
+            this.CreatedDate = CreateDate;
+            
+            this.SubTotal = SubTotal;
+        }
         public int ID { get; set; }
 
         public DateTime? CreatedDate { get; set; }
