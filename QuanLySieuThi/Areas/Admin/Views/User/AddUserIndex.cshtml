@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "AddUsersIndex";
-    Layout = "~/Areas/Areas/Views/Shared/_Layout.cshtml";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @model QuanLySieuThi.DTO.Employee
 <style>
@@ -110,40 +110,40 @@
 
 
     <div id="userTable">
-        @using (Html.BeginForm("Add", "UsersList", FormMethod.Post))
+        @using (Html.BeginForm("Add", "User", FormMethod.Post))
         {
             <form class="form-main" id="form-5">
                 <div class="form-item">
                     <div class="form-item">
                         <label>ID: </label>
-                        <input id="text" name="ID" value="@ViewBag.ID" readonly type="password" placeholder="" />
+                        <input id="ID" name="ID" value="@ViewBag.Employee.ID" readonly type="password" placeholder="" />
                         <span class="form-message"></span>
                     </div>
                     <label>Tên đăng nhập: </label>
-                    <input id="username" name="username" value="@ViewBag.Username" type="text" placeholder="Nhập tên...">
+                    <input id="username" name="username" value="@ViewBag.Employee.Username" type="text" placeholder="Nhập tên...">
                     <span class="form-message"></span>
                 </div>
 
                 <div class="form-item">
                     <label>Họ tên: </label>
-                    <input id="fullname" name="fullname" value="@ViewBag.FullName" type="text" placeholder="Nhập họ tên...">
+                    <input id="fullname" name="fullname" value="@ViewBag.Employee.FullName" type="text" placeholder="Nhập họ tên...">
                     <span class="form-message"></span>
                 </div>
 
                 <div class="form-item">
                     <label>Số điện thoại: </label>
-                    <input id="phone" name="phone" value="@ViewBag.Phone" type="text" placeholder="Nhập số điện thoại...">
+                    <input id="phone" name="phone" value="@ViewBag.Employee.Phone" type="text" placeholder="Nhập số điện thoại...">
                     <span class="form-message"></span>
                 </div>
 
                 <div class="form-item">
                     <label>Địa chỉ: </label>
-                    <input id="address" name="address" value="@ViewBag.Address" type="text" placeholder="Nhập địa chỉ...">
+                    <input id="address" name="address" value="@ViewBag.Employee.Address" type="text" placeholder="Nhập địa chỉ...">
                     <span class="form-message"></span>
                 </div>
                 <div class="form-item">
                     <label>Role: </label>
-                    <input id="role" name="role" value="@ViewBag.Role" type="text" placeholder="Nhập địa chỉ...">
+                    <input id="role" name="role" value="@ViewBag.Employee.Role" type="text" placeholder="Nhập địa chỉ...">
                     <span class="form-message"></span>
                 </div>
 
@@ -179,7 +179,7 @@
         onSubmit: function (data) {
             const form = document.getElementById("form-5");
             const formData = new FormData(form)
-            fetch('/UsersList/AddUserIndex', {
+            fetch('/User/AddUserIndex', {
                 method: 'POST',
                 body: formData
             })

@@ -37,6 +37,19 @@ namespace QuanLySieuThi.BUS
             return false;
         }
 
+        public bool UpdateEmployeeInfo(Employee employee, string name, string phone, string address, string password)
+        {
+            try
+            {
+                // Gọi phương thức UpdateInfo() trên đối tượng repository
+                employeeDAO.UpdateInfo(employee, name, phone, address, password);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         public bool UpdateEmployee(Employee employee)
         {
             if (employee != null && employee.ID > 0 && !string.IsNullOrEmpty(employee.Name) && !string.IsNullOrEmpty(employee.UserName) && !string.IsNullOrEmpty(employee.Password))

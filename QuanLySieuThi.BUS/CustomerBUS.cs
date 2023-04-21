@@ -23,7 +23,7 @@ namespace QuanLySieuThi.BUS
 
         public List<Customer> GetCustomers()
         {
-            return null;
+            return customerDAO.GetAllCustomers();
         }
 
         public int Create(Customer customer)

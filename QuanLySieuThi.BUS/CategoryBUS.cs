@@ -49,5 +49,18 @@ namespace QuanLySieuThi.BUS
             else
                 return false;
         }
+        public bool UpdateInfo(Category category, string name, string description)
+        {
+            try
+            {
+                // Gọi phương thức UpdateInfo() trên đối tượng repository
+                categoryDAO.UpdateInfo(category, name, description);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }

@@ -35,6 +35,20 @@ namespace QuanLySieuThi.DAO
             context.Categories.Add(category);
             context.SaveChanges();
         }
+        public bool UpdateInfo(Category category, string name, string description)
+        {
+            try
+            {
+                category.Name = name;
+                category.Description = description;
+                context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
 
         // Phương thức sửa một mục danh mục trong bảng Categories
         public void UpdateCategory(Category category)
