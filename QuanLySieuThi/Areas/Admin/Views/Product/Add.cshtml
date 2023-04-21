@@ -1,14 +1,10 @@
 ﻿
 @{
-    ViewBag.Title = "AddUsersIndex";
+    ViewBag.Title = "Thêm Sản Phẩm";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-@model QuanLySieuThi.DTO.Employee
+@using QuanLySieuThi.DTO;
 <style>
-
-
-
-
     #userTable th,
     #userTable td {
         border: 1px solid #ccc;
@@ -27,8 +23,6 @@
     #userTable tr:hover {
         background-color: #ddd;
     }
-
-
 
     .search-buttons {
         border-radius: 3px;
@@ -61,7 +55,6 @@
             vertical-align: middle;
         }
 
-
     body {
         background: #f1f1f1;
     }
@@ -70,8 +63,6 @@
         border-collapse: collapse;
         background-color: #fff;
         padding: 20px 25px;
-        width: 75%;
-        float: right;
         margin-left: 5%;
         margin-top: 5%;
         margin-right: 3%;
@@ -103,53 +94,63 @@
 
 
 <div class="all-tables">
-    <div class="main-seach">
-        <span>Seach:</span>
-        <input type="text" onchange="searchUser()" id="searchInput" class="search-buttons" oninput="searchUser()" placeholder="Nhập tên hoặc email">
-    </div>
-
-
+    <h1 class="text-center text-info m-t-10">Thêm sản phẩm</h1>
     <div id="userTable">
-        @using (Html.BeginForm("Add", "User", FormMethod.Post))
+        @using (Html.BeginForm("AddProduct", "Product", FormMethod.Post))
         {
-            <form class="form-main" id="form-5">
-                <div class="form-item">
-                    <div class="form-item">
-                        <label>ID: </label>
-                        <input id="ID" name="ID" value="@ViewBag.Employee.ID" readonly type="password" placeholder="" />
-                        <span class="form-message"></span>
-                    </div>
-                    <label>Tên đăng nhập: </label>
-                    <input id="username" name="username" value="@ViewBag.Employee.Username" type="text" placeholder="Nhập tên...">
+            <form class="form-main" id="form">
+                <input id="ID" name="ID" class=" form-control" readonly type="hidden" placeholder="" />
+                <div>
+                    <label>Tên sản phẩm: </label>
+                    <input id="Name" name="Name" class=" form-control" type="text" placeholder="Nhập tên sản phẩm">
                     <span class="form-message"></span>
                 </div>
 
                 <div class="form-item">
-                    <label>Họ tên: </label>
-                    <input id="fullname" name="fullname" value="@ViewBag.Employee.FullName" type="text" placeholder="Nhập họ tên...">
+                    <label>Gía tiền: </label>
+                    <input id="UnitPrice" class=" form-control" name="UnitPrice" type="text" placeholder="Nhập giá tiền">
                     <span class="form-message"></span>
                 </div>
 
                 <div class="form-item">
-                    <label>Số điện thoại: </label>
-                    <input id="phone" name="phone" value="@ViewBag.Employee.Phone" type="text" placeholder="Nhập số điện thoại...">
+                    <label>Số lượng: </label>
+                    <input id="UnitInStock" name="UnitInStock" class=" form-control" readonly type="text" placeholder="Nhập số lượng">
                     <span class="form-message"></span>
                 </div>
 
-                <div class="form-item">
-                    <label>Địa chỉ: </label>
-                    <input id="address" name="address" value="@ViewBag.Employee.Address" type="text" placeholder="Nhập địa chỉ...">
+                <div class="dropdown">
+                    <label>Chọn danh mục: </label>
+                    <select class="form-control" id="CateID" name="CateID">
+                        @foreach (var cate in ViewBag.Categories)
+                        {
+                            <option value="@cate.ID">
+                                @cate.Name
+                            </option>
+                        }
+                    </select>
                     <span class="form-message"></span>
                 </div>
-                <div class="form-item">
-                    <label>Role: </label>
-                    <input id="role" name="role" value="@ViewBag.Employee.Role" type="text" placeholder="Nhập địa chỉ...">
-                    <span class="form-message"></span>
-                </div>
+                <div class="dropdown">
+                    <label>Chọn nhà cung ứng: </label>
+                    <select class="form-control" id="SupplierID" name="SupplierID">
+                        @foreach (var supplier in ViewBag.Suppliers)
+                        {
 
+                            <option value="@supplier.ID">
+                                @supplier.Name
+                            </option>
+                        }
+                    </select>
+                    <span class="form-message"></span>
+                </div>
                 <div class="form-item">
-                    <label>Mật khẩu: </label>
-                    <input id="password" name="password" value="@ViewBag.Password" type="password" placeholder="Nhập mật khâu..." />
+                    <label>Mô tả: </label>
+                    <textarea id="Description" name="Description" class=" form-control" type="text" placeholder="Nhập mô tả"></textarea>
+                    <span class="form-message"></span>
+                </div>
+                <div class="form-item">
+                    <label>Hình ảnh: </label>
+                    <input id="Image_Url" name="Image_Url" class=" form-control" type="text" placeholder="Nhập link hình ảnh" />
                     <span class="form-message"></span>
                 </div>
 
@@ -165,21 +166,17 @@
 
 <script>
     Validator({
-        form: '#form-5',
+        form: '#form',
         formGroupSelector: '.form-item',
         errorSelector: '.form-message',
         rules: [
-
-            Validator.isRequired('#fullname', "Vui lòng nhập tên đầy đủ !"),
-            Validator.isRequired('#address', "Vui lòng nhập địa chỉ!"),
-            Validator.minLength('#password', 6),
-            Validator.isEqualPhone("#phone", 10)
-
+            Validator.isRequired('#Name', "Vui lòng nhập tên sản phẩm !"),
+            Validator.isRequired('#UnitPrice', "Vui lòng nhập số lượng!"),
         ],
         onSubmit: function (data) {
-            const form = document.getElementById("form-5");
+            const form = document.getElementById("form");
             const formData = new FormData(form)
-            fetch('/User/AddUserIndex', {
+            fetch('/Product/AddProduct', {
                 method: 'POST',
                 body: formData
             })

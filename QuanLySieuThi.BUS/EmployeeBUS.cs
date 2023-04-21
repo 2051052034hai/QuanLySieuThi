@@ -37,12 +37,13 @@ namespace QuanLySieuThi.BUS
             return false;
         }
 
-        public bool UpdateEmployeeInfo(Employee employee, string name, string phone, string address, string password)
+        public bool UpdateEmployeeInfo(string ID, string name, string phone, string address, string role)
         {
             try
             {
+                Employee emp = employeeDAO.GetEmployeeById(int.Parse(ID));
                 // Gọi phương thức UpdateInfo() trên đối tượng repository
-                employeeDAO.UpdateInfo(employee, name, phone, address, password);
+                employeeDAO.UpdateInfo(emp, name, phone, address, role);
                 return true;
             }
             catch (Exception ex)

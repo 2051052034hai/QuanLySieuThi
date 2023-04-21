@@ -20,17 +20,17 @@ namespace QuanLySieuThi.Areas.Admin.Controllers
         }
 
         [CommonAttributeFilter]
-        public ActionResult EditProductIndex(int id)
+        public ActionResult Edit(int id)
         {
             SupplierBUS supplierBUS = new SupplierBUS();
-            ViewBag.Suppliers = supplierBUS.GetSupplliers();
+            ViewBag.Suppliers = supplierBUS.GetSuppliers();
             ProductBUS bus = new ProductBUS();
             Product prod = bus.GetProduct(id);
             ViewBag.Product = prod;
             return View();
         }
         [HttpPost]
-        public ActionResult Edit()
+        public ActionResult EditProduct()
         {
             string ID = Request.Form["ID"];
             string Name = Request.Form["Name"];
@@ -51,13 +51,17 @@ namespace QuanLySieuThi.Areas.Admin.Controllers
             productBUS.Delete(id);
             return RedirectToAction("Index", "Product");
         }
-        public ActionResult AddProductIndex()
+        [CommonAttributeFilter]
+        public ActionResult Add()
         {
+            SupplierBUS supplierBUS = new SupplierBUS();
+            ViewBag.Suppliers = supplierBUS.GetSuppliers();
             return View();
         }
         [HttpPost]
-        public ActionResult Add()
+        public ActionResult AddProduct()
         {
+            string ID = Request.Form["ID"];
             string Name = Request.Form["Name"];
             string UnitPrice = Request.Form["UnitPrice"];
             string UnitInStock = Request.Form["UnitInStock"];
@@ -67,7 +71,6 @@ namespace QuanLySieuThi.Areas.Admin.Controllers
             string Image_Url = Request.Form["Image_Url"];
             Product prod = new Product(Name, UnitPrice, UnitInStock, CateID, SuppilerID, Description, Image_Url);
             ProductBUS productBUS = new ProductBUS();
-
             productBUS.Add(prod);
             return RedirectToAction("Index", "Product");
         }

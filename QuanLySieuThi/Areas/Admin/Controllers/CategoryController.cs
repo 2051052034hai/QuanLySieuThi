@@ -14,9 +14,10 @@ namespace QuanLySieuThi.Areas.Admin.Controllers
         // GET: Admin/Category
         public ActionResult Index()
         {
+            ViewBag.SuccessMsg = TempData["SuccessMsg"];
             return View();
         }
-        public ActionResult EditCategoryIndex(int id)
+        public ActionResult Edit(int id)
         {
             CategoryBUS bus = new CategoryBUS();
             Category cate = bus.GetCategoryById(id);
@@ -24,7 +25,7 @@ namespace QuanLySieuThi.Areas.Admin.Controllers
             return View(cate);
         }
         [HttpPost]
-        public ActionResult Edit()
+        public ActionResult EditCategory()
         {
             string ID = Request.Form["ID"];
             string Name = Request.Form["Name"];
@@ -32,7 +33,8 @@ namespace QuanLySieuThi.Areas.Admin.Controllers
             Category cate = new Category();
             CategoryBUS categoryBUS = new CategoryBUS();
             cate = categoryBUS.GetCategoryById(Int32.Parse(ID));
-            categoryBUS.UpdateInfo(cate, Name, Description);
+            if (categoryBUS.UpdateInfo(cate, Name, Description))
+                TempData["SuccessMsg"] = "Cập nhật thành công";
 
             return RedirectToAction("Index", "Category");
         }
@@ -42,13 +44,9 @@ namespace QuanLySieuThi.Areas.Admin.Controllers
             categoryBUS.DeleteCategory(id);
             return RedirectToAction("Index", "Category");
         }
-        public ActionResult AddCategoryIndex()
-        {
-            return View();
-        }
 
         [HttpPost]
-        public ActionResult Add()
+        public ActionResult AddCategory()
         {
             string Name = Request.Form["Name"];
             string Description = Request.Form["Description"];

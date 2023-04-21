@@ -18,7 +18,7 @@ namespace QuanLySieuThi.Areas.Admin.Controllers
             return View();
         }
 
-        public ActionResult EditUsersIndex(int id)
+        public ActionResult Edit(int id)
         {
             EmployeeBUS employeeBUS = new EmployeeBUS();
             Employee emp = employeeBUS.GetEmployeeById(id);
@@ -26,19 +26,18 @@ namespace QuanLySieuThi.Areas.Admin.Controllers
 
             return View(emp);
         }
+
         [HttpPost]
-        public ActionResult Edit()
+        public ActionResult EditEmployee()
         {
             string ID = Request.Form["ID"];
             string name = Request.Form["name"];
             string phone = Request.Form["phone"];
             string adress = Request.Form["address"];
-            string password = Request.Form["password"];
+            string Role = Request.Form["Role"];
             string username = Request.Form["username"];
-            Employee emp = new Employee();
             EmployeeBUS employeeBUS = new EmployeeBUS();
-            emp = employeeBUS.GetEmployeeById(Int32.Parse(ID));
-            employeeBUS.UpdateEmployeeInfo(emp, name, phone, adress, password);
+            employeeBUS.UpdateEmployeeInfo(ID, name, phone, adress, Role);
 
             return RedirectToAction("Index", "User");
         }
@@ -49,13 +48,14 @@ namespace QuanLySieuThi.Areas.Admin.Controllers
             return RedirectToAction("Index", "User");
         }
 
-        public ActionResult AddUserIndex()
+        public ActionResult Add()
         {
+
             return View();
         }
 
         [HttpPost]
-        public ActionResult Add()
+        public ActionResult AddEmployee()
         {
             string username = Request.Form["username"];
             string fullname = Request.Form["fullname"];

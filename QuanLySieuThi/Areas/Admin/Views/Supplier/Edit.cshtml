@@ -1,9 +1,9 @@
 ﻿
 @{
-    ViewBag.Title = "AddCategoryIndex";
+    ViewBag.Title = "Chỉnh sửa thông tin nhà cung ứng";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-@model QuanLySieuThi.DTO.Category
+@model QuanLySieuThi.DTO.Supplier
 <style>
 
 
@@ -110,23 +110,23 @@
 
 
     <div id="userTable">
-        @using (Html.BeginForm("Add", "Category", FormMethod.Post))
+        @using (Html.BeginForm("EditSupplier", "Supplier", FormMethod.Post))
         {
-            <form class="form-main" id="form-9">
+            <form class="form-main" id="form-11">
                 <div class="form-item">
                     <div class="form-item">
                         <label>ID: </label>
-                        <input id="ID" name="ID" value="" readonly type="password" placeholder="" />
+                        <input id="ID" name="ID" value="@ViewBag.Supplier.ID" readonly type="password" placeholder="" />
                         <span class="form-message"></span>
                     </div>
                     <label>Tên Danh Mục: </label>
-                    <input id="Name" name="Name" value="" type="text" placeholder="Nhập tên danh mục...">
+                    <input id="Name" name="Name" value="@ViewBag.Supplier.Name" type="text" placeholder="Nhập tên danh mục...">
                     <span class="form-message"></span>
                 </div>
 
                 <div class="form-item">
                     <label>Mô tả: </label>
-                    <input id="Description" name="Description" value="" type="text" placeholder="Nhập Mô tả...">
+                    <input id="Description" name="Description" value="@ViewBag.Supplier.Description" type="text" placeholder="Nhập Mô tả...">
                     <span class="form-message"></span>
                 </div>
 
@@ -143,7 +143,7 @@
 
 <script>
     Validator({
-        form: '#form-9',
+        form: '#form-11',
         formGroupSelector: '.form-item',
         errorSelector: '.form-message',
         rules: [
@@ -155,9 +155,9 @@
 
         ],
         onSubmit: function (data) {
-            const form = document.getElementById("form-9");
+            const form = document.getElementById("form-11");
             const formData = new FormData(form)
-            fetch('/Category/AddCategoryIndex', {
+            fetch('/Supplier/EditSupplier', {
                 method: 'POST',
                 body: formData
             })
