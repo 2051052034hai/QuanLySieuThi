@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using QuanLySieuThi.BUS;
 using QuanLySieuThi.DTO;
+using QuanLySieuThi.Filter;
 
 namespace QuanLySieuThi.Areas.Admin.Controllers
 {
@@ -18,8 +19,11 @@ namespace QuanLySieuThi.Areas.Admin.Controllers
             return View();
         }
 
+        [CommonAttributeFilter]
         public ActionResult EditProductIndex(int id)
         {
+            SupplierBUS supplierBUS = new SupplierBUS();
+            ViewBag.Suppliers = supplierBUS.GetSupplliers();
             ProductBUS bus = new ProductBUS();
             Product prod = bus.GetProduct(id);
             ViewBag.Product = prod;
@@ -34,12 +38,10 @@ namespace QuanLySieuThi.Areas.Admin.Controllers
             string UnitInStock = Request.Form["UnitInStock"];
             string CateID = Request.Form["CateID"];
             string Description = Request.Form["Description"];
-            string SuppilerID = Request.Form["SuppilerID"];
+            string SuppilerID = Request.Form["SupplierID"];
             string Image_Url = Request.Form["Image_Url"];
-            Product prod = new Product();
             ProductBUS productBUS = new ProductBUS();
-            prod = productBUS.GetProduct(Int32.Parse(ID));
-            productBUS.UpdateProductInfo(prod, Name, UnitPrice, UnitInStock, CateID, Description, SuppilerID, Image_Url);
+            productBUS.UpdateProductInfo(ID, Name, UnitPrice, UnitInStock, CateID, Description, SuppilerID, Image_Url);
 
             return RedirectToAction("Index", "Product");
         }

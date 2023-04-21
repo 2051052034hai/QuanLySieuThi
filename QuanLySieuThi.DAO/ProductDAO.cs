@@ -85,6 +85,7 @@ namespace QuanLySieuThi.DAO
                 product.Description = Description;
                 product.SuppilerID = SuppilerID;
                 product.Image_Url = Image_Url;
+                context.Entry(product).State = System.Data.Entity.EntityState.Modified;
                 context.SaveChanges();
                 return true;
             }

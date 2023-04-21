@@ -4,6 +4,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @model QuanLySieuThi.DTO.Product
+@using QuanLySieuThi.DTO;
 <style>
 
 
@@ -105,66 +106,94 @@
 <div class="all-tables">
     <div class="main-seach">
         <span>Seach:</span>
-        <input type="text" onchange="searchUser()" id="searchInput" class="search-buttons" oninput="searchUser()" placeholder="Nhập tên hoặc email">
+        <input type="text" onchange="searchUser()" id="searchInput" class="search-buttons form-control" oninput="searchUser()" placeholder="Nhập tên hoặc email">
     </div>
 
 
     <div id="userTable">
-        @using (Html.BeginForm("Edit", "Product", FormMethod.Post))
+        @using (Html.BeginForm("Edit", "Product", FormMethod.Post, new { id = "form-6" }))
         {
-            <form class="form-main" id="form-6">
-                <div class="form-item">
-                    <div class="form-item">
-                        <label>ID: </label>
-                        <input id="ID" name="ID" value="@ViewBag.Product.ID" readonly type="text" placeholder="" />
-                        <span class="form-message"></span>
-                    </div>
-                    <label>Tên sản phẩm: </label>
-                    <input id="Name" name="Name" value="@ViewBag.Product.Name" type="text" placeholder="Nhập tên sản phẩm">
-                    <span class="form-message"></span>
-                </div>
+            <input id="id" name="id" value="@ViewBag.product.ID" readonly type="hidden" placeholder="" />
+            <div>
+                <label>Tên sản phẩm: </label>
+                <input id="Name" name="Name" class=" form-control" value="@ViewBag.Product.Name" type="text" placeholder="Nhập tên sản phẩm">
+                <span class="form-message"></span>
+            </div>
 
-                <div class="form-item">
-                    <label>Gía tiền: </label>
-                    <input id="UnitPrice" name="UnitPrice" value="@ViewBag.Product.UnitPrice" type="text" placeholder="Nhập nhập giá tiền">
-                    <span class="form-message"></span>
-                </div>
+            <div class="form-item">
+                <label>Gía tiền: </label>
+                <input id="UnitPrice" name="UnitPrice" class=" form-control" value="@ViewBag.Product.UnitPrice" type="text" placeholder="Nhập nhập giá tiền">
+                <span class="form-message"></span>
+            </div>
 
-                <div class="form-item">
-                    <label>Số lượng: </label>
-                    <input id="UnitInStock" name="UnitInStock" value="@ViewBag.Product.UnitInStock" type="text" placeholder="Nhập số lượng sản phẩm.">
-                    <span class="form-message"></span>
-                </div>
+            <div class="form-item">
+                <label>Số lượng: </label>
+                <input id="UnitInStock" name="UnitInStock" class=" form-control" value="@ViewBag.Product.UnitInStock" type="text" readonly placeholder="Nhập số lượng sản phẩm.">
+                <span class="form-message"></span>
+            </div>
 
-                <div class="form-item">
-                    <label>Mã danh mục: </label>
-                    <input id="CateID" name="CateID" value="@ViewBag.Product.CateID" type="text" placeholder="Nhập mã danh mục">
-                    <span class="form-message"></span>
-                </div>
+            <div class="dropdown">
+                <label>Chọn danh mục: </label>
+                <select class="form-control" id="CateID" name="CateID">
+                    @foreach (var cate in ViewBag.Categories)
+                    {
+                        if (@cate.ID == @ViewBag.Product.ID)
+                        {
+                            <option value="@cate.ID" selected>
+                                @cate.Name
+                            </option>
+                        }
+                        else
+                        {
+                            <option value="@cate.ID">
+                                @cate.Name
+                            </option>
+                        }
+                    }
+                </select>
+                <span class="form-message"></span>
 
-                <div class="form-item">
-                    <label>Mã nhà cung ứng: </label>
-                    <input id="SuppilerID" name="SuppilerID" value="@ViewBag.Product.SuppilerID" type="text" placeholder="Nhập mã nhà cung ứng" />
-                    <span class="form-message"></span>
-                </div>
-                <div class="form-item">
-                    <label>Mã nhà cung ứng: </label>
-                    <input id="Description" name="Description" value="@ViewBag.Product.Description" type="text" placeholder="Nhập mô tả" />
-                    <span class="form-message"></span>
-                </div>
+            </div>
 
-                <div class="form-item">
-                    <label>Hình ảnh: </label>
-                    <input id="Image_Url" name="Image_Url" value="@ViewBag.Product.Image_Url" type="text" placeholder="Nhập link ảnh" />
-                    <span class="form-message"></span>
-                </div>
+            <div class="dropdown">
+                <label>Chọn nhà cung ứng: </label>
+                <select class="form-control" id="SupplierID" name="SupplierID">
+                    @foreach (var supplier in ViewBag.Suppliers)
+                    {
+                        if (supplier.ID.ToString() == @ViewBag.Product.SuppilerID)
+                        {
+                            <option value="@supplier.ID" selected>
+                                @supplier.Name
+                            </option>
+                        }
+                        else
+                        {
+                            <option value="@supplier.ID">
+                                @supplier.Name
+                            </option>
+                        }
+                    }
+                </select>
+                <span class="form-message"></span>
+
+            </div>
+            <div class="form-item">
+                <label>Mô tả: </label>
+                <textarea id="Description" name="Description" class=" form-control" value="@ViewBag.Product.Description" type="text" placeholder="Nhập mô tả"></textarea>
+                <span class="form-message"></span>
+            </div>
+
+            <div class="form-item">
+                <label>Hình ảnh: </label>
+                <input id="Image_Url" class=" form-control" name="Image_Url" value="@ViewBag.Product.Image_Url" type="text" placeholder="Nhập link ảnh" />
+                <span class="form-message"></span>
+            </div>
 
 
-                <div class="form-btn">
-                    <button type="submit" class="form-submit">Xác nhận</button>
+            <div class="form-btn">
+                <button type="submit" class="form-submit">Xác nhận</button>
 
-                </div>
-            </form>
+            </div>
         }
     </div>
 </div>

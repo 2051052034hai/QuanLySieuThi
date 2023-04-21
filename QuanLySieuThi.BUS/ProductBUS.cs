@@ -45,10 +45,11 @@ namespace QuanLySieuThi.BUS
         {
             throw new NotImplementedException();
         }
-        public bool UpdateProductInfo(Product product, string name, string unitPrice, string unitInStock, string cateID, string description, string suppilerID, string image_Url)
+        public bool UpdateProductInfo(string id, string name, string unitPrice, string unitInStock, string cateID, string description, string suppilerID, string image_Url)
         {
             try
             {
+                Product product=productDAO.GetProductById(int.Parse(id));
                 // Call the UpdateInfo() method on the repository instance
                 return productDAO.UpdateInfo(product, name, unitPrice, unitInStock, cateID, description, suppilerID, image_Url);
             }
