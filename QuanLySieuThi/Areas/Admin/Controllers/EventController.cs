@@ -35,18 +35,36 @@ namespace QuanLySieuThi.Areas.Admin.Controllers
             EventBUS eventBUS = new EventBUS();
             List<Event> events = eventBUS.GetEventsFromNow();
             ViewBag.SuccessMsg = TempData["SuccessMsg"];
+            ViewBag.FailMsg = TempData["FailMsg"];
             ViewBag.Events = events;
             return View();
         }
 
-        public ActionResult Detail(int id)
+        public ActionResult Detail(int? id)
         {
+            if (id == null)
+            {
+                return RedirectToAction("Index");
+            }
             EventBUS eventBUS = new EventBUS();
-            Event evt = eventBUS.GetEventById(id);
+            Event evt = eventBUS.GetEventById(id ?? 0);
             ViewBag.Event = evt;
+            ViewBag.SuccessMsg = TempData["SuccessMsg"];
+            
             return View();
         }
-
+        [HttpPost]
+        public ActionResult DeleteEventDetail(int edId, int eventId)
+        {
+            EventBUS eventBUS = new EventBUS();
+            if (eventBUS.RemoveDetail(edId) > 0)
+                TempData["SuccessMsg"] = "Xóa thành công!!";
+            Event evt = eventBUS.GetEventById(eventId);
+            if (evt != null)
+                return Json(new { redirectToUrl = Url.Action("Detail", "Event", new { id = eventId }) });
+            else
+                return Json(new { redirectToUrl = Url.Action("Index", "Event") });
+        }
         public ActionResult Add()
         {
             ProductBUS productBUS = new ProductBUS();
@@ -104,6 +122,17 @@ namespace QuanLySieuThi.Areas.Admin.Controllers
                 this.ListEventDetail = listDetail;
             }
             return Json(new { pID = productID });
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int evtID) {
+            EventBUS eventBUS = new EventBUS();
+            if (eventBUS.Delete(evtID) > 0) {
+                TempData["SuccessMsg"] = "Xóa thành công";
+            }
+            else
+                TempData["FailMsg"] = "Không thành công";
+            return Json(new { redirectToUrl = Url.Action("Index", "Event" )});
         }
     }
 }

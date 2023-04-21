@@ -41,5 +41,15 @@ namespace QuanLySieuThi.BUS
         {
             return eventDAO.GetEventsFromNow();
         }
+
+        public int RemoveDetail(int id)
+        {
+            return eventDAO.RemoveDetail(id);
+        }
+
+        public int Delete(int evtID)
+        {
+            return eventDAO.Delete(evtID);
+        }
     }
 }

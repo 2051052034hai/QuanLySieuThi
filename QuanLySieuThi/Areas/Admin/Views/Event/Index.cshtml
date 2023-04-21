@@ -12,13 +12,19 @@
             <strong>@ViewBag.SuccessMsg</strong>
         </div>
     }
+    @if (ViewBag.FailMsg != null)
+    {
+        <div class="alert alert-danger show">
+            <strong>@ViewBag.FailMsg</strong>
+        </div>
+    }
     @if (ViewBag.Events != null)
     {
         <span>Hiện có @ViewBag.Events.Count</span>
         <a href="@Url.Action("Add","Event")" id="myButton" class="btn btn-success btn-outline-light" onclick="addEvent()">
             Thêm Sự Kiện
         </a>
-        <table id="userTable" class="table table-striped">
+        <table id="eventTable" class="table table-striped">
             <thead>
                 <tr>
                     <th>Event</th>
@@ -39,8 +45,7 @@
 
                         <td class="text-right">
                             <a href="@Url.Action("Detail", "Event", new { id = evt.ID })" class="btn btn-outline-info btn-rounded">Xem chi tiết</a>
-                            <a href="@Url.Action("Delete", "Event", new { id = evt.ID })" class="btn btn-outline-danger btn-rounded">Xóa</a>
-
+                            <a pre-href="@evt.ID" class="btn btn-outline-danger btn-rounded delete">Xóa</a>
                         </td>
                     </tr>
                 }
@@ -52,3 +57,29 @@
         <h1 class="text-center text-info">Chưa có sự kiện nào</h1>
     }
 </div>
+
+<script>
+    let btns = document.querySelectorAll("#eventTable tbody a:nth-child(2)");
+    btns.forEach(btn => btn.addEventListener("click", (event) => {
+        if (confirm("Bạn có chắc sẽ loại bỏ sự kiện này? Nó cg sẽ xóa các bảng ghi chi tiết")) {
+            let id = event.target.getAttribute('pre-href')
+                fetch(`@Url.Action("Delete", "Event")`,{
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ evtID: id })
+                }).then(response => {
+                    return response.json();
+                }).then(data => {
+                    if (data.redirectToUrl) {
+                        // Redirect to the specified URL
+                        window.location.href = data.redirectToUrl;
+                    } else {
+                        console.log(data.error);
+                    }
+                })
+                    .catch(error => console.log(error))
+        }
+    }))
+</script>
