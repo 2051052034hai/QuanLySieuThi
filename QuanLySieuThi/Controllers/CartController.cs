@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using QuanLySieuThi.DTO;
-using QuanLySieuThi.DAO;
 using QuanLySieuThi.BUS;
 using Newtonsoft.Json;
 using System.IO;
@@ -16,14 +15,6 @@ namespace QuanLySieuThi.Controllers
     [CommonAttributeFilter]
     public class CartController : Controller
     {
-        public void getAllCategories()
-        {
-            CategoryBUS categoryBUS = new CategoryBUS();
-            List<Category> category = categoryBUS.GetCategories();
-            ViewBag.Categories = category;
-        }
-
-
         private List<BillDetail> Cart
         {
             get

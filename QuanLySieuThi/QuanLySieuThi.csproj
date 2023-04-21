@@ -609,10 +609,6 @@
       <Project>{357ae91c-a462-4d99-a9b3-00be49183f30}</Project>
       <Name>QuanLySieuThi.BUS</Name>
     </ProjectReference>
-    <ProjectReference Include="..\QuanLySieuThi.DAO\QuanLySieuThi.DAO.csproj">
-      <Project>{d4afa26c-b0b5-4c37-858d-8070046ec1c7}</Project>
-      <Name>QuanLySieuThi.DAO</Name>
-    </ProjectReference>
     <ProjectReference Include="..\QuanLySieuThi.DTO\QuanLySieuThi.DTO.csproj">
       <Project>{33c1eb8a-4594-4a05-bf6c-7d48aad5ce70}</Project>
       <Name>QuanLySieuThi.DTO</Name>
