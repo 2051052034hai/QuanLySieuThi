@@ -110,17 +110,17 @@
 
 
     <div id="userTable">
-        @using (Html.BeginForm("Edit", "ProductsList", FormMethod.Post))
+        @using (Html.BeginForm("Edit", "Product", FormMethod.Post))
         {
             <form class="form-main" id="form-6">
                 <div class="form-item">
                     <div class="form-item">
                         <label>ID: </label>
-                        <input id="ProductID" name="ProductID" value="@ViewBag.Product.ID" readonly type="text" placeholder="" />
+                        <input id="ID" name="ID" value="@ViewBag.Product.ID" readonly type="text" placeholder="" />
                         <span class="form-message"></span>
                     </div>
                     <label>Tên sản phẩm: </label>
-                    <input id="ProductName" name="ProductName" value="@ViewBag.Product.Name" type="text" placeholder="Nhập tên sản phẩm">
+                    <input id="Name" name="Name" value="@ViewBag.Product.Name" type="text" placeholder="Nhập tên sản phẩm">
                     <span class="form-message"></span>
                 </div>
 
@@ -185,7 +185,7 @@
         onSubmit: function (data) {
             const form = document.getElementById("form-6");
             const formData = new FormData(form)
-            fetch('/ProductsList/Edit', {
+            fetch('/Product/Edit', {
                 method: 'POST',
                 body: formData
             })

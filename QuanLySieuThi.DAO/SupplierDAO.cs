@@ -18,7 +18,20 @@ namespace QuanLySieuThi.DAO
         {
             this.context = new QuanLySieuThiContext();
         }
-
+        public bool UpdateInfo(Supplier supplier, string name, string description)
+        {
+            try
+            {
+                supplier.Name = name;
+                supplier.Description = description;
+                context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         // Create a new supplier
         public int Create(Supplier supplier)
         {
@@ -29,7 +42,10 @@ namespace QuanLySieuThi.DAO
             }
             catch { return 0; }
         }
-
+        public List<Supplier> GetAllSuppliers()
+        {
+            return context.Suppliers.ToList();
+        }
         // Read a supplier by ID
         public Supplier GetSupplierById(int supplierId)
         {

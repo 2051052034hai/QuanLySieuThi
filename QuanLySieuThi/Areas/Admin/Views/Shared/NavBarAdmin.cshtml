@@ -17,13 +17,28 @@
                                 <li class="nav-item">
 
                                 <li class="nav-item">
-                                    <a class="nav-link" href="dashboard-finance.html">Products List</a>
+                                    @Html.ActionLink("Products List", "Index", "Product", null, new { @class = "nav-link" })
                                 </li>
                                 <li class="nav-item">
 
-                                    @Html.ActionLink("Users List", "Index", "Product", null, new { @class = "nav-link" })
+                                    @Html.ActionLink("Users List", "Index", "User", null, new { @class = "nav-link" })
                                 </li>
+                                <li class="nav-item">
 
+                                    @Html.ActionLink("Customers List", "Index", "Customer", null, new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item">
+
+                                    @Html.ActionLink("Categories List", "Index", "Category", null, new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item">
+
+                                    @Html.ActionLink("Supplier List", "Index", "Supplier", null, new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item">
+
+                                    @Html.ActionLink("Users List", "Index", "User", null, new { @class = "nav-link" })
+                                </li>
 
                             </ul>
                         </div>

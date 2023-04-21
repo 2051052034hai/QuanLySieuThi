@@ -16,6 +16,10 @@ namespace QuanLySieuThi.BUS
         {
             supplierDAO = new SupplierDAO();
         }
+        public List<Supplier> GetSupplliers()
+        {
+            return supplierDAO.GetAllSuppliers();
+        }
 
         public int Create(Supplier supplier)
         {
@@ -67,6 +71,19 @@ namespace QuanLySieuThi.BUS
                 return 0;
             }
 
+        }
+        public bool UpdateInfo(Supplier Supplier, string name, string description)
+        {
+            try
+            {
+                // Gọi phương thức UpdateInfo() trên đối tượng repository
+                supplierDAO.UpdateInfo(Supplier, name, description);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿
 @{
-    ViewBag.Title = "EditUsersIndex";
+    ViewBag.Title = "EditSupplerIndex";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
-@model QuanLySieuThi.DTO.Employee
+@model QuanLySieuThi.DTO.Supplier
 <style>
 
 
@@ -110,43 +110,26 @@
 
 
     <div id="userTable">
-        @using (Html.BeginForm("Edit", "User", FormMethod.Post))
+        @using (Html.BeginForm("Edit", "Supplier", FormMethod.Post))
         {
-            <form class="form-main" id="form-4">
+            <form class="form-main" id="form-11">
                 <div class="form-item">
                     <div class="form-item">
                         <label>ID: </label>
-                        <input id="ID" name="ID" value="@ViewBag.Employee.ID" readonly type="password" placeholder="" />
+                        <input id="ID" name="ID" value="@ViewBag.Supplier.ID" readonly type="password" placeholder="" />
                         <span class="form-message"></span>
                     </div>
-                    <label>Tên đăng nhập: </label>
-                    <input id="username" name="username" value="@ViewBag.Employee.UserName" type="text" placeholder="Nhập tên...">
+                    <label>Tên Danh Mục: </label>
+                    <input id="Name" name="Name" value="@ViewBag.Supplier.Name" type="text" placeholder="Nhập tên danh mục...">
                     <span class="form-message"></span>
                 </div>
 
                 <div class="form-item">
-                    <label>Họ tên: </label>
-                    <input id="name" name="name" value="@ViewBag.Employee.Name" type="text" placeholder="Nhập họ tên...">
+                    <label>Mô tả: </label>
+                    <input id="Description" name="Description" value="@ViewBag.Supplier.Description" type="text" placeholder="Nhập Mô tả...">
                     <span class="form-message"></span>
                 </div>
 
-                <div class="form-item">
-                    <label>Số điện thoại: </label>
-                    <input id="phone" name="phone" value="@ViewBag.Employee.Phone" type="text" placeholder="Nhập số điện thoại...">
-                    <span class="form-message"></span>
-                </div>
-
-                <div class="form-item">
-                    <label>Địa chỉ: </label>
-                    <input id="address" name="address" value="@ViewBag.Employee.Address" type="text" placeholder="Nhập địa chỉ...">
-                    <span class="form-message"></span>
-                </div>
-
-                <div class="form-item">
-                    <label>Mật khẩu: </label>
-                    <input id="password" name="password" value="@ViewBag.Employee.Password" type="password" placeholder="Nhập mật khâu..." />
-                    <span class="form-message"></span>
-                </div>
 
 
                 <div class="form-btn">
@@ -160,7 +143,7 @@
 
 <script>
     Validator({
-        form: '#form-4',
+        form: '#form-11',
         formGroupSelector: '.form-item',
         errorSelector: '.form-message',
         rules: [
@@ -172,9 +155,9 @@
 
         ],
         onSubmit: function (data) {
-            const form = document.getElementById("form-4");
+            const form = document.getElementById("form-11");
             const formData = new FormData(form)
-            fetch('/User/Edit', {
+            fetch('/Supplier/Edit', {
                 method: 'POST',
                 body: formData
             })
