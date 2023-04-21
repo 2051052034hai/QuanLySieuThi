@@ -36,5 +36,10 @@ namespace QuanLySieuThi.BUS
         {
             return eventDAO.GetCurrentEvents();
         }
+
+        public List<Event> GetEventsFromNow()
+        {
+            return eventDAO.GetEventsFromNow();
+        }
     }
 }

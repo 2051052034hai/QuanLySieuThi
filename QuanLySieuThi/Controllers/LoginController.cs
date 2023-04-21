@@ -17,18 +17,22 @@ namespace QuanLySieuThi.Controllers
     public class LoginController : Controller
     {
         // GET: Login
+        [AnonymousFilter]
         public ActionResult Index()
         {
             ViewBag.FailMsg = TempData["FailMsg"] as string;
             ViewBag.Username = TempData["username"] as string;
             return View();
         }
+
+        [AnonymousFilter]
         public ActionResult Login()
         {
             return RedirectToAction("Index");
         }
 
         [HttpPost]
+        [AnonymousFilter]
         public ActionResult Login(string loginType, string username, string password)
         {
             if (loginType.Equals("customer"))
@@ -82,6 +86,7 @@ namespace QuanLySieuThi.Controllers
         
         
         [HttpPost]
+        [AnonymousFilter]
         public ActionResult AddCustomer()
         {
             // Dữ liệu nhận được từ client fetch lên

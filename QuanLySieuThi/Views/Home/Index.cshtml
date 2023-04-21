@@ -98,7 +98,7 @@
                                             <div class="ega-main-price-home">
 
                                                 <script>
-                                                    var formattedPrice = "@String.Format("{0:C0}đ", product.UnitPrice)".replace("Rp", "");
+                                                    var formattedPrice = "@String.Format("{0:C0}đ", product.UnitPrice)".replace("Rp", "").replace("$", "");
                                                     document.write(formattedPrice);
                                                 </script>
                                             </div>
