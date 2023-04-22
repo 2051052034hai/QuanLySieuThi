@@ -329,7 +329,10 @@
                             countCartElement.innerHTML = data.cartCount;
 
                             // Lưu giá trị vào Local Storage
-                            localStorage.setItem("cartItemCount", data.cartCount);
+                       
+
+                            sessionStorage.setItem('cartItemCount', data.cartCount);
+
                         });
                     }
                 });
