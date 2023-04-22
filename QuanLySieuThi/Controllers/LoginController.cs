@@ -5,11 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using QuanLySieuThi.DTO;
 using QuanLySieuThi.BUS;
-using Microsoft.AspNet.Identity;
-//using Microsoft.AspNet.Identity.Owin;
-//using Microsoft.Owin.Security;
 using System.Web.Helpers;
 using QuanLySieuThi.Filter;
+using QuanLySieuThi.Utils;
 
 namespace QuanLySieuThi.Controllers
 {
@@ -38,7 +36,7 @@ namespace QuanLySieuThi.Controllers
             if (loginType.Equals("customer"))
             {
                 CustomerBUS customerBUS = new CustomerBUS();
-                Customer customer = customerBUS.Authenticate(username, password);
+                Customer customer = customerBUS.Authenticate(username, Utils.Utils.GetMD5(password));
                 if (customer != null)
                 {
                     Session["currentUser"] = customer;
@@ -96,7 +94,8 @@ namespace QuanLySieuThi.Controllers
             string adress = Request.Form["address"];
             string password = Request.Form["password"];
 
-            Customer cus = new Customer(fullname, adress, phone, password, username);
+            Customer cus = new Customer(fullname, adress, phone, Utils.Utils.GetMD5(password), username);
+            
             CustomerBUS customerBUS = new CustomerBUS();
             if (customerBUS.Create(cus) > 0)
                 return RedirectToAction("Login", "Login");

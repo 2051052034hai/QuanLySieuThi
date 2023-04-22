@@ -57,7 +57,7 @@ namespace QuanLySieuThi.Controllers
             string confirm = Request.Form["confirm"];
             string newPass = Request.Form["newPassword"];
             CustomerBUS customerBUS = new CustomerBUS();
-            if (customerBUS.Update(ID: ID, password: password, newPass: newPass) > 0)
+            if (customerBUS.Update(ID: ID, password: Utils.Utils.GetMD5(password), newPass: Utils.Utils.GetMD5(newPass)) > 0)
             {
                 TempData["SuccessMsg"] = "Cập nhật thành công!!!";
                 Session["currentUser"] = customerBUS.GetCustomerById(Int32.Parse(ID));

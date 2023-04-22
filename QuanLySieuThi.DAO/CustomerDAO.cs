@@ -69,11 +69,33 @@ namespace QuanLySieuThi.DAO
             }
         }
 
-        public void Delete(int customerId)
+        public int Delete(int customerId)
         {
-            Customer customer = GetCustomerById(customerId);
-            context.Customers.Remove(customer);
-            context.SaveChanges();
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    Customer customer = GetCustomerById(customerId);
+                    if (customer != null)
+                    {
+                        List<Bill> bills = context.Bills.Where(bill => bill.CustomerID == customerId).ToList();
+                        foreach (var bill in bills)
+                        {
+                            bill.CustomerID = null;
+                            context.Entry(bill).State = EntityState.Modified;
+                            context.SaveChanges();
+                        }
+                    }
+                    context.Customers.Remove(customer);
+                    transaction.Commit();
+                    return context.SaveChanges();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    return 0;
+                }
+            }
         }
 
 

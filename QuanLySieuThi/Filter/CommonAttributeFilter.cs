@@ -15,6 +15,7 @@ namespace QuanLySieuThi.Filter
             CategoryBUS categoryBUS = new CategoryBUS();
             List<Category> category = categoryBUS.GetCategories();
             filterContext.Controller.ViewBag.Categories = category;
+            base.OnActionExecuting(filterContext);
         }
     }
 }
