@@ -46,8 +46,33 @@ namespace QuanLySieuThi.DAO
                 .Where(x => x.CreatedDate.HasValue && x.CreatedDate.Value.Year == year)
                 .ToList();
         }
+        public int Delete(int evtID)
+        {
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    Event evt = context.Events.Find(evtID);
+                    int res = 0;
+                    List<EventDetail> edList = (List<EventDetail>)context.EventDetails.Where(ed => ed.EventID == evt.ID).ToList();
+                    foreach (EventDetail ed in edList)
+                    {
+                        context.EventDetails.Remove(ed);
+                    }
 
-        public void Save(ImportBill importBill, List<ImportBillDetail> details)
+                    context.Events.Remove(evt);
+                    res += context.SaveChanges();
+                    transaction.Commit();
+                    return res;
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    return 0;
+                }
+            }
+        }
+        public int Save(ImportBill importBill, List<ImportBillDetail> details)
         {
             using (var transaction = context.Database.BeginTransaction())
             {
@@ -71,6 +96,7 @@ namespace QuanLySieuThi.DAO
 
                     context.SaveChanges();
                     transaction.Commit();
+                    return 1;
                 }
                 catch (Exception ex)
                 {
