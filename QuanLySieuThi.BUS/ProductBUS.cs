@@ -58,6 +58,21 @@ namespace QuanLySieuThi.BUS
                 return false;
             }
         }
+
+        public bool UpdateProductUnitInStock(int id, int unitInUsed)
+        {
+            try
+            {
+                Product product = productDAO.GetProductById(id);
+                product.UnitInStock = product.UnitInStock - unitInUsed;
+                // Call the UpdateInfo() method on the repository instance
+                return productDAO.Update(product);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         public Product GetProduct(int id)
         {
             ProductDAO productDAO = new ProductDAO();

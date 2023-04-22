@@ -94,6 +94,20 @@ namespace QuanLySieuThi.DAO
                 return false;
             }
         }
+
+        public bool Update(Product product)
+        {
+            try
+            {
+                context.Entry(product).State = System.Data.Entity.EntityState.Modified;
+                context.SaveChanges();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         public Product GetProductById(int id)
         {
             return context.Products.Find(id);

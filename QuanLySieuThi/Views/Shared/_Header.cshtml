@@ -2,6 +2,64 @@
 @{
     var currentUser = Session["currentUser"] as QuanLySieuThi.DTO.Customer;
 }
+
+<style>
+    span.user-css {
+        background-color: white;
+    }
+
+    .user-css, .style-log {
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 12px;
+        color: black;
+        padding: 5px 7px;
+    }
+
+    span.user-css {
+        margin-left: 5px;
+    }
+
+    .style-log {
+        background-color: white;
+    }
+
+        .style-log:hover {
+            color: #ff4500;
+        }
+
+    ul.ul-style {
+        padding-left: 0px;
+        right: -41px;
+        top: 20px;
+        background-color: white;
+        position: absolute;
+        z-index: 99999;
+        list-style-type: none;
+        display: none;
+    }
+
+        ul.ul-style > li {
+            padding-left: 0px;
+            border-top: 1px solid black;
+            text-align: left;
+        }
+
+            ul.ul-style > li:hover {
+                border-top: 1px solid #ff4500;
+                background-color: #ff4500;
+                color: white;
+            }
+
+            ul.ul-style > li > a {
+                text-decoration: none;
+            }     
+
+    .show {
+        display: block;
+    }
+</style>
+
 <header class="header">
     <div class="ega-top-header hidden-xs hidden-sm">
         <div class="container">
@@ -38,17 +96,7 @@
                     <div class="ega-item-top-bar">
                         <div class="ega-top-message">
 
-                            <span class="">
-                                Nhóm 10:
-                            </span>
-                            <a class="ega-phone" href="tel:1900.0001">
-                                0000000000
-                            </a>
-                            <span class="ega-fz-12 ega-header-top-item">
-                                (
-                                7:00 - 22:00
-                                )
-                            </span>
+
                             @if (currentUser == null)
                             {
                                 <span class="hidden-xs ega-header-top-item">
@@ -59,8 +107,16 @@
                             else
                             {
                                 <span class="hidden-xs ega-header-top-item">
-                                    <span>Welcome @currentUser.Name</span>
-                                    <span>@Html.ActionLink("Đăng xuất", "Logout", "Login", null, new { @class = "ega-a-account-header", style = "font-size: 12px" })</span>
+                                    <span class="user-css">Chào @currentUser.UserName !</span>
+
+                                    <span class="caret span-caret"></span>
+
+
+                                    <ul class="ul-style">
+                                        <li>@Html.ActionLink("Đăng xuất", "Logout", "Login", null, new { @class = "ega-a-account-header user-css " })</li>
+                                        <li>@Html.ActionLink("Thay đổi thông tin", "Logout", "Login", null, new { @class = "ega-a-account-header user-css" })</li>
+                                        <li>@Html.ActionLink("Đổi mật khẩu", "Logout", "Login", null, new { @class = "ega-a-account-header user-css" })</li>
+                                    </ul>
                                 </span>
                             }
 
@@ -138,7 +194,9 @@
 
     document.addEventListener("DOMContentLoaded", function () {
         // Lấy giá trị từ Local Storage
-        var cartItemCount = localStorage.getItem("cartItemCount");
+
+        var cartItemCount = sessionStorage.getItem("cartItemCount");
+
 
         // Nếu giá trị không null hoặc undefined, cập nhật lại trên giao diện
         if (cartItemCount != null && cartItemCount != undefined) {
@@ -147,5 +205,21 @@
         }
     });
 
+    // script drop-down //
+
+
+    let dropDrownElement = document.getElementsByClassName("span-caret")[0];
+
+    dropDrownElement.onclick = function () {
+
+        let ulElement = document.getElementsByClassName("ul-style")[0];
+        console.log(ulElement.style.display)
+
+
+        ulElement.classList.toggle("show");
+
+
+
+    }
 
 </script>
