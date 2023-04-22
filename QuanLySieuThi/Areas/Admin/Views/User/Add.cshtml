@@ -1,35 +1,10 @@
 ﻿
 @{
-    ViewBag.Title = "EditUsersIndex";
+    ViewBag.Title = "Thêm nhân viên";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
 }
 @model QuanLySieuThi.DTO.Employee
 <style>
-
-
-
-
-    #userTable th,
-    #userTable td {
-        border: 1px solid #ccc;
-        padding: 8px;
-        text-align: left;
-    }
-
-    #userTable th {
-        background-color: #f2f2f2;
-    }
-
-    #userTable tr:nth-child(even) {
-        background-color: #f9f9f9;
-    }
-
-    #userTable tr:hover {
-        background-color: #ddd;
-    }
-
-
-
     .search-buttons {
         border-radius: 3px;
         border: 1px solid black;
@@ -110,41 +85,46 @@
 
 
     <div id="userTable">
-        @using (Html.BeginForm("Edit", "User", FormMethod.Post))
+        @using (Html.BeginForm("AddEmployee", "User", FormMethod.Post))
         {
-            <form class="form-main" id="form-4">
+            <form class="form-main" id="form-5">
                 <div class="form-item">
                     <div class="form-item">
                         <label>ID: </label>
-                        <input id="ID" name="ID" value="@ViewBag.Employee.ID" readonly type="password" placeholder="" />
+                        <input id="ID" name="ID" value="" readonly type="password" placeholder="" />
                         <span class="form-message"></span>
                     </div>
                     <label>Tên đăng nhập: </label>
-                    <input id="username" name="username" value="@ViewBag.Employee.UserName" type="text" placeholder="Nhập tên...">
+                    <input id="username" name="username" value="" type="text" placeholder="Nhập tên...">
                     <span class="form-message"></span>
                 </div>
 
                 <div class="form-item">
                     <label>Họ tên: </label>
-                    <input id="name" name="name" value="@ViewBag.Employee.Name" type="text" placeholder="Nhập họ tên...">
+                    <input id="fullname" name="fullname" value="" type="text" placeholder="Nhập họ tên...">
                     <span class="form-message"></span>
                 </div>
 
                 <div class="form-item">
                     <label>Số điện thoại: </label>
-                    <input id="phone" name="phone" value="@ViewBag.Employee.Phone" type="text" placeholder="Nhập số điện thoại...">
+                    <input id="phone" name="phone" value="" type="number" placeholder="Nhập số điện thoại...">
                     <span class="form-message"></span>
                 </div>
 
                 <div class="form-item">
                     <label>Địa chỉ: </label>
-                    <input id="address" name="address" value="@ViewBag.Employee.Address" type="text" placeholder="Nhập địa chỉ...">
+                    <input id="address" name="address" value="" type="text" placeholder="Nhập địa chỉ...">
+                    <span class="form-message"></span>
+                </div>
+                <div class="form-item">
+                    <label>Role: </label>
+                    <input id="role" name="role" value="" type="text" placeholder="Nhập địa chỉ...">
                     <span class="form-message"></span>
                 </div>
 
                 <div class="form-item">
                     <label>Mật khẩu: </label>
-                    <input id="password" name="password" value="@ViewBag.Employee.Password" type="password" placeholder="Nhập mật khâu..." />
+                    <input id="password" name="password" value="" type="password" placeholder="Nhập mật khâu..." />
                     <span class="form-message"></span>
                 </div>
 
@@ -160,7 +140,7 @@
 
 <script>
     Validator({
-        form: '#form-4',
+        form: '#form-5',
         formGroupSelector: '.form-item',
         errorSelector: '.form-message',
         rules: [
@@ -172,9 +152,9 @@
 
         ],
         onSubmit: function (data) {
-            const form = document.getElementById("form-4");
+            const form = document.getElementById("form-5");
             const formData = new FormData(form)
-            fetch('/User/Edit', {
+            fetch('/User/Add', {
                 method: 'POST',
                 body: formData
             })

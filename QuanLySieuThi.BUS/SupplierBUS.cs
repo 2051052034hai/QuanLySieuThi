@@ -16,7 +16,7 @@ namespace QuanLySieuThi.BUS
         {
             supplierDAO = new SupplierDAO();
         }
-        public List<Supplier> GetSupplliers()
+        public List<Supplier> GetSuppliers()
         {
             return supplierDAO.GetAllSuppliers();
         }

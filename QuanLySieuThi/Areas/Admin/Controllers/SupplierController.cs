@@ -13,11 +13,11 @@ namespace QuanLySieuThi.Areas.Admin.Controllers
         public ActionResult Index()
         {
             SupplierBUS supplierBUS = new SupplierBUS();
-            ViewBag.Suppliers=supplierBUS.GetSupplliers();
+            ViewBag.Suppliers=supplierBUS.GetSuppliers();
             return View();
         }
 
-        public ActionResult EditSupplierIndex(int id)
+        public ActionResult Edit(int id)
         {
             SupplierBUS supplierBUS = new SupplierBUS();
             Supplier supp = supplierBUS.GetSupplierById(id);
@@ -26,7 +26,7 @@ namespace QuanLySieuThi.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit()
+        public ActionResult EditSupplier()
         {
             string ID = Request.Form["ID"];
             string Name = Request.Form["Name"];
@@ -34,7 +34,8 @@ namespace QuanLySieuThi.Areas.Admin.Controllers
             SupplierBUS supplierBUS = new SupplierBUS();
             Supplier supp = new Supplier();
             supp = supplierBUS.GetSupplierById(Int32.Parse(ID));
-            supplierBUS.UpdateInfo(supp, Name, Description);
+            if(supplierBUS.UpdateInfo(supp, Name, Description))
+                TempData["SuccessMsg"] = "Cập nhật thành công";
             return RedirectToAction("Index", "Supplier");
         }
         public ActionResult Delete(int id)
@@ -43,13 +44,10 @@ namespace QuanLySieuThi.Areas.Admin.Controllers
             supplierBUS.Delete(id);
             return RedirectToAction("Index", "Supplier");
         }
-        public ActionResult AddSupplierIndex()
-        {
-            return View();
-        }
+
 
         [HttpPost]
-        public ActionResult Add()
+        public ActionResult AddSupplier()
         {
             string Name = Request.Form["Name"];
             string Description = Request.Form["Description"];

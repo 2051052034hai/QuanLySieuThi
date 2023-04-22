@@ -36,14 +36,15 @@ namespace QuanLySieuThi.DAO
         {
             return db.Employees.Find(id);
         }
-        public bool UpdateInfo(Employee employee, string name, string phone, string address, string password)
+        public bool UpdateInfo(Employee employee, string name, string phone, string address, string role)
         {
             try
             {
                 employee.Name = name;
                 employee.Phone = phone;
                 employee.Address = address;
-                employee.Password = password;
+                employee.Role = role;
+                db.Entry(employee).State = System.Data.Entity.EntityState.Modified;
                 db.SaveChanges();
                 return true;
             }
