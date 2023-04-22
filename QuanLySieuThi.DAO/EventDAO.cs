@@ -11,11 +11,10 @@ namespace QuanLySieuThi.DAO
 {
     public class EventDAO
     {
-        private QuanLySieuThiContext context;
+        private static QuanLySieuThiContext context = new QuanLySieuThiContext();
 
         public EventDAO()
         {
-            context = new QuanLySieuThiContext(); // Replace with your actual DbContext instance
         }
 
         public int Save(Event eventModel, List<EventDetail> eventDetails)
@@ -52,8 +51,6 @@ namespace QuanLySieuThi.DAO
         {
             try
             {
-
-
                 var existingEvent = context.Events.Find(eventModel.ID);
 
                 if (existingEvent == null)
@@ -75,8 +72,7 @@ namespace QuanLySieuThi.DAO
 
         public Event GetById(int id)
         {
-            return context.Events
-                     .FirstOrDefault(e => e.ID == id);
+            return context.Events.Find(id);
         }
 
         public List<Event> GetCurrentEvents()
@@ -93,6 +89,59 @@ namespace QuanLySieuThi.DAO
             return context.Events
                      .Where(e => e.EndDate >= currentDate)
                      .ToList();
+        }
+
+        public int RemoveDetail(int id)
+        {
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    EventDetail ed = context.EventDetails.Find(id);
+                    Event evt = ed.Event;
+                    context.EventDetails.Remove(ed);
+                    int res = context.SaveChanges();
+                    if (evt.EventDetails.Count == 0)
+                    {
+                        context.Events.Remove(evt);
+                    }
+                    res += context.SaveChanges();
+                    transaction.Commit();
+                    return res;
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    return 0;
+                }
+            }
+        }
+
+        public int Delete(int evtID)
+        {
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    Event evt = context.Events.Find(evtID);
+                    int res = 0;
+                    List<EventDetail> edList = (List<EventDetail>) context.EventDetails.Where(ed => ed.EventID == evt.ID).ToList();
+                    foreach (EventDetail ed in edList)
+                    {
+                        context.EventDetails.Remove(ed);
+                    }
+                    
+                    context.Events.Remove(evt);
+                    res += context.SaveChanges();
+                    transaction.Commit();
+                    return res;
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    return 0;
+                }
+            }
         }
     }
 
