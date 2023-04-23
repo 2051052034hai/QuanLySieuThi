@@ -46,8 +46,33 @@ namespace QuanLySieuThi.DAO
                 .Where(x => x.CreatedDate.HasValue && x.CreatedDate.Value.Year == year)
                 .ToList();
         }
+        public int Delete(int evtID)
+        {
+            using (var transaction = context.Database.BeginTransaction())
+            {
+                try
+                {
+                    Event evt = context.Events.Find(evtID);
+                    int res = 0;
+                    List<EventDetail> edList = (List<EventDetail>)context.EventDetails.Where(ed => ed.EventID == evt.ID).ToList();
+                    foreach (EventDetail ed in edList)
+                    {
+                        context.EventDetails.Remove(ed);
+                    }
 
-        public void Save(ImportBill importBill, List<ImportBillDetail> details)
+                    context.Events.Remove(evt);
+                    res += context.SaveChanges();
+                    transaction.Commit();
+                    return res;
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    return 0;
+                }
+            }
+        }
+        public int Add(ImportBill importBill, List<ImportBillDetail> details)
         {
             using (var transaction = context.Database.BeginTransaction())
             {
@@ -55,22 +80,28 @@ namespace QuanLySieuThi.DAO
                 {
                     // Save import bill and details
                     context.ImportBills.Add(importBill);
-                    context.ImportBillDetails.AddRange(details);
-
-                    // Update product unit in stock and import bill subtotal
+                    context.SaveChanges();
+                    ProductDAO productDAO = new ProductDAO();
+                    // Assign ID to each BillDetail
                     foreach (var detail in details)
                     {
-                        var product = context.Products.FirstOrDefault(p => p.ID == detail.ID);
-                        if (product != null)
+                        detail.ImportBillID = importBill.ID;
+                        if (detail.Quantity != null)
                         {
-                            product.UnitInStock += detail.Quantity ?? 0;
-                            context.Entry(product).State = EntityState.Modified;
+                            Product product = productDAO.GetProductById(detail.Product.ID);
+                            product.UnitInStock += (int)detail.Quantity;
+                            productDAO.Update(product);
+                            detail.ProductID = product.ID;
+                            detail.Product = null;
                         }
-                        importBill.SubTotal += detail.Price * detail.Quantity;
+                        detail.ImportBill = null;
                     }
-
+                    // Add bill details to database
+                    context.ImportBillDetails.AddRange(details);
                     context.SaveChanges();
+
                     transaction.Commit();
+                    return importBill.ID;
                 }
                 catch (Exception ex)
                 {
