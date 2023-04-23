@@ -10,9 +10,6 @@ namespace QuanLySieuThi.DTO
     public partial class Employee
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-
-        public static string ROLE_ADMIN = "ADMIN";
-        public static string ROLE_EMPLOYEE = "EMPLOYEE";
         public Employee()
         {
             Bills = new HashSet<Bill>();
@@ -28,7 +25,6 @@ namespace QuanLySieuThi.DTO
             Role = role;
             Bills = new HashSet<Bill>();
         }
-
         public int ID { get; set; }
 
         [Required]
