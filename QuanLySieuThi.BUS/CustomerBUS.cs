@@ -72,5 +72,10 @@ namespace QuanLySieuThi.BUS
                 return null;
             return customer;
         }
+
+        public int Delete(int ID)
+        {
+            return customerDAO.Delete(ID);
+        }
     }
 }

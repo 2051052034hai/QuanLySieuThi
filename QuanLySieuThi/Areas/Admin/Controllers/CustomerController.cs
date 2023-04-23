@@ -13,8 +13,20 @@ namespace QuanLySieuThi.Areas.Admin.Controllers
         public ActionResult Index()
         {
             CustomerBUS customerBUS = new CustomerBUS();
-            ViewBag.Customers=customerBUS.GetCustomers();
+            ViewBag.Customers = customerBUS.GetCustomers();
+            ViewBag.SuccessMsg = TempData["SuccessMsg"];
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Delete(int customerId)
+        {
+            CustomerBUS customerBUS = new CustomerBUS();
+            if (customerBUS.Delete(customerId) > 0)
+            {
+                TempData["SuccessMsg"] = "Xóa khách hàng thành công!!!";
+            }
+            return Json(new { redirectToUrl = Url.Action("Index", "Customer") });
         }
     }
 }

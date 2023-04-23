@@ -114,8 +114,8 @@
 
                                     <ul class="ul-style">
                                         <li>@Html.ActionLink("Đăng xuất", "Logout", "Login", null, new { @class = "ega-a-account-header user-css " })</li>
-                                        <li>@Html.ActionLink("Thay đổi thông tin", "Logout", "Login", null, new { @class = "ega-a-account-header user-css" })</li>
-                                        <li>@Html.ActionLink("Đổi mật khẩu", "Logout", "Login", null, new { @class = "ega-a-account-header user-css" })</li>
+                                        <li>@Html.ActionLink("Thay đổi thông tin", "Index", "Account", null, new { @class = "ega-a-account-header user-css" })</li>
+                                        <li>@Html.ActionLink("Đổi mật khẩu", "ChangePassword", "Account", null, new { @class = "ega-a-account-header user-css" })</li>
                                     </ul>
                                 </span>
                             }
@@ -210,16 +210,19 @@
 
     let dropDrownElement = document.getElementsByClassName("span-caret")[0];
 
-    dropDrownElement.onclick = function () {
+    if (dropDrownElement) {
+        dropDrownElement.onclick = function () {
 
-        let ulElement = document.getElementsByClassName("ul-style")[0];
-        console.log(ulElement.style.display)
-
-
-        ulElement.classList.toggle("show");
+            let ulElement = document.getElementsByClassName("ul-style")[0];
+            console.log(ulElement.style.display)
 
 
+            ulElement.classList.toggle("show");
 
+
+
+        }
     }
+    
 
 </script>
