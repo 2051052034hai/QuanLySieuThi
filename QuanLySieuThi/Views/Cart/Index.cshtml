@@ -159,10 +159,10 @@
 
                             <td class="col-sm-1 col-md-1 flex-td" style="text-align: center">
                                 <div class="input-group-addon pre-sub">-</div>
-                                <input type="email" class="form-control value-quality" id="exampleInputEmail1" value="@item.Quantity.ToString()">
+                                <input data-id= "@item.Product.ID" type="email" class="form-control value-quality" id="exampleInputEmail1" value="@item.Quantity.ToString()">
                                 <div class="input-group-addon next-plus">+</div>
                             </td>
-                            <td class="col-sm-1 col-md-1 text-center padding-view"><strong>@item.Product.UnitInStock</strong></td>
+                            <td class="col-sm-1 col-md-1 text-center padding-view "><strong class="UnitInStock">@item.Product.UnitInStock</strong></td>
                             <td class="col-sm-1 col-md-1 text-center padding-view"><strong>@item.Price.ToString("N0") VNĐ</strong></td>
                             <td class="col-sm-1 col-md-1 text-center padding-view"><strong class="subtotal">@((item.Quantity * item.Price).ToString("N0")) VNĐ</strong></td>
                             <td class="col-sm-1 col-md-1">
@@ -183,7 +183,7 @@
                     <td>   </td>
                     <td>   </td>
                     <td class="text-right ">
-                        <a href="@Url.Action("Checkout", "Cart")" class="btn btn-success">
+                        <a href="@Url.Action("Index", "Cart")" class="btn btn-success aUpdate">
                             Cập nhật giỏ hàng
                         </a>
 
@@ -289,6 +289,138 @@
 
     }
 
+    /////// script update so luong san pham trong gio//////////
+
+    var cartItems = [...document.querySelectorAll('#exampleInputEmail1')].map(item => {
+      
+        // xử lý phân khúc tăng giảm số lượng trong input
+        let parenItemtElement = item.parentElement;
+        let divElement = parenItemtElement.getElementsByTagName("div");
+        let quatity = parseInt(item.value);
+        let id = item.getAttribute("data-id");
+        let currentInputElement = parenItemtElement.parentElement.getElementsByClassName("UnitInStock")[0];
+        var amout = true;
+        let prevValueInput = item.value;
+        let currentValueInput = item.value;
+
+        let updateCartItems = (amout) => {
+          
+            cartItems = cartItems.map(cartItem => {
+               
+                if (cartItem.id === id) {
+                    return {
+                        id: cartItem.id,
+                        quantity: cartItem.quantity + amout
+                    };
+                       
+                } else {
+                    return cartItem;
+                }
+            });
+        };
+
+       
+        item.oninput = function () {
+            if (parseInt(item.value) > parseInt(currentInputElement.innerHTML) || parseInt(item.value) <= 0) {
+                alert("Số lượng bạn nhập không hợp lệ");
+                item.value = currentValueInput;
+            }
+            else {
+                
+                if (!Number.isNaN(parseInt(item.value))) {
+
+                    updateCartItems(parseInt(item.value) - parseInt(prevValueInput))
+                    prevValueInput = item.value;
+                }
+                   
+            }
+
+        }
+
+        item.onblur = function () {
+            if (item.value.trim() === "") {
+                item.value = currentValueInput;
+            }
+        };
+
+        for (let i = 0; i < divElement.length; i++) {
+
+            divElement[i].addEventListener("click", function () {
+               
+               
+                // Kiểm tra xem class 'pre' có trong classList hay không
+
+                if (this.classList.contains("next-plus")) {
+
+                    if (item.value < parseInt(currentInputElement.innerHTML)) {
+                        item.value = parseInt(item.value) + 1;
+                       
+                        updateCartItems(1)
+                        prevValueInput = item.value;
+                        
+                    }             
+                    else {
+                        alert("Bạn không được nhập quá số lượng tồn kho ")
+
+                    }
+                }
+                else {
+                    if (item.value > 1) {
+                        item.value = parseInt(item.value) - 1;
+                        amout = false;
+                        updateCartItems(-1)
+                        prevValueInput = item.value;
+                    }     
+                    else {
+                        alert("Số lượng đơn hàng tối thiểu là 1");
+                    }
+                }
+
+
+            })
+         }
+
+        
+        return {
+            id: id,
+            quantity: quatity
+        }
+    })
+
+    
+
+    var aUpdateElement = document.getElementsByClassName("aUpdate")[0];
+   
+    aUpdateElement.onclick = function () {
+       /* event.preventDefault();*/
+         //Tạo một đối tượng dữ liệu để gửi lên server
+        var data = {
+            cartItems: cartItems
+        }
+      
+        console.log(data);
+
+        // Sử dụng fetch để gửi dữ liệu lên server
+        fetch('/Cart/UpdateCart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => {
+                if (response.ok) {
+                    // Nếu cập nhật giỏ hàng thành công, làm gì đó ở đây
+                    console.log("thanh cong")
+                } else {
+                    // Nếu có lỗi xảy ra khi cập nhật giỏ hàng, làm gì đó ở đây
+                }
+            })
+            .catch(error => {
+                console.error(error)
+            })
+    }
+   
 
 
 </script>

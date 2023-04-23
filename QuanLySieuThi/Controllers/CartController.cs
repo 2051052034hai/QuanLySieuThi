@@ -142,5 +142,37 @@ namespace QuanLySieuThi.Controllers
 
             return RedirectToAction("Index");
         }
+
+        /* -------phương thức update sản phẩm trong giỏ------------*/
+
+        [HttpPost]
+        public ActionResult UpdateCart()
+        {
+            var cart = this.Cart;
+
+            using (var reader = new StreamReader(Request.GetBufferlessInputStream()))
+            {
+                var body = reader.ReadToEnd();
+                var data = JsonConvert.DeserializeObject<dynamic>(body);
+
+                Console.WriteLine(data.cartItems);
+
+                BillDetail[] cartItems = JsonConvert.DeserializeObject<BillDetail[]>(data.cartItems.ToString());
+
+                foreach (var item in cartItems)
+                {
+                    var existingBillDetail = cart.FirstOrDefault(BD => BD.ProductID == item.ID);
+                    if (existingBillDetail != null)
+                    {
+                        existingBillDetail.Quantity = item.Quantity;
+                    }
+
+                }
+                Session["Cart"] = cart;
+            }
+
+            return RedirectToAction("Index");
+        }
+
     }
 }

@@ -210,16 +210,19 @@
 
     let dropDrownElement = document.getElementsByClassName("span-caret")[0];
 
-    dropDrownElement.onclick = function () {
+    if (dropDrownElement) {
+        dropDrownElement.onclick = function () {
 
-        let ulElement = document.getElementsByClassName("ul-style")[0];
-        console.log(ulElement.style.display)
-
-
-        ulElement.classList.toggle("show");
+            let ulElement = document.getElementsByClassName("ul-style")[0];
+            console.log(ulElement.style.display)
 
 
+            ulElement.classList.toggle("show");
 
+
+
+        }
     }
+    
 
 </script>
