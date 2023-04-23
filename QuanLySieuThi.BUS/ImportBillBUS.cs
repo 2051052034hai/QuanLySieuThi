@@ -22,7 +22,7 @@ namespace QuanLySieuThi.BUS
         }
         public int Add(ImportBill importBill, List<ImportBillDetail> importBillDetails)
         {
-            return importBillDAO.Save(importBill, importBillDetails);
+            return importBillDAO.Add(importBill, importBillDetails);
         }
     }
 }

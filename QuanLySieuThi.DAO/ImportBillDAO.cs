@@ -72,7 +72,7 @@ namespace QuanLySieuThi.DAO
                 }
             }
         }
-        public int Save(ImportBill importBill, List<ImportBillDetail> details)
+        public int Add(ImportBill importBill, List<ImportBillDetail> details)
         {
             using (var transaction = context.Database.BeginTransaction())
             {
@@ -80,23 +80,28 @@ namespace QuanLySieuThi.DAO
                 {
                     // Save import bill and details
                     context.ImportBills.Add(importBill);
-                    context.ImportBillDetails.AddRange(details);
-
-                    // Update product unit in stock and import bill subtotal
+                    context.SaveChanges();
+                    ProductDAO productDAO = new ProductDAO();
+                    // Assign ID to each BillDetail
                     foreach (var detail in details)
                     {
-                        var product = context.Products.FirstOrDefault(p => p.ID == detail.ID);
-                        if (product != null)
+                        detail.ImportBillID = importBill.ID;
+                        if (detail.Quantity != null)
                         {
-                            product.UnitInStock += detail.Quantity ?? 0;
-                            context.Entry(product).State = EntityState.Modified;
+                            Product product = productDAO.GetProductById(detail.Product.ID);
+                            product.UnitInStock += (int)detail.Quantity;
+                            productDAO.Update(product);
+                            detail.ProductID = product.ID;
+                            detail.Product = null;
                         }
-                        importBill.SubTotal += detail.Price * detail.Quantity;
+                        detail.ImportBill = null;
                     }
-
+                    // Add bill details to database
+                    context.ImportBillDetails.AddRange(details);
                     context.SaveChanges();
+
                     transaction.Commit();
-                    return 1;
+                    return importBill.ID;
                 }
                 catch (Exception ex)
                 {

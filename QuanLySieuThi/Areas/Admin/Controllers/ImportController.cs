@@ -49,6 +49,7 @@ namespace QuanLySieuThi.Areas.Admin.Controllers
             ProductBUS productBUS = new ProductBUS();
             string productID = Request.Form["ID"];
             int importnumber = int.Parse(Request.Form["ImportNumber"]);
+            decimal UnitPrice = decimal.Parse(Request.Form["UnitPrice"]);
             Product p = productBUS.GetProduct(productID);
 
             var listDetail = this.ListImportBillDetail;
@@ -58,24 +59,24 @@ namespace QuanLySieuThi.Areas.Admin.Controllers
             }
             else
             {
-                ImportBillDetail importbilldetail = new ImportBillDetail() { Quantity = importnumber, Product = p };
+                ImportBillDetail importbilldetail = new ImportBillDetail() { Quantity = importnumber, Product = p, Price= UnitPrice };
                 listDetail.Add(importbilldetail);
                 this.ListImportBillDetail = listDetail;
-                return Json(new { success = "Thêm thành công", importnumber = importbilldetail.Quantity, productName = importbilldetail.Product.Name, unitinstock = p.UnitInStock, pID = productID });
+                return Json(new { success = "Thêm thành công", importnumber = importbilldetail.Quantity, productName = importbilldetail.Product.Name, unitinstock = p.UnitInStock, pID = productID, price = (importbilldetail.Price* importnumber) });
             }
 
         }
 
-        //public ActionResult Save()
-        //{
-        //    DateTime currentDateTime = DateTime.Now;
-        //    ImportBillBUS importBillBUS = new ImportBillBUS();
-        //    ImportBill importBill = new ImportBill() { CreatedDate=currentDateTime};
-        //    if (importBillBUS.Add(importBill, this.ListImportBillDetail) != 0)
-        //    { TempData["SuccessMsg"] = "Khởi tạo sự kiện thành công"; }
-        //    return RedirectToAction("Index","Import");
+        public ActionResult Save()
+        {
+            DateTime currentDateTime = DateTime.Now;
+            ImportBillBUS importBillBUS = new ImportBillBUS();
+            ImportBill importBill = new ImportBill() { CreatedDate = currentDateTime };
+            if (importBillBUS.Add(importBill, this.ListImportBillDetail) != 0)
+            { TempData["SuccessMsg"] = "Khởi tạo sự kiện thành công"; }
+            return RedirectToAction("Index", "Import");
 
-        //}
+        }
         [HttpPost]
         public ActionResult DeleteDetail(int productID)
         {

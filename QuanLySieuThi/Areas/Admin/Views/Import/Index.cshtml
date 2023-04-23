@@ -13,10 +13,10 @@
             @using (Html.BeginForm("Save", "Import", FormMethod.Post, new { id = "form" }))
             {
                 @*<div class="form-item">
-                    <label>Mô tả: </label>
-                    <div><textarea id="description" class="form-control"name="description" value="" type="text" placeholder="Nhập thông tin hóa đơn nhập hàng"></textarea></div>
-                    <span class="form-message text-danger"></span>
-                </div>*@
+                        <label>Mô tả: </label>
+                        <div><textarea id="description" class="form-control"name="description" value="" type="text" placeholder="Nhập thông tin hóa đơn nhập hàng"></textarea></div>
+                        <span class="form-message text-danger"></span>
+                    </div>*@
 
                 <div class="form-btn">
                     <a href="@Url.Action("Add","Import")"><button id="myButton" class="btn btn-success" onclick="myFunction()">Lưu</button></a>
@@ -32,7 +32,7 @@
                         <td>Sản phẩm</td>
                         <td>Số lượng hiện tại:</td>
                         <td>Số lượng nhập thêm:</td>
-                        <td></td>
+                        <td>Tiền nhập sản phẩm:</td>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -53,12 +53,18 @@
             </div>
             <div class="form-item">
                 <label>Số lượng hiện tại: </label>
-                <input id="UnitInStock" name="UnitInStock" value="" type="text" placeholder="Giá gốc" readonly />
+                <input id="UnitInStock" name="UnitInStock" value="" type="text" placeholder="Số lượng tồn kho" readonly />
                 <span class="form-message text-danger"></span>
             </div>
             <div class="form-item">
+                <label>Gía tiền của sản phẩm: </label>
+                <input id="UnitPrice" name="UnitPrice" value="" type="text" inputmode="decimal" placeholder="Giá gốc" required />
+                <span class="form-message text-danger"></span>
+            </div>
+
+            <div class="form-item">
                 <label>Số lượng nhập thêm: </label>
-                <input id="ImportNumber" name="ImportNumber" type="text" inputmode="numeric" pattern="^\d+(,\d{3})*(\.\d{1,2})?$" required />
+                <input id="ImportNumber" name="ImportNumber" type="text" inputmode="numeric" required />
                 <span class="form-message text-danger"></span>
             </div>
 
@@ -75,11 +81,11 @@
                         <th class="th-sm sorting_asc" tabindex="0" aria-controls="dtBasicExample" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Sản phẩm">
                             Sản phẩm
                         </th>
-                        <th class="th-sm sorting" tabindex="0" aria-controls="dtBasicExample" rowspan="1" colspan="1" aria-label="Giá">
+                        <th class="th-sm sorting" tabindex="0" aria-controls="dtBasicExample" rowspan="1" colspan="1" aria-label="Số lượng">
                             Số lượng
                         </th>
-                        <th class="th-sm sorting" tabindex="0" aria-controls="dtBasicExample" rowspan="1" colspan="1" aria-label="Ảnh">
-                            Ảnh
+                        <th class="th-sm sorting" tabindex="0" aria-controls="dtBasicExample" rowspan="1" colspan="1" aria-label="Đơn giá">
+                            Đơn giá
                         </th>
                         <th></th>
                     </tr>
@@ -108,16 +114,6 @@
 
 <script>
     Validator({
-        form: '#form',
-        formGroupSelector: '.form-item',
-        errorSelector: '.form-message',
-        rules: [
-            Validator.isRequired('#description', "Vui lòng mô tả sự kiện !"),
-            Validator.isRequired('#startDate', "Vui lòng chọn ngày bắt đầu !"),
-            Validator.isRequired('#endDate', "Vui lòng chọn ngày kết thúc !")
-        ]
-    })
-    Validator({
         form: '#form-import',
         formGroupSelector: '.form-item',
         errorSelector: '.form-message',
@@ -136,14 +132,17 @@
                     return response.json()
                 })
                 .then(data => {
+                    console.log(data)
                     let tableBody = document.querySelector("#details tbody");
                     let newRow = `
                             <tr product-id='${data.pID}'>
                                 <td>${data.productName}</td>
                                 <td>${data.unitinstock}</td>
                                 <td>${data.importnumber}</td>
+                                <td>${data.price}</td>
                                 <td><button class="btn btn-danger" onclick="deleteDetail(event)">Xóa</button></td>
                             </tr>`;
+
 
                     // Add the new row to the table body
                     tableBody.innerHTML += newRow;
@@ -171,19 +170,22 @@
         let id = document.querySelector("#productID");
         let importnumber = document.querySelector("#ImportNumber");
         let unitinstock = document.querySelector('#UnitInStock');
+        let unitprice = document.querySelector("#UnitPrice");
         let tr = document.querySelector(`#productsTable tbody .tr-${evt.target.id}`);
 
         id.value = evt.target.id;
         name.value = tr.querySelector(".pName").innerText;
         unitinstock.value = tr.querySelector(".pUnitInStock").innerText;
+        unitprice.focus();
         importnumber.focus();
+
     }
 
     function deleteDetail(event) {
         console.log(event)
         let tr = event.target.closest("tr");
         console.log(tr.getAttribute('product-id'))
-        fetch(`@Url.Action("DeleteDetail", "Event")`, {
+        fetch(`@Url.Action("DeleteDetail", "Import")`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
