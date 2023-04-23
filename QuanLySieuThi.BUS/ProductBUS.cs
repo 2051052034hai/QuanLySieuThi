@@ -34,7 +34,7 @@ namespace QuanLySieuThi.BUS
             ProductDAO productDAO = new ProductDAO();
             return productDAO.GetProducts(kw);
         }
-
+       
         public List<Product> GetProducts(Dictionary<string, string> queryParams)
         {
             ProductDAO productDAO = new ProductDAO();
@@ -44,6 +44,10 @@ namespace QuanLySieuThi.BUS
         public object GetProduct(int? productID)
         {
             throw new NotImplementedException();
+        }
+        public List<Product> GetProductByCateID(int cateID)
+        {
+            return productDAO.GetProductsByCateID(cateID);
         }
         public bool UpdateProductInfo(string id, string name, string unitPrice, string unitInStock, string cateID, string description, string suppilerID, string image_Url)
         {

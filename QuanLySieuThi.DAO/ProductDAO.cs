@@ -20,6 +20,14 @@ namespace QuanLySieuThi.DAO
             List<Product> products = context.Products.ToList();
             return products;
         }
+        
+        public List<Product> GetProductsByCateID(int ID)
+        {
+            var query = context.Products.AsQueryable();
+            List<Product> products = query.Where(p => p.CateID == ID).ToList();
+
+            return products;
+        }
         public Product ViewDetail(int id)
         {
             return context.Products.Find(id);
