@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="BillDAO.cs" />
     <Compile Include="CategoryDAO.cs" />
+    <Compile Include="CommentDAO.cs" />
     <Compile Include="CustomerDAO.cs" />
     <Compile Include="EmployeeDAO.cs" />
     <Compile Include="EventDAO.cs" />

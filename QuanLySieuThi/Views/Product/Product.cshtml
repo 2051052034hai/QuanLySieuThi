@@ -47,7 +47,7 @@
                                                     <div class="row">
                                                         <div class="col-xs-12 text-center">
                                                             <img id="main-img-slider"
-                                                                 alt="Sữa bột Abbott PediaSure B/A 1.6kg (cho bé 1-10 tuổi)"
+                                                                 alt=""
                                                                  src="https://bizweb.dktcdn.net/thumb/large/100/172/033/products/sua-bot-pediasure-lon-1600g-1-org-4.jpg"
                                                                  class="img-responsive center-block">
                                                         </div>
@@ -75,10 +75,24 @@
                                  style="display: block;">
                                 <strong itemprop="price"
                                         class="ega-pr-page-price">
-                                    <script>
-                                        var formattedPrice = "@String.Format("{0:C0}đ", @ViewBag.product.UnitPrice)".replace("Rp", "");
+                                    @if (ViewBag.eventDetail == null)
+                                    {
+
+                                        <script>
+
+                                        var formattedPrice = "@String.Format("{0:C0}đ", @ViewBag.product.UnitPrice)".replaceAll("Rp", "").replaceAll("$", "");
                                         document.write(formattedPrice);
-                                    </script>
+                                        </script>
+                                    }
+                                    else
+                                    {
+                                        <script>
+                                            var formattedDiscount = "@String.Format("{0:C0}đ", @ViewBag.eventDetail.DiscountPrice)".replaceAll("Rp", "").replaceAll("$", "");
+                                            document.write(formattedDiscount);
+                                            var formattedPrice = "@String.Format("{0:C0}đ", @ViewBag.product.UnitPrice)".replaceAll("Rp", "").replaceAll("$", "");
+                                            document.write('  <s style="font-size: 14px; font-weight: 500">' + formattedPrice + '</s>');
+                                        </script>
+                                    }
 
                                 </strong>
                                 <meta itemprop="priceCurrency" content="VND"> <del itemprop="priceSpecification"
@@ -97,8 +111,9 @@
                                 {
                                     <span itemscope="itemscope"
                                           itemtype="http://schema.org/ItemAvailability" itemprop="supersededBy"
-                                          class="ega-avai-pr-page out-of-stock">Đã hết hàng</span>
-
+                                          class="ega-avai-pr-page out-of-stock">
+                                        Đã hết hàng
+                                    </span>
                                 }
 
 
@@ -282,110 +297,120 @@
         </div>
     </div>
 </main>
-
+@if (ViewBag.eventDetail == null)
+{
+    <script>
+        var priceDouble = parseFloat(formattedPrice.replaceAll("Rp", "").replaceAll("$", "").replace(/[^0-9]/g, ""));
+    </script>
+}
+else
+{
+<script>
+         var priceDouble = parseFloat(formattedDiscount.replaceAll("Rp", "").replaceAll("$", "").replace(/[^0-9]/g, ""));
+</script>
+}
 <script>
 
-    /*////////////Script đẩy dữ liệu mua hàng lên CartController ///////////*/
+        /*////////////Script đẩy dữ liệu mua hàng lên CartController ///////////*/
 
-    var addcartElement = document.getElementsByClassName("ega-pr-page-add-cart")[0];
+        var addcartElement = document.getElementsByClassName("ega-pr-page-add-cart")[0];
 
-    addcartElement.onclick = function () {
-        event.preventDefault()
-        var titleElemet = document.getElementsByClassName("ega-product-title")[0].innerHTML;
-        var currentUrl = window.location.href;
-        var productID = currentUrl.match(/\/(\d+)$/)[1];
-        var priceDouble = parseFloat(formattedPrice.replace(/[^0-9]/g, ""))
-        var urlElement = document.getElementById("main-img").getAttribute("src");
+        addcartElement.onclick = function () {
+            event.preventDefault()
+            var titleElemet = document.getElementsByClassName("ega-product-title")[0].innerHTML;
+            var currentUrl = window.location.href;
+            var productID = currentUrl.match(/\/(\d+)$/)[1];
+            //var priceDouble = parseFloat(formattedPrice.replace(/[^0-9]/g, ""));
 
-        fetch('/Cart/AddCart', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                "productId": productID,
-                "productName": titleElemet.trim(),
-                "productPrice": priceDouble,
-                "productImg": urlElement,
-                "productQuality": inputElement.value
+            var urlElement = document.getElementById("main-img").getAttribute("src");
 
-            })
-        }).then(function (response) {
-            if (response.ok) {
-                console.log("thanh cong")
+            fetch('/Cart/AddCart', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "productId": productID,
+                    "productName": titleElemet.trim(),
+                    "productPrice": priceDouble,
+                    "productImg": urlElement,
+                    "productQuality": inputElement.value
 
-                fetch('/Cart/Count', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                }).then(function (response) {
-                    console.log(response)
-                    if (response.ok) {
+                })
+            }).then(function (response) {
+                if (response.ok) {
+                    console.log("thanh cong")
 
-                        response.json().then(async function (data) {
-                            console.log(data);
-                            var countCartElement = document.getElementById("numberCart");
-                            countCartElement.innerHTML = data.cartCount;
+                    fetch('/Cart/Count', {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                    }).then(function (response) {
+                        console.log(response)
+                        if (response.ok) {
 
-                            // Lưu giá trị vào Local Storage
-                       
+                            response.json().then(async function (data) {
+                                console.log(data);
+                                var countCartElement = document.getElementById("numberCart");
+                                countCartElement.innerHTML = data.cartCount;
 
-                            sessionStorage.setItem('cartItemCount', data.cartCount);
-
-                        });
-                    }
-                });
+                                // Lưu giá trị vào Local Storage
 
 
+                                sessionStorage.setItem('cartItemCount', data.cartCount);
+
+                            });
+                        }
+                    });
+
+
+                }
+            });
+        }
+
+
+
+
+        /*////////////Script cho nút tăng giảm số lượng sản phẩm /////*/
+
+        var nextElement = document.getElementsByClassName("next-plus")[0];
+        var preElement = document.getElementsByClassName("pre-sub")[0];
+        var inputElement = document.getElementById("exampleInputAmount");
+        var max = document.getElementsByClassName("max-count-product")[0];
+        var numberMax = max.innerHTML.match(/\d+/);
+
+        inputElement.oninput = function () {
+            if (parseInt(inputElement.value) > numberMax[0]) {
+                alert("Bạn không được nhập quá số lượng tồn kho của sản phẩm");
+                inputElement.value = 1;
             }
-        });
-    }
 
-
-
-
-    /*////////////Script cho nút tăng giảm số lượng sản phẩm /////*/
-
-    var nextElement = document.getElementsByClassName("next-plus")[0];
-    var preElement = document.getElementsByClassName("pre-sub")[0];
-    var inputElement = document.getElementById("exampleInputAmount");
-    var max = document.getElementsByClassName("max-count-product")[0];
-    var numberMax = max.innerHTML.match(/\d+/);
-
-    inputElement.oninput = function () {
-        if (parseInt(inputElement.value) > numberMax[0]) {
-            alert("Bạn không được nhập quá số lượng tồn kho của sản phẩm");
-            inputElement.value = 1;
         }
 
-    }
+        inputElement.onblur = function () {
+            if (inputElement.value.trim() === "") {
+                inputElement.value = 1;
+            }
+        };
 
-    inputElement.onblur = function () {
-        if (inputElement.value.trim() === "") {
-            inputElement.value = 1;
+
+        nextElement.onclick = function () {
+
+            if (parseInt(inputElement.value) <= parseInt(numberMax[0]) - 1)
+                inputElement.value = parseInt(inputElement.value) + 1;
+            else
+                alert("Số lượng sản phẩm vượt quá quy định");
+
         }
-    };
 
 
-    nextElement.onclick = function () {
+        preElement.onclick = function () {
+            if (parseInt(inputElement.value) > 1)
+                inputElement.value = parseInt(inputElement.value) - 1;
+            else
+                alert("Số lượng sản phẩm tối thiểu là 1");
 
-        if (parseInt(inputElement.value) <= parseInt(numberMax[0]) - 1)
-            inputElement.value = parseInt(inputElement.value) + 1;
-        else
-            alert("Số lượng sản phẩm vượt quá quy định");
+        }
 
-    }
-
-
-    preElement.onclick = function () {
-        if (parseInt(inputElement.value) > 1)
-            inputElement.value = parseInt(inputElement.value) - 1;
-        else
-            alert("Số lượng sản phẩm tối thiểu là 1");
-
-    }
-
-
-  
 </script>

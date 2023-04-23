@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using QuanLySieuThi.DTO;
-using QuanLySieuThi.BUS;
 using QuanLySieuThi.Filter;
 
 namespace QuanLySieuThi.Controllers
@@ -16,16 +14,24 @@ namespace QuanLySieuThi.Controllers
     {
         public ActionResult Index()
         {
-           
             return View();
         }
 
         public ActionResult Product(int id)
         {
             ProductBUS bus = new ProductBUS();
-            Product p = new Product();
-            p = bus.GetProduct(id);
+            EventBUS eventBUS = new EventBUS();
+            Event evt = eventBUS.GetCurrentEvent();
+            Product p = bus.GetProduct(id);
             ViewBag.product = p;
+            if (evt != null)
+            {
+                EventDetail detail = evt.EventDetails.FirstOrDefault(d => d.ProductID == p.ID);
+                if (detail != null)
+                {
+                    ViewBag.eventDetail = detail;
+                }
+            }
             return View();
         }
     }

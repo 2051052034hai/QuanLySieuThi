@@ -11,7 +11,7 @@ namespace QuanLySieuThi.DAO
 {
     public class EventDAO
     {
-        private static QuanLySieuThiContext context = new QuanLySieuThiContext();
+        private QuanLySieuThiContext context = new QuanLySieuThiContext();
 
         public EventDAO()
         {
@@ -81,6 +81,13 @@ namespace QuanLySieuThi.DAO
             return context.Events
                      .Where(e => e.StartDate <= currentDate && (!e.EndDate.HasValue || e.EndDate >= currentDate))
                      .ToList();
+        }
+
+        public Event GetCurrentEvent()
+        {
+            DateTime currentDate = DateTime.Now.Date;
+            return context.Events
+                     .FirstOrDefault(e => e.StartDate <= currentDate && (!e.EndDate.HasValue || e.EndDate >= currentDate));
         }
 
         public List<Event> GetEventsFromNow()
