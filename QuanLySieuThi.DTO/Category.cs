@@ -16,7 +16,6 @@ namespace QuanLySieuThi.DTO
         }
 
         public int ID { get; set; }
-
         public Category(string name, string description)
         {
             Name = name;
