@@ -34,7 +34,27 @@ namespace QuanLySieuThi.Controllers
             }
 
 
+            CommentBUS commentBUS = new CommentBUS();
+
+            List<Comment> comments = commentBUS.GetCommentByProductId(id);
+            ViewBag.comments = comments;
+
             return View();
+        }
+        [HttpPost]
+        [AuthenticationFilter]
+        public ActionResult Comment(int productID, string comment)
+        {
+            CommentBUS commentBUS = new CommentBUS();
+            Comment c = new Comment()
+            {
+                ProductID = productID,
+                Content = comment,
+                CreatedDate = DateTime.Now,
+                CustomerID = (Session["currentUser"] as Customer).ID
+            };
+            commentBUS.AddComment(c);
+            return RedirectToAction("Product", "Product", new { id = productID });
         }
     }
 }
