@@ -11,7 +11,7 @@
                         Menu
                     </li>
                     <li class="nav-item ">
-                        <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1"><i class="fa fa-fw fa-user-circle"></i>Dashboard <span class="badge badge-success">6</span></a>
+                        <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1">Dashboard <span class="badge badge-success">6</span></a>
                         <div id="submenu-1" class="collapse submenu" style="">
                             <ul class="nav flex-column">
 
@@ -37,11 +37,16 @@
 
                                     @Html.ActionLink("Events", "Index", "Event", null, new { @class = "nav-link" })
                                 </li>
+                                <li class="nav-item">
+
+                                    @Html.ActionLink("Import", "Index", "Import", null, new { @class = "nav-link" })
+                                </li>
                             </ul>
                         </div>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-5" aria-controls="submenu-5"><i class="fas fa-fw fa-table"></i>Tables</a>
+                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-5" aria-controls="submenu-5">Tables</a>
                         <div id="submenu-5" class="collapse submenu" style="">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
@@ -53,6 +58,12 @@
                             </ul>
                         </div>
                     </li>
+
+                    <li class="nav-item ">
+                        @Html.ActionLink("Chart", "Index", "ChartProduct", null, new { @class = "nav-link" })
+                        
+                    </li>
+
                     <li class="nav-divider">
                         Features
                     </li>

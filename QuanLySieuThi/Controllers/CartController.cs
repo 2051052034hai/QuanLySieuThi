@@ -15,6 +15,23 @@ namespace QuanLySieuThi.Controllers
     [CommonAttributeFilter]
     public class CartController : Controller
     {
+        private List<BillDetail> countQuality
+        {
+            get
+            {
+                var countQuality = Session["countQuality"] as List<BillDetail>;
+                if (countQuality == null)
+                {
+                    countQuality = new List<BillDetail>();
+                    Session["countQuality"] = countQuality;
+                }
+                return countQuality;
+            }
+            set
+            {
+                Session["countQuality"] = value;
+            }
+        }
         private List<BillDetail> Cart
         {
             get
@@ -63,6 +80,8 @@ namespace QuanLySieuThi.Controllers
                 var body = reader.ReadToEnd();
                 var data = JsonConvert.DeserializeObject<dynamic>(body);
 
+                var countQuality = this.countQuality;
+
                 int productId = data.productId;
                 int productQuality = data.productQuality;
                 decimal productPrice = data.productPrice;
@@ -71,8 +90,30 @@ namespace QuanLySieuThi.Controllers
 
                 if (existingBillDetail != null)
                 {
-                    // Nếu sản phẩm đã tồn tại, cập nhật trường quality của sản phẩm đó
-                    existingBillDetail.Quantity += productQuality;
+                    // Lấy ra đúng sản phẩm đã mua theo ID
+                    var existingCountDetail = countQuality.FirstOrDefault(BD => BD.ID == productId);
+
+                    // Kiểm tra sản phẩm này đã được đặt chưa
+                    if (existingCountDetail != null)
+                    {
+                        //cộng dồn số lần người dùng thêm sản phẩm
+                        existingCountDetail.Quantity += productQuality;
+
+                        // Kiểm tra số lượng mua với unitstock của sản phẩm
+                        if (existingCountDetail.Quantity <= existingBillDetail.Product.UnitInStock)
+                        {
+                            // Nếu sản phẩm đã tồn tại, cập nhật trường quality của sản phẩm đó
+                            existingBillDetail.Quantity += productQuality;
+                        }
+                        else
+                        {
+                            existingCountDetail.Quantity = existingBillDetail.Quantity;
+                            ViewBag.FailMsg = "Bạn không được mua quá lượng tồn kho của sản phẩm";
+                            return RedirectToAction("Product", "Product", new { id = productId });
+
+                        }
+
+                    }
 
                 }
                 else
@@ -83,9 +124,13 @@ namespace QuanLySieuThi.Controllers
 
                     BillDetail newBillDetail = new BillDetail(productQuality, productPrice, productId, p);
 
-                    cart.Add(newBillDetail);
-                }
+                    BillDetail newQuality = new BillDetail(productId, productQuality);
 
+
+                    cart.Add(newBillDetail);
+                    countQuality.Add(newQuality);
+                }
+                Session["countQuality"] = countQuality;
                 Session["Cart"] = cart;
             }
 
@@ -94,8 +139,10 @@ namespace QuanLySieuThi.Controllers
 
         /* -------phương thức khi thanh toán sản phẩm trong giỏ--------------*/
         [AuthenticationFilter]
-        public ActionResult Checkout()
+        [HttpPost]
+        public ActionResult Checkout(string inputname)
         {
+            Console.WriteLine(inputname);
             //khai báo
             BillBUS billBUS = new BillBUS();
             ProductBUS productBUS = new ProductBUS();
@@ -110,14 +157,33 @@ namespace QuanLySieuThi.Controllers
             {
                 total += (decimal)item.Quantity * (decimal)item.Price;
             }
+            decimal discountPercent = Math.Min(decimal.Parse(inputname) / 1000, 0.4m);
+
+
+            decimal discountAmount = total * discountPercent;
+
+            decimal finalAmount = total - discountAmount;
+
             var currentUser = Session["currentUser"] as Customer;
             // Lưu thông tin vào cơ sở dữ liệu
+            int bonus = (int)(total / 1000);
             if (currentUser != null)
             {
-                Bill bill = new Bill() { CreatedDate = DateTime.Now, SubTotal = total, CustomerID = currentUser.ID };
+                Bill bill = new Bill() { CreatedDate = DateTime.Now, SubTotal = finalAmount, CustomerID = currentUser.ID };
                 billBUS.Create(bill, cart);
+
                 CustomerBUS customerBUS = new CustomerBUS();
-                customerBUS.Update(currentUser.ID, (int)(total / 100));
+
+                if (currentUser.AccumulatePoint == 0)
+                {
+                    customerBUS.Update(currentUser.ID, bonus);
+                }
+                else
+                {
+                    bonus = bonus - int.Parse(inputname);
+                    customerBUS.Update(currentUser.ID, bonus);
+                }
+               
             }
 
 
@@ -125,7 +191,7 @@ namespace QuanLySieuThi.Controllers
             // Xóa giỏ hàng khỏi Session
             Session.Remove("Cart");
             return View();
-        }
+       }
 
         /* -------phương thức khi xoá sản phẩm trong giỏ------------*/
         public ActionResult DeleteCart(int productId)

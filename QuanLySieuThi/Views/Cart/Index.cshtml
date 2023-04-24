@@ -66,7 +66,7 @@
         text-align: right;
         font-size: 20px;
         font-weight: bold;
-        width:100px;
+        width: 100px;
     }
 
     .div-view {
@@ -88,14 +88,14 @@
     .text-cart {
         color: #EE0000;
     }
-    .flex-td{
-        display:flex !important;
-       
+
+    .flex-td {
+        display: flex !important;
     }
-       .flex-td > div {
+
+        .flex-td > div {
             height: 34px !important;
             margin-top: 20px;
-         
         }
 </style>
 
@@ -159,7 +159,7 @@
 
                             <td class="col-sm-1 col-md-1 flex-td" style="text-align: center">
                                 <div class="input-group-addon pre-sub">-</div>
-                                <input data-id= "@item.Product.ID" type="email" class="form-control value-quality" id="exampleInputEmail1" value="@item.Quantity.ToString()">
+                                <input data-id="@item.Product.ID" type="email" class="form-control value-quality" id="exampleInputEmail1" value="@item.Quantity.ToString()">
                                 <div class="input-group-addon next-plus">+</div>
                             </td>
                             <td class="col-sm-1 col-md-1 text-center padding-view "><strong class="UnitInStock">@item.Product.UnitInStock</strong></td>
@@ -176,29 +176,52 @@
                         </tr>
                     }
 
-                <tr>
-                    <td>   </td>
-                    <td>   </td>
-                    <td>   </td>
-                    <td>   </td>
-                    <td>   </td>
-                    <td class="text-right ">
-                        <a href="@Url.Action("Index", "Cart")" class="btn btn-success aUpdate">
-                            Cập nhật giỏ hàng
-                        </a>
+                    <tr>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>   </td>
+                        <td class="text-right ">
+                            <a href="@Url.Action("Index", "Cart")" class="btn btn-success aUpdate">
+                                Cập nhật giỏ hàng
+                            </a>
 
-                    </td>
+                        </td>
 
-                </tr>
+                    </tr>
 
-                <tr>
-                    <td>   </td>
-                    <td>   </td>
-                    <td>   </td>
-                    <td>   </td>
-                    <td><h3 class="sub-view">Tổng tiền: </h3></td>
-                    <td class="text-right "><h3 class="subtotal-view"><strong id="strongSubtotal"> SUBTOTAL</strong></h3></td>
-                </tr>
+
+                    <tr>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>   </td>
+
+
+                        <td> <h4 style="font-weight:bold">Sử dụng tích điểm:</h4>  </td>
+
+
+                        <form id="myForm" method="post" action="@Url.Action("Checkout", "Cart")">
+
+                            <td style="display:flex; ">
+                                <div style="width: 20px; height: 34px; margin-top:20px" class="input-group-addon pre-amout">-</div>
+                                <input name="inputname" style="width:60px; margin-top:20px; text-align:center" type="email" class="form-control " id="input2" value="0">
+                                <div style="width: 20px; height: 34px; margin-top: 20px " class="input-group-addon plus-amout">+</div>
+                            </td>
+
+                        </form>
+
+                    </tr>
+
+                    <tr>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>   </td>
+                        <td>   </td>
+                        <td><h3 class="sub-view">Tổng tiền: </h3></td>
+                        <td class="text-right "><h3 class="subtotal-view"><strong id="strongSubtotal"> SUBTOTAL</strong></h3></td>
+                    </tr>
 
 
 
@@ -215,9 +238,13 @@
                 <div>
                     @if (Session["currentUser"] != null)
                     {
-                        <a href="@Url.Action("Checkout", "Cart")" class="btn btn-success">
+
+
+                        <button id="checkoutBtn" type="submit" class="btn btn-success">
                             Thanh toán <span class="glyphicon glyphicon-play"></span>
-                        </a>
+                        </button>
+
+
                     }
                     else
                     {
@@ -237,14 +264,10 @@
 
 <script>
     var tbodyElement = document.getElementsByClassName("all-subtotal")[0];
-
     var strongElements = tbodyElement.querySelectorAll("strong.subtotal");
-
     var subTotal = document.getElementById("strongSubtotal")
     var sum = 0;
-
     if (strongElements) {
-
         for (var i = 0; i < strongElements.length; i++) {
             // Thực hiện các xử lý với các thẻ td có class là "subtotal" ở đây
             // Ví dụ:
@@ -253,46 +276,27 @@
             subTotal.innerHTML = sum.toLocaleString().replaceAll(".", ",") + " VNĐ";
         }
     }
-
-
-
-
-
     /////// thay đổi số lượng trên giỏ khi xoá giỏ //////////
     var deleteCartElement = document.querySelectorAll(".delete-view")
-
     if (deleteCartElement) {
-
         deleteCartElement.forEach(function (link) {
             link.addEventListener('click', function (event) {
-
-
                 var parentElemet = link.parentElement.parentElement;
                 var countQualityElement = parentElemet.getElementsByClassName("value-quality")[0];
-
                 // Lấy giá trị từ Local Storage
                 var cartItemCount = sessionStorage.getItem("cartItemCount");
-
                 var updatecart = document.getElementById("numberCart");
-
                 if (!isNaN(cartItemCount)) {
-
                     updatecart.innerHTML -= parseInt(countQualityElement.value);
 
-                    
                     sessionStorage.setItem('cartItemCount', updatecart.innerHTML);
                 }
-
-
             });
         });
-
     }
-
     /////// script update so luong san pham trong gio//////////
-
     var cartItems = [...document.querySelectorAll('#exampleInputEmail1')].map(item => {
-      
+
         // xử lý phân khúc tăng giảm số lượng trong input
         let parenItemtElement = item.parentElement;
         let divElement = parenItemtElement.getElementsByTagName("div");
@@ -302,66 +306,56 @@
         var amout = true;
         let prevValueInput = item.value;
         let currentValueInput = item.value;
-
         let updateCartItems = (amout) => {
-          
+
             cartItems = cartItems.map(cartItem => {
-               
+
                 if (cartItem.id === id) {
                     return {
                         id: cartItem.id,
                         quantity: cartItem.quantity + amout
                     };
-                       
+
                 } else {
                     return cartItem;
                 }
             });
         };
 
-       
         item.oninput = function () {
             if (parseInt(item.value) > parseInt(currentInputElement.innerHTML) || parseInt(item.value) <= 0) {
                 alert("Số lượng bạn nhập không hợp lệ");
                 item.value = currentValueInput;
             }
             else {
-                
-                if (!Number.isNaN(parseInt(item.value))) {
 
+                if (!Number.isNaN(parseInt(item.value))) {
                     updateCartItems(parseInt(item.value) - parseInt(prevValueInput))
                     prevValueInput = item.value;
                 }
-                   
+
             }
-
         }
-
         item.onblur = function () {
             if (item.value.trim() === "") {
                 item.value = currentValueInput;
             }
         };
-
         for (let i = 0; i < divElement.length; i++) {
-
             divElement[i].addEventListener("click", function () {
-               
-               
+
+
                 // Kiểm tra xem class 'pre' có trong classList hay không
-
                 if (this.classList.contains("next-plus")) {
-
                     if (item.value < parseInt(currentInputElement.innerHTML)) {
                         item.value = parseInt(item.value) + 1;
-                       
+
                         updateCartItems(1)
                         prevValueInput = item.value;
-                        
-                    }             
+
+                    }
                     else {
                         alert("Bạn không được nhập quá số lượng tồn kho ")
-
                     }
                 }
                 else {
@@ -370,36 +364,30 @@
                         amout = false;
                         updateCartItems(-1)
                         prevValueInput = item.value;
-                    }     
+                    }
                     else {
                         alert("Số lượng đơn hàng tối thiểu là 1");
                     }
                 }
-
-
             })
-         }
+        }
 
-        
         return {
             id: id,
             quantity: quatity
         }
     })
 
-    
-
     var aUpdateElement = document.getElementsByClassName("aUpdate")[0];
-   
+
     aUpdateElement.onclick = function () {
-       /* event.preventDefault();*/
-         //Tạo một đối tượng dữ liệu để gửi lên server
+        /* event.preventDefault();*/
+        //Tạo một đối tượng dữ liệu để gửi lên server
         var data = {
             cartItems: cartItems
         }
-      
-        console.log(data);
 
+        console.log(data);
         // Sử dụng fetch để gửi dữ liệu lên server
         fetch('/Cart/UpdateCart', {
             method: 'POST',
@@ -420,7 +408,39 @@
                 console.error(error)
             })
     }
-   
+    /// tich diem
+    var preMount = document.getElementsByClassName("pre-amout")[0];
+    var input2Element = document.getElementById("input2");
+    var plusMout = document.getElementsByClassName("plus-amout")[0];
+    var pointElement = document.getElementById("point");
 
 
+    preMount.onclick = function () {
+        if (parseInt(input2Element.value) != 0) {
+
+            input2Element.value = parseInt(input2Element.value) - 1000;
+        }
+        else {
+            alert("Điểm của bạn đang là 0");
+        }
+
+    }
+    console.log(parseInt(input2Element.value))
+    plusMout.onclick = function () {
+        if (parseInt(input2Element.value) < parseInt(pointElement.innerHTML) - 1000)
+            input2Element.value = parseInt(input2Element.value) + 1000;
+        else {
+            alert("bạn không được tăng quá số lượng tích điểm")
+        }
+    }
+
+     
+    document.addEventListener('DOMContentLoaded', function () {
+        var checkoutBtn = document.getElementById('checkoutBtn');
+        checkoutBtn.addEventListener('click', function () {
+            document.getElementById('myForm').submit();
+        });
+    });
+
+    
 </script>

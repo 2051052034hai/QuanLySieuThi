@@ -32,10 +32,13 @@ namespace QuanLySieuThi.Controllers
                     ViewBag.eventDetail = detail;
                 }
             }
+
+
             CommentBUS commentBUS = new CommentBUS();
 
             List<Comment> comments = commentBUS.GetCommentByProductId(id);
             ViewBag.comments = comments;
+
             return View();
         }
         [HttpPost]

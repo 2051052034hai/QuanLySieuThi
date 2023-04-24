@@ -76,13 +76,13 @@
                         </h1>
                     </div>
                 </div>
-                <div class="col-xs-4">
+                <div class="col-xs-6">
                     <div class="ega-item-top-bar">
 
                         <form class="ega-form-search-top" role="search" method="get"
                               action="/Home/Index/">
-                            <div class="ega-div-top-search">
-                                <input autocomplete="off" name="search" type="search"
+                            <div  class="ega-div-top-search">
+                                <input  autocomplete="off" name="search" type="search"
                                        placeholder="Bạn muốn mua gì?" />
                                 <button type="submit">
                                     <span class="glyphicon glyphicon-search"></span>
@@ -92,11 +92,25 @@
 
                     </div>
                 </div>
-                <div class="col-xs-6 text-right">
+                <div class="col-xs-4 text-right">
                     <div class="ega-item-top-bar">
                         <div class="ega-top-message">
 
 
+                            @if (currentUser != null)
+                            {
+                                <span style="margin-right:50px" class="hidden-xs ega-header-top-item">
+                                    <strong>Điểm: </strong>
+                                    <strong id ="point">@currentUser.AccumulatePoint</strong>
+                                </span>
+                            }
+                            else
+                            {
+                                <span style="margin-right:50px" class="hidden-xs ega-header-top-item">
+                                    <strong>Điểm: </strong>
+                                    <strong>0</strong>
+                                </span>
+                            }
                             @if (currentUser == null)
                             {
                                 <span class="hidden-xs ega-header-top-item">
@@ -119,6 +133,7 @@
                                     </ul>
                                 </span>
                             }
+
 
 
                             <span class="ega-header-top-item ega-top-cart-sendo">
