@@ -292,10 +292,41 @@
 
                     </div>
                 </div>
-            </div>
+            </div><div class="comments">
+                @if (Session["currentUser"] != null)
+                {
 
+                    <h2>Comments:</h2>
+                    <ul id="comment-list"></ul>
+                    <form id="comment-form" method="POST" action="@Url.Action("Comment", "Product")">
+                        <input type="hidden" value="@ViewBag.product.ID" name="productID" />
+                        <label for="comment" name="">Comment:</label>
+                        <textarea id="comment" name="comment" class="form-control" required></textarea>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+
+                }
+                else
+                {
+                    <div><a href="/Login"> Đăng nhập </a> để có thể bình luận</div>
+                }
+            @foreach (var c in ViewBag.comments)
+            {
+                <div>
+                    @if (c.Customer != null)
+                    {
+                    <h5>@c.Customer.Name :</h5>
+                    }else
+                {
+                    <h5 class="ml-2">Tài khoản bị vô hiệu</h5>
+                }
+                    <h6>@c.Content</h6>
+                </div>
+            }
+            </div>
         </div>
     </div>
+
 </main>
 @if (ViewBag.eventDetail == null)
 {
@@ -305,112 +336,112 @@
 }
 else
 {
-<script>
-         var priceDouble = parseFloat(formattedDiscount.replaceAll("Rp", "").replaceAll("$", "").replace(/[^0-9]/g, ""));
-</script>
+    <script>
+        var priceDouble = parseFloat(formattedDiscount.replaceAll("Rp", "").replaceAll("$", "").replace(/[^0-9]/g, ""));
+    </script>
 }
 <script>
 
-        /*////////////Script đẩy dữ liệu mua hàng lên CartController ///////////*/
+    /*////////////Script đẩy dữ liệu mua hàng lên CartController ///////////*/
 
-        var addcartElement = document.getElementsByClassName("ega-pr-page-add-cart")[0];
+    var addcartElement = document.getElementsByClassName("ega-pr-page-add-cart")[0];
 
-        addcartElement.onclick = function () {
-            event.preventDefault()
-            var titleElemet = document.getElementsByClassName("ega-product-title")[0].innerHTML;
-            var currentUrl = window.location.href;
-            var productID = currentUrl.match(/\/(\d+)$/)[1];
-            //var priceDouble = parseFloat(formattedPrice.replace(/[^0-9]/g, ""));
+    addcartElement.onclick = function () {
+        event.preventDefault()
+        var titleElemet = document.getElementsByClassName("ega-product-title")[0].innerHTML;
+        var currentUrl = window.location.href;
+        var productID = currentUrl.match(/\/(\d+)$/)[1];
+        //var priceDouble = parseFloat(formattedPrice.replace(/[^0-9]/g, ""));
 
-            var urlElement = document.getElementById("main-img").getAttribute("src");
+        var urlElement = document.getElementById("main-img").getAttribute("src");
 
-            fetch('/Cart/AddCart', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    "productId": productID,
-                    "productName": titleElemet.trim(),
-                    "productPrice": priceDouble,
-                    "productImg": urlElement,
-                    "productQuality": inputElement.value
+        fetch('/Cart/AddCart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "productId": productID,
+                "productName": titleElemet.trim(),
+                "productPrice": priceDouble,
+                "productImg": urlElement,
+                "productQuality": inputElement.value
 
-                })
-            }).then(function (response) {
-                if (response.ok) {
-                    console.log("thanh cong")
+            })
+        }).then(function (response) {
+            if (response.ok) {
+                console.log("thanh cong")
 
-                    fetch('/Cart/Count', {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                    }).then(function (response) {
-                        console.log(response)
-                        if (response.ok) {
+                fetch('/Cart/Count', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                }).then(function (response) {
+                    console.log(response)
+                    if (response.ok) {
 
-                            response.json().then(async function (data) {
-                                console.log(data);
-                                var countCartElement = document.getElementById("numberCart");
-                                countCartElement.innerHTML = data.cartCount;
+                        response.json().then(async function (data) {
+                            console.log(data);
+                            var countCartElement = document.getElementById("numberCart");
+                            countCartElement.innerHTML = data.cartCount;
 
-                                // Lưu giá trị vào Local Storage
-
-
-                                sessionStorage.setItem('cartItemCount', data.cartCount);
-
-                            });
-                        }
-                    });
+                            // Lưu giá trị vào Local Storage
 
 
-                }
-            });
-        }
+                            sessionStorage.setItem('cartItemCount', data.cartCount);
+
+                        });
+                    }
+                });
 
 
-
-
-        /*////////////Script cho nút tăng giảm số lượng sản phẩm /////*/
-
-        var nextElement = document.getElementsByClassName("next-plus")[0];
-        var preElement = document.getElementsByClassName("pre-sub")[0];
-        var inputElement = document.getElementById("exampleInputAmount");
-        var max = document.getElementsByClassName("max-count-product")[0];
-        var numberMax = max.innerHTML.match(/\d+/);
-
-        inputElement.oninput = function () {
-            if (parseInt(inputElement.value) > numberMax[0]) {
-                alert("Bạn không được nhập quá số lượng tồn kho của sản phẩm");
-                inputElement.value = 1;
             }
+        });
+    }
 
+
+
+
+    /*////////////Script cho nút tăng giảm số lượng sản phẩm /////*/
+
+    var nextElement = document.getElementsByClassName("next-plus")[0];
+    var preElement = document.getElementsByClassName("pre-sub")[0];
+    var inputElement = document.getElementById("exampleInputAmount");
+    var max = document.getElementsByClassName("max-count-product")[0];
+    var numberMax = max.innerHTML.match(/\d+/);
+
+    inputElement.oninput = function () {
+        if (parseInt(inputElement.value) > numberMax[0]) {
+            alert("Bạn không được nhập quá số lượng tồn kho của sản phẩm");
+            inputElement.value = 1;
         }
 
-        inputElement.onblur = function () {
-            if (inputElement.value.trim() === "") {
-                inputElement.value = 1;
-            }
-        };
+    }
 
-
-        nextElement.onclick = function () {
-
-            if (parseInt(inputElement.value) <= parseInt(numberMax[0]) - 1)
-                inputElement.value = parseInt(inputElement.value) + 1;
-            else
-                alert("Số lượng sản phẩm vượt quá quy định");
-
+    inputElement.onblur = function () {
+        if (inputElement.value.trim() === "") {
+            inputElement.value = 1;
         }
+    };
 
 
-        preElement.onclick = function () {
-            if (parseInt(inputElement.value) > 1)
-                inputElement.value = parseInt(inputElement.value) - 1;
-            else
-                alert("Số lượng sản phẩm tối thiểu là 1");
+    nextElement.onclick = function () {
 
-        }
+        if (parseInt(inputElement.value) <= parseInt(numberMax[0]) - 1)
+            inputElement.value = parseInt(inputElement.value) + 1;
+        else
+            alert("Số lượng sản phẩm vượt quá quy định");
+
+    }
+
+
+    preElement.onclick = function () {
+        if (parseInt(inputElement.value) > 1)
+            inputElement.value = parseInt(inputElement.value) - 1;
+        else
+            alert("Số lượng sản phẩm tối thiểu là 1");
+
+    }
 
 </script>
