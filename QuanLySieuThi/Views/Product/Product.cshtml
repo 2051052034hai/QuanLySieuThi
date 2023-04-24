@@ -318,21 +318,31 @@
                 }
                 @foreach (var c in ViewBag.comments)
                 {
-                    <div>
-                        @if (c.Customer != null)
-                        {
-                            <h5>@c.Customer.Name :</h5>
-                        }
-                        else
-                        {
-                            <h5 class="ml-2">Tài khoản bị vô hiệu</h5>
-                        }
-                        <h6>@c.Content</h6>
+
+                    <div class="comment">
+                        <div class="comment-header">
+                            <div class="comment-meta">
+                                @if (c.Customer != null)
+                                {
+                                    <span>@c.Customer.Name</span>
+                                    <span class="comment-date">@c.CreatedDate</span>
+                                }
+                                else
+                                {
+                                    <h5 class="ml-2">Tài khoản bị vô hiệu</h5>
+                                }
+                            </div>
+                        </div>
+                        <div class="comment-body">
+                            <p>@c.Content</p>
+                        </div>
                     </div>
+
                 }
             </div>
         </div>
-    </div>
+
+
 
 </main>
 @if (ViewBag.eventDetail == null)
