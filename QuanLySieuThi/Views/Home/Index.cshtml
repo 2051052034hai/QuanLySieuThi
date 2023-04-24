@@ -68,7 +68,7 @@
                     <h2 class="home-product-name">
                         <a href="#"
                            title="Thực phẩm, đồ uống" class="ega-home-collection-name-title">
-                            Thực phẩm, đồ uống
+                           Đồ điện tử
                             <img src="~/static/image/hot.gif" alt="hot">
                         </a>
                     </h2>
@@ -82,32 +82,35 @@
                     <!-----------Dùng vòng for để thêm sản phẩm thuộc mục thực phẩm, đồ uống ở đây-->
                     @foreach (var product in ViewBag.Products)
                     {
-                        <div class="owl-stage-outer">
-                            <div class="owl-item active" style="width: 190px;">
-                                <div class="item">
-                                    <a class="ega-home-product-link"
-                                       href="/Product/Product/@product.ID"
-                                       title="@product.Name">
-                                        <img class="center-block"
-                                             src="@product.Image_Url"
-                                             alt="@product.Name">
-                                        <div>
-                                            <h3 class="ega-home-product-name">
-                                                @product.Name
-                                            </h3>
-                                            <div class="ega-main-price-home">
+                        if (product.CateID == 1)
+                        {
+                            <div class="owl-stage-outer">
+                                <div class="owl-item active" style="width: 190px;">
+                                    <div class="item">
+                                        <a class="ega-home-product-link"
+                                           href="/Product/Product/@product.ID"
+                                           title="@product.Name">
+                                            <img class="center-block"
+                                                 src="@product.Image_Url"
+                                                 alt="@product.Name">
+                                            <div>
+                                                <h3 class="ega-home-product-name">
+                                                    @product.Name
+                                                </h3>
+                                                <div class="ega-main-price-home">
 
-                                                <script>
+                                                    <script>
                                                     var formattedPrice = "@String.Format("{0:C0}đ", product.UnitPrice)".replace("Rp", "").replace("$", "");
                                                     document.write(formattedPrice);
-                                                </script>
+                                                    </script>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <!--sale tag-->
-                                    </a>
+                                            <!--sale tag-->
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        }
                     }
 
 
@@ -119,51 +122,53 @@
             <div class="row">
                 <div class="col-xs-6">
                     <h2 class="home-product-name">
-                        <a href="#" title="Chăm sóc cá nhân"
-                           class="ega-home-collection-name-title">
-                            Chăm sóc cá nhân
+                        <a href="#"
+                           title="Thực phẩm, đồ uống" class="ega-home-collection-name-title">
+                            Đồ gia dụng
                             <img src="~/static/image/hot.gif" alt="hot">
                         </a>
                     </h2>
                 </div>
-
             </div>
 
             <div class="ega-home-product-items">
                 <div class="owl-carousel owl-theme ega-products-owl-carousel owl-loaded owl-drag"
-                     data-count="8" data-url="/cham-soc-ca-nhan">
+                     data-count="10" data-url="/thuc-pham-do-uong">
 
-                    <!-----------Dùng vòng for để thêm sản phẩm thuộc mục chăm sóc cá nhân ở đây-->
-                    <div class="owl-stage-outer">
-                        <div class="owl-item active" style="width: 190px;">
-                            <div class="item">
-                                <a class="ega-home-product-link"
-                                   href="#"
-                                   title="BVS hàng ngày Diana kháng khuẩn siêu thấm 40 miếng">
-                                    <img class="center-block"
-                                         src="~/static/image/anh-dianna.png"
-                                         alt="BVS hàng ngày Diana kháng khuẩn siêu thấm 40 miếng">
-                                    <div>
-                                        <h3 class="ega-home-product-name">
-                                            BVS hàng ngày Diana kháng khuẩn siêu thấm 40 miếng
-                                        </h3>
-                                        <div class="ega-main-price-home">
-                                            21.000₫
-                                        </div>
+                    <!-----------Dùng vòng for để thêm sản phẩm thuộc mục thực phẩm, đồ uống ở đây-->
+                    @foreach (var product in ViewBag.Products)
+                    {
+                        if (product.CateID == 2)
+                        {
+                            <div class="owl-stage-outer">
+                                <div class="owl-item active" style="width: 190px;">
+                                    <div class="item">
+                                        <a class="ega-home-product-link"
+                                           href="/Product/Product/@product.ID"
+                                           title="@product.Name">
+                                            <img class="center-block"
+                                                 src="@product.Image_Url"
+                                                 alt="@product.Name">
+                                            <div>
+                                                <h3 class="ega-home-product-name">
+                                                    @product.Name
+                                                </h3>
+                                                <div class="ega-main-price-home">
 
-                                        <div class="ega-old-price-home">
-                                            23.000₫
-                                        </div>
+                                                    <script>
+                                                    var formattedPrice = "@String.Format("{0:C0}đ", product.UnitPrice)".replace("Rp", "").replace("$", "");
+                                                    document.write(formattedPrice);
+                                                    </script>
+                                                </div>
+                                            </div>
+                                            <!--sale tag-->
+                                        </a>
                                     </div>
-                                    <!--sale tag-->
-
-                                    <div class="ega-percent-price">
-                                        -9%
-                                    </div>
-                                </a>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                        }
+                    }
+
 
                 </div>
             </div>
@@ -174,8 +179,176 @@
             <div class="row">
                 <div class="col-xs-6">
                     <h2 class="home-product-name">
-                        <a href="#" title="Vệ sinh nhà cửa"
-                           class="ega-home-collection-name-title">
+                        <a href="#"
+                           title="Thực phẩm, đồ uống" class="ega-home-collection-name-title">
+                            Sức khỏe làm đẹp
+                            <img src="~/static/image/hot.gif" alt="hot">
+                        </a>
+                    </h2>
+                </div>
+            </div>
+
+            <div class="ega-home-product-items">
+                <div class="owl-carousel owl-theme ega-products-owl-carousel owl-loaded owl-drag"
+                     data-count="10" data-url="/thuc-pham-do-uong">
+
+                    <!-----------Dùng vòng for để thêm sản phẩm thuộc mục thực phẩm, đồ uống ở đây-->
+                    @foreach (var product in ViewBag.Products)
+                    {
+                        if (product.CateID == 3)
+                        {
+                            <div class="owl-stage-outer">
+                                <div class="owl-item active" style="width: 190px;">
+                                    <div class="item">
+                                        <a class="ega-home-product-link"
+                                           href="/Product/Product/@product.ID"
+                                           title="@product.Name">
+                                            <img class="center-block"
+                                                 src="@product.Image_Url"
+                                                 alt="@product.Name">
+                                            <div>
+                                                <h3 class="ega-home-product-name">
+                                                    @product.Name
+                                                </h3>
+                                                <div class="ega-main-price-home">
+
+                                                    <script>
+                                                    var formattedPrice = "@String.Format("{0:C0}đ", product.UnitPrice)".replace("Rp", "").replace("$", "");
+                                                    document.write(formattedPrice);
+                                                    </script>
+                                                </div>
+                                            </div>
+                                            <!--sale tag-->
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+
+
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="ega-home-slider-products hidden-xs">
+            <div class="row">
+                <div class="col-xs-6">
+                    <h2 class="home-product-name">
+                        <a href="#"
+                           title="Thực phẩm, đồ uống" class="ega-home-collection-name-title">
+                            Đồ nghê, dụng cụ sửa chữa
+                            <img src="~/static/image/hot.gif" alt="hot">
+                        </a>
+                    </h2>
+                </div>
+            </div>
+
+            <div class="ega-home-product-items">
+                <div class="owl-carousel owl-theme ega-products-owl-carousel owl-loaded owl-drag"
+                     data-count="10" data-url="/thuc-pham-do-uong">
+
+                    <!-----------Dùng vòng for để thêm sản phẩm thuộc mục thực phẩm, đồ uống ở đây-->
+                    @foreach (var product in ViewBag.Products)
+                    {
+                        if (product.CateID == 4)
+                        {
+                            <div class="owl-stage-outer">
+                                <div class="owl-item active" style="width: 190px;">
+                                    <div class="item">
+                                        <a class="ega-home-product-link"
+                                           href="/Product/Product/@product.ID"
+                                           title="@product.Name">
+                                            <img class="center-block"
+                                                 src="@product.Image_Url"
+                                                 alt="@product.Name">
+                                            <div>
+                                                <h3 class="ega-home-product-name">
+                                                    @product.Name
+                                                </h3>
+                                                <div class="ega-main-price-home">
+
+                                                    <script>
+                                                    var formattedPrice = "@String.Format("{0:C0}đ", product.UnitPrice)".replace("Rp", "").replace("$", "");
+                                                    document.write(formattedPrice);
+                                                    </script>
+                                                </div>
+                                            </div>
+                                            <!--sale tag-->
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+
+
+                </div>
+            </div>
+        </div>
+        <div class="ega-home-slider-products hidden-xs">
+            <div class="row">
+                <div class="col-xs-6">
+                    <h2 class="home-product-name">
+                        <a href="#"
+                           title="Thực phẩm, đồ uống" class="ega-home-collection-name-title">
+                            Thực phẩm
+                            <img src="~/static/image/hot.gif" alt="hot">
+                        </a>
+                    </h2>
+                </div>
+            </div>
+
+            <div class="ega-home-product-items">
+                <div class="owl-carousel owl-theme ega-products-owl-carousel owl-loaded owl-drag"
+                     data-count="10" data-url="/thuc-pham-do-uong">
+
+                    <!-----------Dùng vòng for để thêm sản phẩm thuộc mục thực phẩm, đồ uống ở đây-->
+                    @foreach (var product in ViewBag.Products)
+                    {
+                        if (product.CateID == 5)
+                        {
+                            <div class="owl-stage-outer">
+                                <div class="owl-item active" style="width: 190px;">
+                                    <div class="item">
+                                        <a class="ega-home-product-link"
+                                           href="/Product/Product/@product.ID"
+                                           title="@product.Name">
+                                            <img class="center-block"
+                                                 src="@product.Image_Url"
+                                                 alt="@product.Name">
+                                            <div>
+                                                <h3 class="ega-home-product-name">
+                                                    @product.Name
+                                                </h3>
+                                                <div class="ega-main-price-home">
+
+                                                    <script>
+                                                    var formattedPrice = "@String.Format("{0:C0}đ", product.UnitPrice)".replace("Rp", "").replace("$", "");
+                                                    document.write(formattedPrice);
+                                                    </script>
+                                                </div>
+                                            </div>
+                                            <!--sale tag-->
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+
+
+                </div>
+            </div>
+        </div>
+        <div class="ega-home-slider-products hidden-xs">
+            <div class="row">
+                <div class="col-xs-6">
+                    <h2 class="home-product-name">
+                        <a href="#"
+                           title="Thực phẩm, đồ uống" class="ega-home-collection-name-title">
                             Vệ sinh nhà cửa
                             <img src="~/static/image/hot.gif" alt="hot">
                         </a>
@@ -185,85 +358,42 @@
 
             <div class="ega-home-product-items">
                 <div class="owl-carousel owl-theme ega-products-owl-carousel owl-loaded owl-drag"
-                     data-count="8" data-url="/ve-sinh-nha-cua">
-                    <!-----------Dùng vòng for để thêm sản phẩm thuộc mục Vệ sinh nhà cửa ở đây-->
-                    <div class="owl-stage-outer">
-                        <div class="owl-stage"
-                             style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 1520px;">
-                            <div class="owl-item active" style="width: 190px;">
-                                <div class="item">
-                                    <a class="ega-home-product-link"
-                                       href="#"
-                                       title="Kem tẩy đa năng Cif Sạch vết bám, Sáng bề mặt 500ml">
-                                        <img class="center-block"
-                                             src="~/static/image/anh-ve-sinh.png"
-                                             alt="Kem tẩy đa năng Cif Sạch vết bám, Sáng bề mặt 500ml">
-                                        <div>
-                                            <h3 class="ega-home-product-name">
-                                                Kem tẩy đa năng Cif Sạch vết bám, Sáng bề...
-                                            </h3>
-                                            <div class="ega-main-price-home">
-                                                31.500₫
-                                            </div>
+                     data-count="10" data-url="/thuc-pham-do-uong">
 
-                                        </div>
-                                        <!--sale tag-->
-                                    </a>
+                    <!-----------Dùng vòng for để thêm sản phẩm thuộc mục thực phẩm, đồ uống ở đây-->
+                    @foreach (var product in ViewBag.Products)
+                    {
+                        if (product.CateID == 7)
+                        {
+                            <div class="owl-stage-outer">
+                                <div class="owl-item active" style="width: 190px;">
+                                    <div class="item">
+                                        <a class="ega-home-product-link"
+                                           href="/Product/Product/@product.ID"
+                                           title="@product.Name">
+                                            <img class="center-block"
+                                                 src="@product.Image_Url"
+                                                 alt="@product.Name">
+                                            <div>
+                                                <h3 class="ega-home-product-name">
+                                                    @product.Name
+                                                </h3>
+                                                <div class="ega-main-price-home">
+
+                                                    <script>
+                                                    var formattedPrice = "@String.Format("{0:C0}đ", product.UnitPrice)".replace("Rp", "").replace("$", "");
+                                                    document.write(formattedPrice);
+                                                    </script>
+                                                </div>
+                                            </div>
+                                            <!--sale tag-->
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                        }
+                    }
 
-
-                </div>
-            </div>
-        </div>
-
-
-
-        <div class="ega-home-slider-products hidden-xs">
-            <div class="row">
-                <div class="col-xs-6">
-                    <h2 class="home-product-name">
-                        <a href="#" title="Đồ dùng gia đình"
-                           class="ega-home-collection-name-title">
-                            Đồ dùng gia đình
-                            <img src="~/static/image/hot.gif" alt="hot">
-                        </a>
-                    </h2>
-                </div>
-            </div>
-
-            <div class="ega-home-product-items">
-                <div class="owl-carousel owl-theme ega-products-owl-carousel owl-loaded owl-drag"
-                     data-count="9" data-url="/do-dung-gia-dinh">
-                    <!-----------Dùng vòng for để thêm sản phẩm thuộc mục Đồ dùng gia đình ở đây-->
-                    <div class="owl-stage-outer">
-                        <div class="owl-stage"
-                             style="transform: translate3d(0px, 0px, 0px); transition: all 0s ease 0s; width: 1710px;">
-                            <div class="owl-item active" style="width: 190px;">
-                                <div class="item">
-                                    <a class="ega-home-product-link"
-                                       href="#"
-                                       title="Ky rác cán ngắn Tự Lập TL 959">
-                                        <img class="center-block"
-                                             src="~/static/image/anh-dung-cu.webp"
-                                             alt="Ky rác cán ngắn Tự Lập TL 959">
-                                        <div>
-                                            <h3 class="ega-home-product-name">
-                                                Ky rác cán ngắn Tự Lập TL 959
-                                            </h3>
-                                            <div class="ega-main-price-home">
-                                                15.000₫
-                                            </div>
-                                        </div>
-                                        <!--sale tag-->
-
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                 </div>
             </div>
