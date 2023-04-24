@@ -14,6 +14,13 @@
 
     <div class="container ega-product-xs-no-pd" itemscope="" itemtype="http://schema.org/Product">
 
+        @if (ViewBag.FailMsg != null)
+        {
+            <div class="alert alert-danger show">
+                <strong>@ViewBag.FailMsg</strong>
+            </div>
+        }
+
         <div class="row ega-product-page">
             <!--left aside-->
             <div class="col-xs-12 col-sm-12 col-md-9">
@@ -101,7 +108,7 @@
 
                                 @if (ViewBag.product.UnitInStock > 0)
                                 {
-                                    <span itemscope="itemscope"
+                                    <span data-UnitInStock="@ViewBag.product.UnitInStock" itemscope="itemscope"
                                           itemtype="http://schema.org/ItemAvailability" itemprop="supersededBy"
                                           class="ega-avai-pr-page max-count-product">
                                         còn hàng (@ViewBag.product.UnitInStock)
@@ -314,6 +321,7 @@ else
         /*////////////Script đẩy dữ liệu mua hàng lên CartController ///////////*/
 
         var addcartElement = document.getElementsByClassName("ega-pr-page-add-cart")[0];
+      
 
         addcartElement.onclick = function () {
             event.preventDefault()
@@ -321,53 +329,59 @@ else
             var currentUrl = window.location.href;
             var productID = currentUrl.match(/\/(\d+)$/)[1];
             //var priceDouble = parseFloat(formattedPrice.replace(/[^0-9]/g, ""));
+            
 
             var urlElement = document.getElementById("main-img").getAttribute("src");
 
-            fetch('/Cart/AddCart', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    "productId": productID,
-                    "productName": titleElemet.trim(),
-                    "productPrice": priceDouble,
-                    "productImg": urlElement,
-                    "productQuality": inputElement.value
-
-                })
-            }).then(function (response) {
-                if (response.ok) {
-                    console.log("thanh cong")
-
-                    fetch('/Cart/Count', {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                    }).then(function (response) {
-                        console.log(response)
-                        if (response.ok) {
-
-                            response.json().then(async function (data) {
-                                console.log(data);
-                                var countCartElement = document.getElementById("numberCart");
-                                countCartElement.innerHTML = data.cartCount;
-
-                                // Lưu giá trị vào Local Storage
+            let inputElement = document.getElementById("exampleInputAmount");
 
 
-                                sessionStorage.setItem('cartItemCount', data.cartCount);
+                fetch('/Cart/AddCart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        "productId": productID,
+                        "productName": titleElemet.trim(),
+                        "productPrice": priceDouble,
+                        "productImg": urlElement,
+                        "productQuality": inputElement.value
 
-                            });
-                        }
-                    });
+                    })
+                }).then(function (response) {
+                    if (response.ok) {
+                        console.log("thanh cong")
+
+                        fetch('/Cart/Count', {
+                            method: 'GET',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                        }).then(function (response) {
+                            console.log(response)
+                            if (response.ok) {
+
+                                response.json().then(async function (data) {
+
+                                    var countCartElement = document.getElementById("numberCart");
+                                    countCartElement.innerHTML = data.cartCount;
+
+                                    // Lưu giá trị vào Local Storage
 
 
-                }
-            });
-        }
+                                    sessionStorage.setItem('cartItemCount', data.cartCount);
+
+                                });
+                            }
+                        });
+
+
+                    }
+                });
+            } 
+            
+            
 
 
 

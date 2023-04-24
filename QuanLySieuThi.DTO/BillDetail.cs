@@ -28,6 +28,11 @@ namespace QuanLySieuThi.DTO
             this.Price = Price;
             this.BillID = BillID;
         }
+        public BillDetail(int id, int quality)
+        {
+            this.ID = id;
+            this.Quantity = quality;
+        }
         public int ID { get; set; }
 
         public int? Quantity { get; set; }

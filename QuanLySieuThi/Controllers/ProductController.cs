@@ -32,6 +32,8 @@ namespace QuanLySieuThi.Controllers
                     ViewBag.eventDetail = detail;
                 }
             }
+
+
             return View();
         }
     }
