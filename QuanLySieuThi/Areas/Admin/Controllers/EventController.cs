@@ -103,11 +103,17 @@ namespace QuanLySieuThi.Areas.Admin.Controllers
             Event newEvent = new Event() { StartDate = startDate, EndDate = endDate, Description = description };
             if (eventBUS.AddEvent(newEvent, this.ListEventDetail) > 0)
             {
+                this.ListEventDetail = null;
                 TempData["SuccessMsg"] = "Khởi tạo sự kiện thành công";
                 return RedirectToAction("Index");
             }
             else
+            {
+                this.ListEventDetail = null;
+
                 return RedirectToAction("Add");
+            }
+        
         }
 
         [HttpPost]

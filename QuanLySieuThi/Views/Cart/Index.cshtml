@@ -442,5 +442,10 @@
         });
     });
 
-    
+    var checkout = document.getElementById("checkoutBtn");
+
+    checkout.onclick = function () {
+
+        sessionStorage.setItem('cartItemCount', 0);
+    }
 </script>

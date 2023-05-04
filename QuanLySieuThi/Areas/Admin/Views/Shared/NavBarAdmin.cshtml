@@ -14,33 +14,6 @@
                         <a class="nav-link active" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-1" aria-controls="submenu-1">Dashboard <span class="badge badge-success">6</span></a>
                         <div id="submenu-1" class="collapse submenu" style="">
                             <ul class="nav flex-column">
-
-                                <li class="nav-item">
-                                    @Html.ActionLink("Products", "Index", "Product", null, new { @class = "nav-link" })
-                                </li>
-                                <li class="nav-item">
-                                    @Html.ActionLink("Users", "Index", "User", null, new { @class = "nav-link" })
-                                </li>
-                                <li class="nav-item">
-
-                                    @Html.ActionLink("Customers", "Index", "Customer", null, new { @class = "nav-link" })
-                                </li>
-                                <li class="nav-item">
-
-                                    @Html.ActionLink("Categories", "Index", "Category", null, new { @class = "nav-link" })
-                                </li>
-                                <li class="nav-item">
-
-                                    @Html.ActionLink("Suppliers", "Index", "Supplier", null, new { @class = "nav-link" })
-                                </li>
-                                <li class="nav-item">
-
-                                    @Html.ActionLink("Events", "Index", "Event", null, new { @class = "nav-link" })
-                                </li>
-                                <li class="nav-item">
-
-                                    @Html.ActionLink("Import", "Index", "Import", null, new { @class = "nav-link" })
-                                </li>
                             </ul>
                         </div>
                     </li>
@@ -61,50 +34,33 @@
 
                     <li class="nav-item ">
                         @Html.ActionLink("Chart", "Index", "ChartProduct", null, new { @class = "nav-link" })
-                        
-                    </li>
 
-                    <li class="nav-divider">
-                        Features
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-9" aria-controls="submenu-9"><i class="fas fa-fw fa-map-marker-alt"></i>Maps</a>
-                        <div id="submenu-9" class="collapse submenu" style="">
-                            <ul class="nav flex-column">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="pages/map-google.html">Google Maps</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="pages/map-vector.html">Vector Maps</a>
-                                </li>
-                            </ul>
-                        </div>
+                        @Html.ActionLink("Products", "Index", "Product", null, new { @class = "nav-link" })
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-10" aria-controls="submenu-10"><i class="fas fa-f fa-folder"></i>Menu Level</a>
-                        <div id="submenu-10" class="collapse submenu" style="">
-                            <ul class="nav flex-column">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Level 1</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false" data-target="#submenu-11" aria-controls="submenu-11">Level 2</a>
-                                    <div id="submenu-11" class="collapse submenu" style="">
-                                        <ul class="nav flex-column">
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Level 1</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" href="#">Level 2</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Level 3</a>
-                                </li>
-                            </ul>
-                        </div>
+                        @Html.ActionLink("Users", "Index", "User", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+
+                        @Html.ActionLink("Customers", "Index", "Customer", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+
+                        @Html.ActionLink("Categories", "Index", "Category", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+
+                        @Html.ActionLink("Suppliers", "Index", "Supplier", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+
+                        @Html.ActionLink("Events", "Index", "Event", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+
+                        @Html.ActionLink("Import", "Index", "Import", null, new { @class = "nav-link" })
                     </li>
                 </ul>
             </div>

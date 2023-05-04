@@ -87,39 +87,31 @@
                 <!-- ============================================================== -->
                 <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
                     <div class="card">
-                        <h5 class="card-header">Top Selling Products</h5>
+                        <h5 class="card-header">Top Selling Bills</h5>
                         <div class="card-body p-0">
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead class="bg-light">
                                         <tr class="border-0">
-                                            <th class="border-0">#</th>
-                                            <th class="border-0">Image</th>
-                                            <th class="border-0">Product ID</th>
-                                            <th class="border-0">Product Name</th>
-                                            <th class="border-0">Category ID</th>
-                                            <th class="border-0">Price</th>
+                                            <th class="border-0">ID</th>
+                                            <th class="border-0">Ngày xuất</th>
+                                            <th class="border-0">Tổng tiền</th>
+                                            <th class="border-0">Tên khách hàng</th>
                                             
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach (var p in ViewBag.Products)
+                                        @foreach (var p in ViewBag.ListBill)
                                         {
                                             <tr>
-                                                <td>1</td>
-                                                <td>
-                                                    <div class="m-r-10"><img src="@p.Image_Url" alt="user" class="rounded" width="45"></div>
-                                                </td>
+                                               
                                                 <td>@p.ID </td>
-                                                <td>@p.Name </td>
-                                                <td>@p.CateID</td>
-                                                <td>@p.UnitPrice</td>
+                                                <td>@p.CreatedDate </td>
+                                                <td>@p.SubTotal</td>
+                                                <td>@p.Customer.Name</td>
                                                 
                                             </tr>
 
-                                            <tr>
-                                                <td colspan="9"><a href="#" class="btn btn-outline-light float-right">View Details</a></td>
-                                            </tr>
                                         }
                                     </tbody>
                                 </table>

@@ -12,8 +12,9 @@ namespace QuanLySieuThi.Areas.Admin.Controllers
         // GET: Admin/Home
         public ActionResult Index()
         {
-            ProductBUS productBUS = new ProductBUS();
-            ViewBag.Products = productBUS.GetProducts();
+            BillBUS billBus = new BillBUS();
+            List<Bill> listbill = billBus.GetAll().OrderByDescending(x => x.ID).ToList();
+            ViewBag.ListBill = listbill;
             return View();
         }
     }

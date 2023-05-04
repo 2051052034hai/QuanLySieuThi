@@ -142,7 +142,7 @@ namespace QuanLySieuThi.Controllers
         [HttpPost]
         public ActionResult Checkout(string inputname)
         {
-            Console.WriteLine(inputname);
+            
             //khai báo
             BillBUS billBUS = new BillBUS();
             ProductBUS productBUS = new ProductBUS();

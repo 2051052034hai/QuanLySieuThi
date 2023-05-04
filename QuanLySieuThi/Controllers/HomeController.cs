@@ -22,6 +22,11 @@ namespace QuanLySieuThi.Controllers
                 products = productBUS.GetProducts(searchKw);
             else
                 products = productBUS.GetProducts();
+            if (categoryId != null)
+            {
+                List<Product> products1 = (List<Product>)products.Where(p => p.CateID == int.Parse(categoryId)).ToList();
+                products = products1;
+            }
             ViewBag.Products = products;
 
             return View();
