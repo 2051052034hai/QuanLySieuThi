@@ -264,7 +264,9 @@
 
 <script>
     var tbodyElement = document.getElementsByClassName("all-subtotal")[0];
-    var strongElements = tbodyElement.querySelectorAll("strong.subtotal");
+    if (tbodyElement?.querySelectorAll("strong.subtotal") instanceof NodeList) {
+        var strongElements = tbodyElement.querySelectorAll("strong.subtotal");
+    }
     var subTotal = document.getElementById("strongSubtotal")
     var sum = 0;
     if (strongElements) {
@@ -379,6 +381,7 @@
     })
 
     var aUpdateElement = document.getElementsByClassName("aUpdate")[0];
+    let countProduct = 0;
 
     aUpdateElement.onclick = function () {
         /* event.preventDefault();*/
@@ -387,7 +390,6 @@
             cartItems: cartItems
         }
 
-        console.log(data);
         // Sử dụng fetch để gửi dữ liệu lên server
         fetch('/Cart/UpdateCart', {
             method: 'POST',
@@ -399,6 +401,7 @@
             .then(response => {
                 if (response.ok) {
                     // Nếu cập nhật giỏ hàng thành công, làm gì đó ở đây
+                 
                     console.log("thanh cong")
                 } else {
                     // Nếu có lỗi xảy ra khi cập nhật giỏ hàng, làm gì đó ở đây
@@ -408,6 +411,13 @@
                 console.error(error)
             })
     }
+    //Cập nhật product
+    for (let i = 0; i < cartItems.length; i++) {
+        countProduct += cartItems[i].quantity;
+    }
+    sessionStorage.setItem('cartItemCount', countProduct);
+ 
+
     /// tich diem
     var preMount = document.getElementsByClassName("pre-amout")[0];
     var input2Element = document.getElementById("input2");
@@ -425,7 +435,7 @@
         }
 
     }
-    console.log(parseInt(input2Element.value))
+    
     plusMout.onclick = function () {
         if (parseInt(input2Element.value) < parseInt(pointElement.innerHTML) - 1000)
             input2Element.value = parseInt(input2Element.value) + 1000;
@@ -437,15 +447,18 @@
      
     document.addEventListener('DOMContentLoaded', function () {
         var checkoutBtn = document.getElementById('checkoutBtn');
-        checkoutBtn.addEventListener('click', function () {
-            document.getElementById('myForm').submit();
-        });
+        if (checkoutBtn) {
+            checkoutBtn.addEventListener('click', function () {
+                document.getElementById('myForm').submit();
+            });
+        }
     });
 
-    var checkout = document.getElementById("checkoutBtn");
-
-    checkout.onclick = function () {
-
-        sessionStorage.setItem('cartItemCount', 0);
+    let checkout = document.getElementById("checkoutBtn");
+    if (checkout) {
+        checkout.onclick = function () {
+            sessionStorage.setItem('cartItemCount', 0);
+        }
     }
+    
 </script>

@@ -41,14 +41,14 @@
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         // Lấy giá trị từ Local Storage
-        var cartItemCount = localStorage.getItem("cartItemCount");
+        var cartItemCount = sessionStorage.getItem("cartItemCount");
 
         // Nếu giá trị không null hoặc undefined, cập nhật lại trên giao diện
         if (cartItemCount != null && cartItemCount != undefined) {
             var countCartElement = document.getElementById("numberCart");
             countCartElement.innerHTML = 0;
 
-            localStorage.setItem("cartItemCount", countCartElement.innerHTML);
+            sessionStorage.setItem("cartItemCount", countCartElement.innerHTML);
         }
     });
 </script>
